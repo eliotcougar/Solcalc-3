@@ -10,7 +10,8 @@ if (-not (Get-Command cargo -ErrorAction SilentlyContinue)) {
     if (-not $rustBin) { throw 'Install Rust with the x86_64-pc-windows-msvc toolchain, then run build.ps1 again.' }
     $env:PATH = "$rustBin;$env:PATH"
 }
-if (-not (Get-Command link.exe -ErrorAction SilentlyContinue)) {
+if (-not (Get-Command link.exe -ErrorAction SilentlyContinue) -or
+    (-not $env:RC -and -not (Get-Command rc.exe -ErrorAction SilentlyContinue))) {
     $portableMsvc = if ($env:SOLCALC_MSVC_ROOT) { $env:SOLCALC_MSVC_ROOT } else {
         Join-Path (Split-Path -Parent $projectRoot) 'Wayrill\.tools\msvc'
     }
@@ -33,6 +34,11 @@ if (-not (Get-Command link.exe -ErrorAction SilentlyContinue)) {
         }
         if (-not (Get-Command link.exe -ErrorAction SilentlyContinue)) { throw 'MSVC and Windows SDK not found. Run in a VS x64 Native Tools shell or set SOLCALC_MSVC_ROOT.' }
     }
+}
+if (-not $env:RC) {
+    $resourceCompiler=Get-Command rc.exe -ErrorAction SilentlyContinue
+    if (-not $resourceCompiler) { throw 'Windows resource compiler not found. Install a Windows SDK or run in a VS x64 Native Tools shell.' }
+    $env:RC=$resourceCompiler.Source
 }
 $env:CARGO_HOME = Join-Path $projectRoot '.tools\cargo'
 New-Item -ItemType Directory -Force $env:CARGO_HOME | Out-Null

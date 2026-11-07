@@ -2,13 +2,16 @@
 
 A native Windows solution calculator, rebuilt in Rust from `solcalc2/solcalc2.py`.
 
-Install with **`dist\Solcalc-3.5.1-x64-setup.exe`**. Setup offers **current user**
+Download the installer or portable ZIP from the
+[releases page](https://github.com/eliotcougar/Solcalc-3/releases/latest).
+Setup offers **current user**
 or **all users**; only all-users installation requires administrator permission.
 It includes English and Russian installer UI, a Start menu shortcut, and an
 optional desktop shortcut. Updates and uninstall preserve each user's database,
 settings, and migration backups under `%LOCALAPPDATA%\Solcalc`.
 
-Run **`dist\Solcalc.exe`**. The executable is portable: it needs no installation,
+Run **`Solcalc.exe`** from the installation directory or extracted ZIP.
+The executable is portable: it needs no installation,
 Python, browser runtime, extra DLLs, or extraction step. It targets 64-bit
 Windows 10 and Windows 11. The original Python source and icon are preserved.
 
