@@ -1,0 +1,132 @@
+id	cas	formula	name	synonyms
+nacl	7647-14-5	NaCl	Sodium chloride	table salt;common salt
+kcl	7447-40-7	KCl	Potassium chloride	potassium muriate
+nh4cl	12125-02-9	NH4Cl	Ammonium chloride	sal ammoniac
+cacl2	10043-52-4	CaCl2	Calcium chloride, anhydrous	anhydrous calcium chloride
+cacl2-2h2o	10035-04-8	CaCl2·2H2O	Calcium chloride dihydrate	calcium chloride 2-hydrate
+cacl2-6h2o	7774-34-7	CaCl2·6H2O	Calcium chloride hexahydrate	calcium chloride 6-hydrate
+mgcl2	7786-30-3	MgCl2	Magnesium chloride, anhydrous	anhydrous magnesium chloride
+mgcl2-6h2o	7791-18-6	MgCl2·6H2O	Magnesium chloride hexahydrate	magnesium chloride 6-hydrate
+zncl2	7646-85-7	ZnCl2	Zinc chloride	zinc dichloride
+alcl3	7446-70-0	AlCl3	Aluminium chloride, anhydrous	aluminum chloride
+alcl3-6h2o	7784-13-6	AlCl3·6H2O	Aluminium chloride hexahydrate	aluminum chloride hexahydrate
+fecl2	7758-94-3	FeCl2	Iron(II) chloride, anhydrous	ferrous chloride
+fecl2-4h2o	13478-10-9	FeCl2·4H2O	Iron(II) chloride tetrahydrate	ferrous chloride tetrahydrate
+fecl3	7705-08-0	FeCl3	Iron(III) chloride, anhydrous	ferric chloride
+fecl3-6h2o	10025-77-1	FeCl3·6H2O	Iron(III) chloride hexahydrate	ferric chloride hexahydrate
+cucl2	7447-39-4	CuCl2	Copper(II) chloride, anhydrous	cupric chloride
+cucl2-2h2o	10125-13-0	CuCl2·2H2O	Copper(II) chloride dihydrate	cupric chloride dihydrate
+mncl2	7773-01-5	MnCl2	Manganese(II) chloride, anhydrous	manganous chloride
+mncl2-4h2o	13446-34-9	MnCl2·4H2O	Manganese(II) chloride tetrahydrate	manganous chloride tetrahydrate
+cocl2-6h2o	7791-13-1	CoCl2·6H2O	Cobalt(II) chloride hexahydrate	cobaltous chloride hexahydrate
+nicl2-6h2o	7791-20-0	NiCl2·6H2O	Nickel(II) chloride hexahydrate	nickelous chloride hexahydrate
+licl	7447-41-8	LiCl	Lithium chloride	
+nabr	7647-15-6	NaBr	Sodium bromide	
+kbr	7758-02-3	KBr	Potassium bromide	
+nai	7681-82-5	NaI	Sodium iodide	sodium iodine salt
+ki	7681-11-0	KI	Potassium iodide	
+na2so4	7757-82-6	Na2SO4	Sodium sulfate, anhydrous	sodium sulphate
+na2so4-10h2o	7727-73-3	Na2SO4·10H2O	Sodium sulfate decahydrate	Glauber's salt;sodium sulphate decahydrate
+k2so4	7778-80-5	K2SO4	Potassium sulfate	potassium sulphate
+nh4-2so4	7783-20-2	(NH4)2SO4	Ammonium sulfate	ammonium sulphate
+mgso4	7487-88-9	MgSO4	Magnesium sulfate, anhydrous	magnesium sulphate
+mgso4-h2o	14168-73-1	MgSO4·H2O	Magnesium sulfate monohydrate	kieserite;magnesium sulphate monohydrate
+mgso4-7h2o	10034-99-8	MgSO4·7H2O	Magnesium sulfate heptahydrate	Epsom salt;magnesium sulphate heptahydrate
+caso4	7778-18-9	CaSO4	Calcium sulfate, anhydrous	anhydrite;calcium sulphate
+caso4-2h2o	10101-41-4	CaSO4·2H2O	Calcium sulfate dihydrate	gypsum;calcium sulphate dihydrate
+feso4	7720-78-7	FeSO4	Iron(II) sulfate, anhydrous	ferrous sulfate;ferrous sulphate
+feso4-7h2o	7782-63-0	FeSO4·7H2O	Iron(II) sulfate heptahydrate	ferrous sulfate heptahydrate;green vitriol
+cuso4	7758-98-7	CuSO4	Copper(II) sulfate, anhydrous	cupric sulfate;copper sulphate
+cuso4-5h2o	7758-99-8	CuSO4·5H2O	Copper(II) sulfate pentahydrate	blue vitriol;copper sulphate pentahydrate
+znso4	7733-02-0	ZnSO4	Zinc sulfate, anhydrous	zinc sulphate
+znso4-h2o	7446-19-7	ZnSO4·H2O	Zinc sulfate monohydrate	zinc sulphate monohydrate
+znso4-7h2o	7446-20-0	ZnSO4·7H2O	Zinc sulfate heptahydrate	white vitriol;zinc sulphate heptahydrate
+mnso4-h2o	10034-96-5	MnSO4·H2O	Manganese(II) sulfate monohydrate	manganous sulfate monohydrate
+coso4-7h2o	10026-24-1	CoSO4·7H2O	Cobalt(II) sulfate heptahydrate	cobaltous sulfate heptahydrate
+niso4-6h2o	10101-97-0	NiSO4·6H2O	Nickel(II) sulfate hexahydrate	nickelous sulfate hexahydrate
+al2so43-18h2o	7784-31-8	Al2(SO4)3·18H2O	Aluminium sulfate octadecahydrate	aluminum sulfate octadecahydrate
+alum	7784-24-9	KAl(SO4)2·12H2O	Potassium aluminium sulfate dodecahydrate	potassium alum;potash alum;aluminum potassium sulfate dodecahydrate
+mohr	7783-85-9	(NH4)2Fe(SO4)2·6H2O	Ammonium iron(II) sulfate hexahydrate	Mohr's salt;ferrous ammonium sulfate hexahydrate
+nah2po4	7558-80-7	NaH2PO4	Sodium dihydrogen phosphate, anhydrous	sodium phosphate monobasic;monosodium phosphate
+nah2po4-h2o	10049-21-5	NaH2PO4·H2O	Sodium dihydrogen phosphate monohydrate	sodium phosphate monobasic monohydrate
+nah2po4-2h2o	13472-35-0	NaH2PO4·2H2O	Sodium dihydrogen phosphate dihydrate	sodium phosphate monobasic dihydrate
+na2hpo4	7558-79-4	Na2HPO4	Disodium hydrogen phosphate, anhydrous	sodium phosphate dibasic;disodium phosphate
+na2hpo4-2h2o	10028-24-7	Na2HPO4·2H2O	Disodium hydrogen phosphate dihydrate	sodium phosphate dibasic dihydrate
+na2hpo4-7h2o	7782-85-6	Na2HPO4·7H2O	Disodium hydrogen phosphate heptahydrate	sodium phosphate dibasic heptahydrate
+na2hpo4-12h2o	10039-32-4	Na2HPO4·12H2O	Disodium hydrogen phosphate dodecahydrate	sodium phosphate dibasic dodecahydrate
+kh2po4	7778-77-0	KH2PO4	Potassium dihydrogen phosphate	potassium phosphate monobasic;monopotassium phosphate
+k2hpo4	7758-11-4	K2HPO4	Dipotassium hydrogen phosphate, anhydrous	potassium phosphate dibasic;dipotassium phosphate
+k2hpo4-3h2o	16788-57-1	K2HPO4·3H2O	Dipotassium hydrogen phosphate trihydrate	potassium phosphate dibasic trihydrate
+na3po4	7601-54-9	Na3PO4	Trisodium phosphate, anhydrous	sodium phosphate tribasic;TSP
+na3po4-12h2o	10101-89-0	Na3PO4·12H2O	Trisodium phosphate dodecahydrate	sodium phosphate tribasic dodecahydrate
+na2co3	497-19-8	Na2CO3	Sodium carbonate, anhydrous	soda ash
+na2co3-h2o	5968-11-6	Na2CO3·H2O	Sodium carbonate monohydrate	
+na2co3-10h2o	6132-02-1	Na2CO3·10H2O	Sodium carbonate decahydrate	washing soda
+nahco3	144-55-8	NaHCO3	Sodium hydrogen carbonate	sodium bicarbonate;baking soda
+k2co3	584-08-7	K2CO3	Potassium carbonate	potash
+khco3	298-14-6	KHCO3	Potassium hydrogen carbonate	potassium bicarbonate
+caco3	471-34-1	CaCO3	Calcium carbonate	chalk;calcite
+nano3	7631-99-4	NaNO3	Sodium nitrate	Chile saltpeter;sodium saltpetre
+kno3	7757-79-1	KNO3	Potassium nitrate	saltpeter;saltpetre
+nh4no3	6484-52-2	NH4NO3	Ammonium nitrate	ammonium saltpeter
+cano32-4h2o	13477-34-4	Ca(NO3)2·4H2O	Calcium nitrate tetrahydrate	
+mgno32-6h2o	13446-18-9	Mg(NO3)2·6H2O	Magnesium nitrate hexahydrate	
+agno3	7761-88-8	AgNO3	Silver nitrate	lunar caustic
+znno32-6h2o	10196-18-6	Zn(NO3)2·6H2O	Zinc nitrate hexahydrate	
+feno33-9h2o	7782-61-8	Fe(NO3)3·9H2O	Iron(III) nitrate nonahydrate	ferric nitrate nonahydrate
+naoh	1310-73-2	NaOH	Sodium hydroxide	caustic soda;lye
+koh	1310-58-3	KOH	Potassium hydroxide	caustic potash
+lioh	1310-65-2	LiOH	Lithium hydroxide, anhydrous	
+lioh-h2o	1310-66-3	LiOH·H2O	Lithium hydroxide monohydrate	
+caoh2	1305-62-0	Ca(OH)2	Calcium hydroxide	slaked lime
+baoh2-8h2o	12230-71-6	Ba(OH)2·8H2O	Barium hydroxide octahydrate	
+glucose	50-99-7	C6H12O6	D-Glucose, anhydrous	dextrose;grape sugar
+glucose-h2o	14431-43-7	C6H12O6·H2O	D-Glucose monohydrate	dextrose monohydrate
+sucrose	57-50-1	C12H22O11	Sucrose	saccharose;table sugar;cane sugar;beet sugar
+fructose	57-48-7	C6H12O6	D-Fructose	levulose;fruit sugar
+galactose	59-23-4	C6H12O6	D-Galactose	
+mannose	3458-28-4	C6H12O6	D-Mannose	
+xylose	58-86-6	C5H10O5	D-Xylose	wood sugar
+arabinose	87-72-9	C5H10O5	L-Arabinose	
+lactose	63-42-3	C12H22O11	Lactose, anhydrous	milk sugar
+lactose-h2o	10039-26-6	C12H22O11·H2O	Lactose monohydrate	milk sugar monohydrate
+maltose	69-79-4	C12H22O11	Maltose, anhydrous	malt sugar
+maltose-h2o	6363-53-7	C12H22O11·H2O	Maltose monohydrate	malt sugar monohydrate
+trehalose	99-20-7	C12H22O11	Trehalose, anhydrous	mycose
+trehalose-2h2o	6138-23-4	C12H22O11·2H2O	Trehalose dihydrate	
+raffinose-5h2o	17629-30-0	C18H32O16·5H2O	Raffinose pentahydrate	melitose pentahydrate
+sorbitol	50-70-4	C6H14O6	D-Sorbitol	glucitol
+mannitol	69-65-8	C6H14O6	D-Mannitol	mannite
+xylitol	87-99-0	C5H12O5	Xylitol	
+na-acetate	127-09-3	C2H3NaO2	Sodium acetate, anhydrous	sodium ethanoate
+na-acetate-3h2o	6131-90-4	C2H3NaO2·3H2O	Sodium acetate trihydrate	sodium ethanoate trihydrate
+k-acetate	127-08-2	C2H3KO2	Potassium acetate	potassium ethanoate
+nh4-acetate	631-61-8	C2H7NO2	Ammonium acetate	ammonium ethanoate
+na-citrate	68-04-2	C6H5Na3O7	Trisodium citrate, anhydrous	sodium citrate tribasic
+na-citrate-2h2o	6132-04-3	C6H5Na3O7·2H2O	Trisodium citrate dihydrate	sodium citrate tribasic dihydrate
+citric-acid	77-92-9	C6H8O7	Citric acid, anhydrous	2-hydroxypropane-1,2,3-tricarboxylic acid
+citric-acid-h2o	5949-29-1	C6H8O7·H2O	Citric acid monohydrate	
+tris	77-86-1	C4H11NO3	Tris base	tris(hydroxymethyl)aminomethane;THAM;tromethamine;trometamol
+tris-hcl	1185-53-1	C4H12ClNO3	Tris hydrochloride	Tris-HCl;tris(hydroxymethyl)aminomethane hydrochloride
+glycine	56-40-6	C2H5NO2	Glycine	aminoacetic acid;glycocoll
+urea	57-13-6	CH4N2O	Urea	carbamide
+boric-acid	10043-35-3	H3BO3	Boric acid	orthoboric acid
+borax-anhydrous	1330-43-4	Na2B4O7	Sodium tetraborate, anhydrous	sodium borate anhydrous
+borax	1303-96-4	Na2B4O7·10H2O	Sodium tetraborate decahydrate	borax;sodium borate decahydrate
+na2s2o3	7772-98-7	Na2S2O3	Sodium thiosulfate, anhydrous	sodium thiosulphate
+na2s2o3-5h2o	10102-17-7	Na2S2O3·5H2O	Sodium thiosulfate pentahydrate	sodium thiosulphate pentahydrate;hypo
+edta	60-00-4	C10H16N2O8	EDTA free acid	ethylenediaminetetraacetic acid;edetic acid
+edta-na2	139-33-3	C10H14N2Na2O8	EDTA disodium salt, anhydrous	disodium edetate anhydrous;disodium ethylenediaminetetraacetate
+edta-na2-2h2o	6381-92-6	C10H14N2Na2O8·2H2O	EDTA disodium salt dihydrate	disodium edetate dihydrate;EDTA-Na2 dihydrate;Trilon B
+hepes	7365-45-9	C8H18N2O4S	HEPES free acid	4-(2-hydroxyethyl)-1-piperazineethanesulfonic acid
+mops	1132-61-2	C7H15NO4S	MOPS free acid	3-(N-morpholino)propanesulfonic acid
+mes	4432-31-9	C6H13NO4S	MES free acid, anhydrous	2-(N-morpholino)ethanesulfonic acid
+mes-h2o	145224-94-8	C6H13NO4S·H2O	MES monohydrate	2-(N-morpholino)ethanesulfonic acid monohydrate
+sds	151-21-3	C12H25NaO4S	Sodium dodecyl sulfate	SDS;sodium lauryl sulfate;SLS
+ascorbic-acid	50-81-7	C6H8O6	L-Ascorbic acid	vitamin C
+na-azide	26628-22-8	NaN3	Sodium azide	
+na2so3	7757-83-7	Na2SO3	Sodium sulfite	sodium sulphite
+na2so3-7h2o	10102-15-5	Na2SO3·7H2O	Sodium sulfite heptahydrate	sodium sulphite heptahydrate
+k2s2o8	7727-21-1	K2S2O8	Potassium persulfate	potassium peroxydisulfate
+aps	7727-54-0	(NH4)2S2O8	Ammonium persulfate	APS;ammonium peroxydisulfate
+kmno4	7722-64-7	KMnO4	Potassium permanganate	

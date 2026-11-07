@@ -1,0 +1,9 @@
+/target/
+/.tools/
+/dist/
+/qa/
+/VALIDATION.md
+/.local/
+*.sqlite-wal
+*.sqlite-shm
+*.pdb
