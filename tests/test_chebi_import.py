@@ -87,6 +87,16 @@ class ChebiImportTests(unittest.TestCase):
         self.assertEqual(rows, before)
         self.assertEqual(records[0][3:5], ('ChEBI name', 246.475))
 
+    def test_explicit_locale_ids_support_substances_without_cas_and_reject_unknown_ids(self):
+        records = [('chebi:10', '', '[13C]H4', 'Source name', 17.0, '', '')]
+        rows = [{'substance_id': 'chebi:10', 'cas': '', 'formula': '',
+                 'name': 'Локализованное название', 'synonyms': 'синоним'}]
+        self.assertEqual(localizations(rows, records),
+                         ([('chebi:10', 'Локализованное название', 'синоним')], 1))
+        rows[0]['substance_id'] = 'chebi:unknown'
+        with self.assertRaises(AssertionError):
+            localizations(rows, records)
+
 
 if __name__ == '__main__':
     unittest.main()

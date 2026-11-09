@@ -54,7 +54,10 @@ with its standard library is sufficient for regeneration; the app needs no Pytho
 
 ## Independent translations
 
-Manual localization TSV columns are `cas`, `formula`, `name`, `synonyms`. Formula
+Manual localization TSV columns are `substance_id`, `cas`, `formula`, `name`,
+`synonyms`. Set `substance_id` to a ChEBI ID for a direct translation, including
+entries without CAS or with isotope formulas. Leave it blank to match by CAS and
+formula, as the existing Russian supplement does. Formula
 identifies chemical composition only; locale files do not supply English names or
 masses. The generator matches CAS **and** atom counts, including hydrate water,
 to ChEBI entities. A formula mismatch never attaches a translation to another form.

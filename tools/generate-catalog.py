@@ -21,11 +21,14 @@ for path in sorted((ROOT / 'data/source/locales').glob('*.tsv')):
     code = path.stem
     assert re.fullmatch(r'[a-z]{2,3}(?:-[a-z0-9]{2,8})*', code) and code != 'en', code
     rows = read(path)
-    assert rows and all(set(r) == {'cas', 'formula', 'name', 'synonyms'} for r in rows), path
-    assert len({(r['cas'], r['formula']) for r in rows}) == len(rows), path
+    assert rows and all(set(r) == {'substance_id', 'cas', 'formula', 'name', 'synonyms'} for r in rows), path
+    assert len({(r['substance_id'], r['cas'], r['formula']) for r in rows}) == len(rows), path
     for row in rows:
-        valid_cas(row['cas'])
-        assert row['formula'] and row['name'], path
+        assert row['name'], path
+        if row['cas']:
+            valid_cas(row['cas'])
+        if not row['substance_id']:
+            assert row['cas'] and row['formula'], path
     translated, matched = localizations(rows, records)
     save(ROOT / f'data/bundled/locales/{code}.sqlite',
          'CREATE TABLE translations(substance_id TEXT PRIMARY KEY,name TEXT NOT NULL,synonyms TEXT NOT NULL);',

@@ -16,18 +16,25 @@ def read(path):
 
 
 def localizations(rows, records):
-    """Attach locale text by CAS and composition without supplying chemical data."""
+    """Attach locale text by ChEBI ID or CAS/composition, without chemical overrides."""
     by_cas = defaultdict(list)
+    identities = {record[0] for record in records}
     for identity, _, formula, _, _, _, numbers in records:
         for cas in numbers.split(';'):
             if cas:
                 by_cas[cas].append((identity, formula))
     translated = {}
     matched = 0
-    for row in rows:
-        composition = atom_counts(row['formula'])
-        targets = [identity for identity, formula in by_cas[row['cas']]
-                   if composition is not None and composition == atom_counts(formula)]
+    # Specific ID translations take precedence; broader CAS names become aliases.
+    for row in sorted(rows, key=lambda r: not bool(r.get('substance_id'))):
+        identity = row.get('substance_id')
+        if identity:
+            assert identity in identities, identity
+            targets = [identity]
+        else:
+            composition = atom_counts(row['formula'])
+            targets = [identity for identity, formula in by_cas[row['cas']]
+                       if composition is not None and composition == atom_counts(formula)]
         matched += bool(targets)
         for identity in targets:
             if identity not in translated:
