@@ -172,7 +172,7 @@ pub unsafe fn button_custom_draw(l: LPARAM) -> Option<LRESULT> {
         return None;
     }
     let id = GetDlgCtrlID(header.hwndFrom);
-    if !matches!(id, 10..=12 | 24..=28) {
+    if !matches!(id, 10..=12 | 24..=29) {
         return None;
     }
     let draw = &*(l as *const NMCUSTOMDRAW);

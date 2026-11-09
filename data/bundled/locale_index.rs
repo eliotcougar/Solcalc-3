@@ -2,3 +2,9 @@
 pub const LOCALES: &[(&str, &[u8])] = &[
     ("ru", include_bytes!(concat!(env!("CARGO_MANIFEST_DIR"), "/data/bundled/locales/ru.sqlite"))),
 ];
+pub const CHEBI_LOCALES: &[(&str, &[u8])] = &[
+    ("de", include_bytes!(concat!(env!("CARGO_MANIFEST_DIR"), "/data/bundled/chebi-locales/de.sqlite"))),
+    ("es", include_bytes!(concat!(env!("CARGO_MANIFEST_DIR"), "/data/bundled/chebi-locales/es.sqlite"))),
+    ("fr", include_bytes!(concat!(env!("CARGO_MANIFEST_DIR"), "/data/bundled/chebi-locales/fr.sqlite"))),
+    ("la", include_bytes!(concat!(env!("CARGO_MANIFEST_DIR"), "/data/bundled/chebi-locales/la.sqlite"))),
+];

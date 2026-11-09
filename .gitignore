@@ -7,3 +7,5 @@
 *.sqlite-wal
 *.sqlite-shm
 *.pdb
+__pycache__/
+*.py[cod]

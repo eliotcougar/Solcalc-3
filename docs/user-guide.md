@@ -90,10 +90,12 @@ stays in U/mg.
 ## Substance database
 
 Click **Substance… / Вещество…** in Mass / volume or in the Preparation section
-of Stock preparation. The offline catalog contains **131 dry substances**,
-including common salts, hydroxides, sugars, buffers, and separate hydrate forms.
-Each bundled entry has English and Russian names, synonyms, formula, molar mass,
-and a CAS identifier.
+of Stock preparation. The development catalog contains **104,099 substances**:
+the original 131 salts, hydroxides, sugars, buffers and hydrate forms, plus
+103,968 fixed-composition ChEBI entries. Original values and Russian names are
+preserved. New entries have English names, formulas, average molar masses,
+synonyms and CAS cross-references where supplied. Missing translations fall
+back to English; new names are not automatically translated.
 
 Search updates as you type across English plus the selected UI language,
 common aliases such as `Epsom salt` / `медный купорос` (RU), CAS numbers such as
@@ -102,7 +104,8 @@ It ignores case, punctuation, and formula subscripts and supports partial words.
 Exact formula matches appear first. Isomers with the same formula remain
 separate choices. Select a row, then use Enter, double-click, or **Use substance**.
 Down from the search field moves to the results, Ctrl+F returns to search,
-and Escape cancels. Empty searches list the full catalog.
+and Escape cancels. Large searches show the first 300 matches; refine the query
+to narrow them. Search also accepts ChEBI identifiers such as `CHEBI:27732`.
 
 Selection is shared between Mass / volume and Stock preparation: choosing a
 substance in either calculator fills g/mol and displays its name and hydrate
@@ -112,9 +115,9 @@ retained separately. Manual changes to molar mass clear that calculator's
 substance label. Selection is not saved after closing. Theme and language
 also apply to the picker.
 
-The bundled catalog consists of an English/chemical SQLite database and a
-separate database for each additional locale. Only English and the selected
-locale are opened and combined. Missing translations fall back to English.
+The bundled catalog consists of separate curated and ChEBI English/chemical
+SQLite databases, with independent locale databases. Only English and the
+selected locale are opened and combined. Missing translations fall back to English.
 The files are embedded in the executable and replaced with app updates;
 they are never copied over user records. Bundled molar masses are calculated
 from CIAAW 2024 abridged atomic weights, including water of crystallization.
@@ -147,7 +150,27 @@ existing database. Existing records, translations, and unknown extra columns
 are retained. Failed migrations roll back; unrecognized or newer schemas are
 reported and kept intact. Concurrent edits are checked before saving. Opening
 an up-to-date user database or switching languages does not rewrite it.
-All database access is offline and deferred until the catalog is needed.
+Bundled and user database access is offline and deferred until the catalog is needed.
+
+### Optional PubChem lookup
+
+Choose **PubChem…** to open online search. If the local search field contains a
+query, it is searched when this online window opens. Otherwise, enter a name or
+CAS and press **Search** or Enter. Requests occur only in this window, run in a
+background worker, and return up to ten suitable compounds. Changing the query
+clears stale results; closing the window cancels its search.
+
+Review the exact formula and hydrate/salt form. Use **Import…** to open the usual
+user editor, then **Save** to store the result. Fetching or cancelling does not
+write results to the user database. A duplicate user CAS is rejected; existing
+user values and translations are not overwritten. Multiple CAS synonyms are
+shown without automatically selecting an arbitrary CAS. The PubChem CID is
+retained in the saved synonyms for provenance and search.
+
+The client uses average `MolecularWeight`, not `ExactMass` or monoisotopic mass.
+It validates names/masses, limits response sizes and request frequency, verifies
+HTTPS certificates, and reports connection/service errors. Offline calculations
+and search remain available without a network connection.
 
 See [`data/README.md`](../data/README.md) for the separate TSV sources, schemas,
 locale-extension instructions, and data provenance.

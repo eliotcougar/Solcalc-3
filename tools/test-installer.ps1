@@ -53,7 +53,7 @@ foreach ($scope in @('CurrentUser','AllUsers')) {
         if ((Get-Date) -gt $deadline) { throw 'Uninstall did not finish cleanup' }
         Start-Sleep -Milliseconds 200
     }
-    foreach ($name in @('Solcalc.exe','Solcalc-Readme.txt','Solcalc-Third-Party-Notices.txt','unins000.dat')) {
+    foreach ($name in @('Solcalc.exe','Solcalc-Readme.txt','Solcalc-Third-Party-Notices.txt','ChEBI-LICENSE.txt','unins000.dat')) {
         if (Test-Path -LiteralPath "$appDirectory\$name") { throw "Installed file remains: $name" }
     }
     if (-not (Test-Path -LiteralPath "$appDirectory\unrelated-test-file.txt")) { throw 'Unrelated file was removed' }

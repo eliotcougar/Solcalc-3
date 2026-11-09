@@ -46,6 +46,7 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 Source: "{#AppExe}"; DestDir: "{app}"; DestName: "Solcalc.exe"; Flags: ignoreversion
 Source: "..\assets\Solcalc-Readme.txt"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\THIRD-PARTY-NOTICES.txt"; DestDir: "{app}"; DestName: "Solcalc-Third-Party-Notices.txt"; Flags: ignoreversion
+Source: "..\data\source\chebi\LICENSE.txt"; DestDir: "{app}"; DestName: "ChEBI-LICENSE.txt"; Flags: ignoreversion
 
 [Icons]
 Name: "{autoprograms}\Solcalc"; Filename: "{app}\Solcalc.exe"; WorkingDir: "{app}"

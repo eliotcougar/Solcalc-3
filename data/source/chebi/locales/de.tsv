@@ -1,0 +1,1227 @@
+substance_id	name	synonyms
+ascorbic-acid	Ascorbinsäure	[]
+caco3	Calciumcarbonat	"[""Kalziumkarbonat"", ""kohlensaurer Kalk""]"
+caoh2	gelöschter Kalk	"[""Kalziumhydroxid"", ""Löschkalk""]"
+chebi:100147	1-Aethyl-7-methyl-1,8-naphthyridin-4-on-3-karbonsaeure	[]
+chebi:100246	1-Ethyl-6-fluor-1,4-dihydro-4-oxo-7-(1-piperazinyl)-3-chinolincarbonsäure	[]
+chebi:10093	Johimbin	"[""Quebrachin"", ""Yohimbin""]"
+chebi:102130	(p-Aminobenzolsulfonyl)-2-amino-4-methylpyrimidin	[]
+chebi:102265	(p-Aminobenzolsulfonyl)-2-amino-4,6-dimethylpyrimidin	[]
+chebi:10284	α-Iron	[]
+chebi:10432	2-Naftol	"[""β-Naftol"", ""β-Naphtol""]"
+chebi:110423	clodronsaeure	[]
+chebi:116509	3-(3,4-Dichlor-phenyl)-1,1-dimethyl-harnstoff	[]
+chebi:1171	(2-Hydroxypropyl)phosphonsaeure	[]
+chebi:12336	α-Cyclopiazonsäure	"[""α-Zyklopiazonsäure""]"
+chebi:128458	Dinatrium salz von 1,3-bis-(2-carboxychromon-5-yloxy)-2-hydroxypropan	"[""Natrium cromoglicat""]"
+chebi:131713	xibornol	[]
+chebi:131723	2-Sulfanilamidothiokarbamid	[]
+chebi:132094	Natriumglykolat	[]
+chebi:132100	Natrium octanoat	[]
+chebi:132103	Natriumperchlorat	[]
+chebi:132106	Natriumpropionat	[]
+chebi:132764	Natriumoxalat	[]
+chebi:132842	2-Sulfanilamidopyridin	[]
+chebi:133952	Tetraessigsaeurelacton	[]
+chebi:133997	Flupyradifuron	[]
+chebi:134192	Taxin B	[]
+chebi:134614	Methylenedirhodanid	[]
+chebi:135277	Bisulepin	[]
+chebi:136511	black manganese oxide	"[""Mangandioxid"", ""manganese binoxide"", ""manganese peroxide"", ""manganese superoxide""]"
+chebi:136540	Phenylhydrazin hydrochlorid	[]
+chebi:138033	1-(Diphenylmethyl)-4-[3-(2-phenyl-1,3-dioxolan-2-yl)propyl]piperazin	[]
+chebi:139215	Cochalsaeure	[]
+chebi:13941	Carbamat	"[""Karbamat""]"
+chebi:1395	3,5-Dibrom-4-hydroxy-benzösäure	[]
+chebi:140674	Methylamylnitrosamin	[]
+chebi:141319	Dithiokohlensaeure-methylamid	"[""Methyl-dithiocarbamidsaeure""]"
+chebi:141405	1,2,3-Benzothiadiazol-7-carbonsäure	[]
+chebi:141548	3-Hydroxy-6-methoxy-1-methyl-4,5-diphenyl-2-piperidinon	[]
+chebi:141563	2,4-Dimethyl-1-hepten	[]
+chebi:141566	3-Hexen-2-on	"[""Hex-3-en-2-on""]"
+chebi:141567	2-Methylthiophen	[]
+chebi:141568	Aethyl-aethanol-nitrosoamin	"[""N-Nitrosoaethylaethanolamin""]"
+chebi:141964	Vindolinin	[]
+chebi:142241	(3E)-3-Hexadecensäure	[]
+chebi:142528	(5β)-Chola-3,8(14),11-trien-24-säure	[]
+chebi:142578	2-Oxo-dodecansaeure	[]
+chebi:145409	4-{[(4-Aminophenyl)sulfonyl]amino}butansäure	[]
+chebi:145411	6-{[(4-Aminophenyl)sulfonyl]amino}hexansäure	[]
+chebi:1461	But-3-insäure	[]
+chebi:147423	dicyandiamin	[]
+chebi:147675	Joddeoxiuridin	[]
+chebi:151058	2,9-Dimethyldecan	[]
+chebi:15226	Tetrathionat	[]
+chebi:15343	Acetaldehyd	"[""Azetaldehyd""]"
+chebi:15345	S-Acetoacetyl-coenzym A	[]
+chebi:15346	Coenzym A	"[""Koenzym A""]"
+chebi:15347	Aceton	"[""Azeton"", ""Dimethylketon"", ""Propanon""]"
+chebi:15356	Cystein	"[""Zystein""]"
+chebi:15364	Propiolat	[]
+chebi:15365	Acetylsalicylsäure	"[""Azetylsalizylsäure""]"
+chebi:15366	Essigsäure	[]
+chebi:15377	Wasser	[]
+chebi:15379	Disauerstoff	[]
+chebi:15380	S-(3-Carboxy-propionyl)-coenzym-A	[]
+chebi:15429	Hydroxylamin	[]
+chebi:15486	S-(3-Methyl-crotonoyl)-coenzym-A	[]
+chebi:15507	S-β-Alanyl-coenzym-A	[]
+chebi:15517	S-Butyryl-coenzym-A	[]
+chebi:15536	S-Valeryl-coenzym-A	[]
+chebi:15539	S-Propionyl-coenzym-A	[]
+chebi:15551	Dinoproston	[]
+chebi:15570	D-Alanin	[]
+chebi:15603	L-Leucin	"[""L-Leuzin""]"
+chebi:15622	L-threo-(2,3)-Hexodiulosonsäure	[]
+chebi:15671	(+)-Weinsäure	"[""(2R,3R)-2,3-Dihydroxybernsteinsäure"", ""Rechtsweinsäure"", ""Weinsteinsäure""]"
+chebi:15672	(−)-Weinsäure	"[""Linksweinsäure""]"
+chebi:15673	Mesoweinsäure	[]
+chebi:15724	Trimethylaminoxid	[]
+chebi:15741	Bernsteinsäure	"[""Butandisäure""]"
+chebi:15743	Butyraldehyd	[]
+chebi:15756	Palmitinsäure	[]
+chebi:15760	Tyramin	[]
+chebi:15767	Dichlormethan	"[""Methylenchlorid""]"
+chebi:15815	4-Chinolinol	[]
+chebi:15837	Iso-amylalkohol	"[""Isopentylalkohol""]"
+chebi:15843	Arachidonsäure	[]
+chebi:15854	Chinin	[]
+chebi:15882	Carbolsäure	"[""Karbolsäure""]"
+chebi:15940	Nicotinsaure	"[""Nikotinsäure""]"
+chebi:15966	D-Glutaminsäure	[]
+chebi:15978	Phosphorsäure-mono-((R)-2,3-dihydroxy-propylester)	[]
+chebi:15987	Trithionat	[]
+chebi:16000	Aethanolamin	[]
+chebi:16008	Salicylaldehyd	"[""Salizylaldehyd""]"
+chebi:16015	L-Glutaminsäure	[]
+chebi:160246	Aminophenazon	"[""Dimethylaminophenazon""]"
+chebi:16069	Imidazol	[]
+chebi:16101	Äthylbenzol	[]
+chebi:16118	Berberin	[]
+chebi:16125	Cetylalkohol	[]
+chebi:16134	Ammoniak	[]
+chebi:16135	2-Methylpropionsäure	"[""Isobuttersäure""]"
+chebi:16136	Schwefelwasserstoff	[]
+chebi:16148	Heptadekan	[]
+chebi:16183	Methan	[]
+chebi:16196	Oelsäure	"[""Ölsäure""]"
+chebi:16223	Kakodylat	[]
+chebi:16236	Alkohol	"[""Äthanol"", ""Äthylalkohol""]"
+chebi:16244	γ-Butyrobetain	[]
+chebi:16268	Nitroethan	[]
+chebi:16285	3,7,11,15-Tetramethyl-hexadecansäure	[]
+chebi:16294	Barbitursäure	"[""Malonylharnstoff""]"
+chebi:16330	Dihydrotestosteron	[]
+chebi:16359	Cholsäure	[]
+chebi:16365	2-Chinolinol	[]
+chebi:16397	Ameisensäureamid	"[""Formamid"", ""Methanamid""]"
+chebi:16411	3-Indolylessigsäure	"[""IES""]"
+chebi:16414	L-Valin	[]
+chebi:16423	cis-Octadec-9-en-12-in-1-säure	"[""Crepenynsäure""]"
+chebi:16436	Cytidindiphosphocholin	[]
+chebi:16449	Alanin	[]
+chebi:16467	L-Arginin	[]
+chebi:16480	Stickstoff(II)-oxid	"[""Stickstoffmonoxid""]"
+chebi:16482	Naphthalen	"[""Naphthalin""]"
+chebi:16494	Thioctansäure	"[""Thioctsäure"", ""Thioktsäure"", ""α-Liponsäure""]"
+chebi:16509	1,4-Benzochinon	"[""p-Chinon""]"
+chebi:165737	3-Ethylpentan	[]
+chebi:16602	Trichloräthen	"[""Trichloräthylen""]"
+chebi:16628	Methylguanidin	[]
+chebi:16643	L-Methionin	[]
+chebi:16684	Atropin	[]
+chebi:167002	(8S,10S)-1,6,8,10,11-Pentahydroxy-8-methyl-7,8,9,10-tetrahydro-5,12-tetracendion	[]
+chebi:16709	2-Methyl-3-hydroxy-4,5-dihydroxymethyl-pyridin	[]
+chebi:16714	Codein	[]
+chebi:16716	Benzen	"[""Benzol""]"
+chebi:167184	chloorthion	"[""O,O-dimethyl-O-(3-chlor-4-nitrophenyl)-monothiophosphat""]"
+chebi:16737	Kreatinin	[]
+chebi:16742	Orotsäure	[]
+chebi:16811	Methionin	[]
+chebi:168396	Mycophenolsäure	[]
+chebi:16842	Formaldehyd	[]
+chebi:16853	Tetrathionsäure	[]
+chebi:16855	D-Lysin	[]
+chebi:16865	γ-Aminobuttersäure	[]
+chebi:16867	D-Methionin	[]
+chebi:16891	Glyoxalsäure	"[""Glyoxylsäure""]"
+chebi:16898	1,3-Diazin	"[""Pyrimidin""]"
+chebi:16900	Chlorophyllid a	[]
+chebi:16977	L-Alanin	[]
+chebi:16995	Ethandisäure	"[""Oxalsäure""]"
+chebi:16997	1,2-Propylenglykol	[]
+chebi:17026	Gelbkörperhormon	"[""Progesteron""]"
+chebi:17045	Distickstoffmonoxid	"[""Lachgas"", ""Stickstoff(I)-oxid""]"
+chebi:17053	L-Asparaginsäure	[]
+chebi:17061	D-Glutamin	"[""D-Glutaminsäure-5-amid""]"
+chebi:17113	Erythrit	[]
+chebi:17134	Octopamin	[]
+chebi:17138	Glycerinaldehyd-3-phosphat	"[""Glyzerinaldehyd-3-phosphat""]"
+chebi:17148	Putrescin	"[""Putreszin"", ""Tetramethylendiamin""]"
+chebi:17154	Nicotinamid	"[""Nicotinsäureamid"", ""Nikotinamid"", ""Nikotinsäureamid""]"
+chebi:17196	L-Asparagin	[]
+chebi:17217	Crotonsäure	[]
+chebi:17231	m-Kresol	[]
+chebi:17237	Crotonsäurebetain	[]
+chebi:172874	Phenylsilan	[]
+chebi:172875	Cobaltacetylacetonat	[]
+chebi:17296	Anilin	[]
+chebi:17300	Tetrachloräthen	[]
+chebi:17303	Morphin	[]
+chebi:17322	Chlorsäure	[]
+chebi:17364	D-Asparaginsäure	[]
+chebi:17376	Cystin	"[""Zystin""]"
+chebi:17401	Inosithexaphosphorsäure	"[""Säure des phytins""]"
+chebi:17405	4-Pyridoxinsaeure	[]
+chebi:17418	Valeriansäure	[]
+chebi:17459	D-Idit	[]
+chebi:17484	Benzylsenföl	[]
+chebi:17514	Cyanide	"[""Zyanid""]"
+chebi:17561	L-Cystein	"[""L-Zystein""]"
+chebi:17562	Cytidin	"[""Zytidin""]"
+chebi:17578	Toluol	[]
+chebi:17596	Inosin	[]
+chebi:17626	Citraconsäure	"[""Methyl-maleinsäure""]"
+chebi:17656	(R)-Mandelsäure	[]
+chebi:17696	Isocyanursäure	"[""Isozyanursäure""]"
+chebi:17754	Glyzerin	"[""Ölsüß""]"
+chebi:17827	Methylcoenzym M	[]
+chebi:17847	p-Kresol	[]
+chebi:17859	Glutarsäure	[]
+chebi:17883	Chlorwasserstoff	"[""Hydrogenchlorid"", ""Wasserstoffchlorid""]"
+chebi:17895	L-Tyrosin	[]
+chebi:17905	Coenzym M	[]
+chebi:17926	Hydrogenobyrinsäure	[]
+chebi:17935	Caprylaldehyd	"[""Kaprylaldehyd"", ""Octylaldehyd"", ""Oktanal"", ""Oktylaldehyd""]"
+chebi:17945	N-Cyclohexylformamid	"[""N-Zyklohexylformamid""]"
+chebi:17987	Benzylalkohol	[]
+chebi:18012	Fumarsäure	[]
+chebi:18019	L-Lysin	[]
+chebi:18049	Piperidin	[]
+chebi:18050	L-Glutamin	"[""L-Glutaminsäure-5-amid""]"
+chebi:180650	Tetrahydrophthalsaeureanhydrid	[]
+chebi:18067	2-Methyl-3-phytyl-1,4-naphthochinon	"[""Phyllochinon""]"
+chebi:1808	4-Chlorphenoxyessigsäure	[]
+chebi:18089	Benzamidoessigsäure	"[""Benzoylaminoessigsäure"", ""Hippursäure""]"
+chebi:18139	Trimethylamin	[]
+chebi:18153	Äthen	"[""Äthylen""]"
+chebi:18186	Tyrosin	[]
+chebi:18202	L-Idit	[]
+chebi:18211	Citrullin	[]
+chebi:18212	Selenit	[]
+chebi:18219	Ammoniumhydroxid	[]
+chebi:18237	Glutaminsäure	[]
+chebi:18248	Eisen	[]
+chebi:18291	Mangan	[]
+chebi:183313	Trimethylphosphit	[]
+chebi:183318	Triphenylphosphan	"[""Triphenylphosphin""]"
+chebi:18338	Thiamin dihydrogenphosphatchlorid	[]
+chebi:18344	4-Hydroxy-2-chinolincarbonsäure	"[""Kynurensäure""]"
+chebi:18361	Diphosphat	"[""Pyrophosphat""]"
+chebi:18386	2-Chinolincarbonsäure	"[""Chinaldinsäure""]"
+chebi:18407	Blausäure	"[""Cyanwasserstoff""]"
+chebi:18421	Dioxid(1−)	"[""Hyperoxid""]"
+chebi:18422	Schwefel(IV)-oxid	"[""Schwefeldioxid""]"
+chebi:18853	1,1-Dimethylhydrazin	[]
+chebi:18882	1,2-Dichloräthen	[]
+chebi:19144	12-Oxo-dodec-10t-ensäure	[]
+chebi:19203	Pyrrol	[]
+chebi:192379	6-(3-Carboxy-2-chinoxalinecarboxamido)-3,3-dimethyl-7-oxo-4-thia-azabicyclo(3.2.0)heptan-2-carbonsaeure	[]
+chebi:19363	2,5-Bisäthyleniminobenzochinon-1,4	[]
+chebi:19503	Chloressigsäure-N-isopropylanilid	[]
+chebi:19591	α.β-Hexylenaldehyd	[]
+chebi:197443	Michigazon	[]
+chebi:20067	3-Hydroxybuttersaeure	"[""beta-Hydroxybuttersaeure""]"
+chebi:20141	3-Methylsalicylsäure	"[""Hydroxytoluylsäure""]"
+chebi:20653	5α-Östran	[]
+chebi:20670	5β-Östran	[]
+chebi:20700	Brönner-Säure	[]
+chebi:217301	Benzalaceton	[]
+chebi:21759	N-Methyl-N-nitrosonitroguanidin	[]
+chebi:21763	Monomethyl-aminoäthanol	[]
+chebi:21949	n-Butyryl-L-(-)-carnitin	[]
+chebi:22152	Abscisinsäure	"[""Abszisinsäure""]"
+chebi:22340	Δ7,10,13-Hexadecatriensäure	[]
+chebi:22495	Aminobenzoesäure	[]
+chebi:22653	Asparagin	[]
+chebi:22838	β-Cyclopiazonsäure	"[""β-Zyklopiazonsäure""]"
+chebi:22927	Brom	[]
+chebi:22977	Kadmium	[]
+chebi:22984	Kalzium	[]
+chebi:22998	Canadin	[]
+chebi:23116	Chlor	[]
+chebi:23234	Dichromsäure	[]
+chebi:23492	Cyclopentan	"[""Zyklopentan""]"
+chebi:23704	Butadiendioxyd	[]
+chebi:23716	Difluoressigsäure	[]
+chebi:23867	Dodecensäure	[]
+chebi:23966	Östran	[]
+chebi:23995	Aethylnitroso-harnstoff	[]
+chebi:24061	Fluor	[]
+chebi:24298	Glucuronsäure	"[""Glukuronsäure""]"
+chebi:24548	Hexadecensäure	"[""Hexadecensäuren""]"
+chebi:24565	Hexamethylphosphoramid	"[""Hexamethylphosphorsäuretriamid""]"
+chebi:24757	Chlor(I)-säure	"[""hypochlorige Säure""]"
+chebi:24766	Idit	[]
+chebi:24857	Iodsäure	[]
+chebi:24859	Iod	"[""J"", ""Jod""]"
+chebi:24928	Isothiocyansäure	"[""Isothiozyansäure""]"
+chebi:24993	Laballensäure	[]
+chebi:25016	Blei	[]
+chebi:25017	Leucin	"[""Leuzin""]"
+chebi:25094	Lysin	[]
+chebi:25107	Magnesium	[]
+chebi:25195	Quecksilber	[]
+chebi:25219	2-Methylpropensäure	"[""Methacrylsäure"", ""Methakrylsäure""]"
+chebi:2533	Chloressigsaeure-N-(methoxymethyl)-2,6-diaethylanilid	[]
+chebi:25399	Hydroxytoluole	"[""Kresol"", ""Kresole""]"
+chebi:254496	9,10-Dimethyl-1,2-benzanthrazen	[]
+chebi:2555	2-Methyl-2-methylthio-propionaldehyd-O-(N-methyl-carbamoyl)-oxim	[]
+chebi:25555	Stickstoff	[]
+chebi:25633	Octadecatriensäure	[]
+chebi:25640	Oktamethylzyklotetrasiloxan	[]
+chebi:25805	Sauerstoff	[]
+chebi:25812	Ozon	"[""Trisauerstoff""]"
+chebi:25826	p-Menthan	[]
+chebi:25939	Manganat(VII)	"[""Permanganat""]"
+chebi:26078	Phosphorsaeureloesungen	"[""Phosphorsäure""]"
+chebi:26216	Kalium	[]
+chebi:26271	Prolin	[]
+chebi:26491	Chinhydron	[]
+chebi:2659	Theophyllin aethylendiamin	[]
+chebi:26642	selenige Säure	[]
+chebi:26675	Kieselsäure	"[""Orthokieselsäure""]"
+chebi:26708	Natrium	[]
+chebi:26709	Natriumbisulfit	"[""Natriumhydrogensulfit"", ""primäres Natriumsulfit"", ""saures Natriumsulfit""]"
+chebi:2679	1-Phenylpropan-2-amin	"[""Amphetamin"", ""β-Phenylisopropylamin""]"
+chebi:26833	Schwefel	[]
+chebi:26836	Schwefelsaeureloesungen	[]
+chebi:26849	para-Weinsäure	"[""racemische Weinsäure"", ""Traubensäure"", ""Vogesensäure""]"
+chebi:27007	Zinn	[]
+chebi:27090	Triazichon	[]
+chebi:271436	Dimethylaminoäthanol	"[""Dimethyläthanolamin""]"
+chebi:27214	Uran	[]
+chebi:27266	Valin	[]
+chebi:27273	Vanadiumsäure	[]
+chebi:27338	Xylol	"[""Xylole""]"
+chebi:27363	Zink	[]
+chebi:27376	Methansulfonsäure	[]
+chebi:27385	Kohlenstofftetrachlorid	"[""Tetrachlorkohlenstoff"", ""Tetrachlormethan""]"
+chebi:27386	Zimtsäure	[]
+chebi:27452	Styren	"[""Styrol""]"
+chebi:27470	Folsäure	[]
+chebi:27477	D-Valin	[]
+chebi:27500	Sulfanilsäure	[]
+chebi:27518	Acetylen	"[""Azetylen"", ""Ethin""]"
+chebi:27530	2-Oxo-4-hydroxycapronsäure	[]
+chebi:27540	S-Hexanoyl-coenzym-A	[]
+chebi:27560	Bor	[]
+chebi:27561	1,2-Epoxyaethan	"[""Aethylenoxid""]"
+chebi:27563	Arsen	[]
+chebi:27568	Selen	[]
+chebi:27570	Histidin	[]
+chebi:27573	Silizium	[]
+chebi:27594	Kohlenstoff	[]
+chebi:27618	Chalkon	[]
+chebi:27638	Kobalt	[]
+chebi:27641	Cycloheximid	"[""Zykloheximid""]"
+chebi:27662	Benzchinamid	[]
+chebi:27706	(+)-Vernolsäure	[]
+chebi:27732	3,7-Dihydro-1,3,7-trimethyl-1H-purin-2,6-dion	"[""Coffein"", ""Koffein"", ""Thein""]"
+chebi:27750	Essigester	"[""Essigsäureethylester"", ""Ethylacetat"", ""Ethylazetat""]"
+chebi:27777	Acethydroxamsaeure	[]
+chebi:27789	1,2-Dichloräthan	"[""Äthylenchlorid"", ""Äthylendichlorid""]"
+chebi:27810	1,3-Dihydroxybenzol	"[""Resorzin""]"
+chebi:27849	Toluen-4-sulfonsäure	[]
+chebi:27856	Acetamid	"[""Azetamid"", ""Essigsäureamid"", ""Ethanamid""]"
+chebi:27869	Monochloressigsäure	[]
+chebi:27878	2-Naphthylamin	"[""β-Naphthylamin""]"
+chebi:27882	Colchicin	[]
+chebi:27902	Tetracyclin	"[""Tetrazyklin""]"
+chebi:27903	(2,4,5-Trichlorphenoxy)essigsäure	"[""2,4,5-Trichlorphenoxyessigsäure""]"
+chebi:27909	Paraldehyd	[]
+chebi:27939	Chaulmoograsäure	"[""Chaulmoogrylsäure""]"
+chebi:27974	Östriol	[]
+chebi:27977	Erythronolid B	[]
+chebi:27997	Elaidinsäure	[]
+chebi:27998	Wolfram	[]
+chebi:28024	Cyansäure	"[""Zyansäure""]"
+chebi:28044	Phenylalanin	[]
+chebi:28051	veratridin	[]
+chebi:28054	o-Kresol	[]
+chebi:28073	Chrom	[]
+chebi:28097	Monochlorbenzol	[]
+chebi:28112	Nickel	[]
+chebi:28118	Muraminsäure	[]
+chebi:28139	Bis(p-chlorphenyl)essigsäure	[]
+chebi:28142	Chloralhydrat	"[""Trichloracetaldehyd-hydrat""]"
+chebi:28159	D-Asparagin	[]
+chebi:28177	Theophyllin	[]
+chebi:28194	Octadec-6c-ensäre	"[""Petroseleninsäure"", ""Petroselinsäure""]"
+chebi:28217	Acrylnitril	"[""Acrylsäurenitril""]"
+chebi:28225	D-Leucin	"[""D-Leuzin""]"
+chebi:28262	Dimethylsulfoxid	[]
+chebi:28300	Glutamin	"[""Glutaminsäure-5-amid""]"
+chebi:28306	Aminoharnstoff	"[""Carbamidsäurehydrazid"", ""Semikarbazid""]"
+chebi:28346	Mescalin	"[""Meskalin""]"
+chebi:28358	Milchsäure	[]
+chebi:28398	2-Butanon	"[""Ethylmethylketon"", ""Methylethylketon"", ""Äthylmethylketon""]"
+chebi:28479	D-Tyrosin	[]
+chebi:28484	3-Methylbuttersäure	"[""Isovaleriansäure""]"
+chebi:28499	Kämpferol	[]
+chebi:28509	Vinylchlorid	[]
+chebi:28568	Piperazin	[]
+chebi:28592	Ricinolsäure	[]
+chebi:28593	Chinidin	[]
+chebi:28616	Aminoameisensäure	"[""Carbamidsäure""]"
+chebi:28619	Akrylamid	[]
+chebi:28631	3-Phenylpropionsäure	"[""Hydrozimtsäure""]"
+chebi:28659	Phosphor	[]
+chebi:28661	Octadeca-6,9,12-triensäure	"[""γ-Linolensäure""]"
+chebi:28685	Molybdän	[]
+chebi:28694	Kupfer	[]
+chebi:28724	9,10-Dihydroxystearinsäure	"[""Dioxystearinsäure""]"
+chebi:28727	trans-11-Octadecensäure	[]
+chebi:28771	4-Oxo-9c,11t,13t-octadecatriensäure	"[""4-Oxo-octadeca-9c,11t,13t-triensäure"", ""α-Licansäure""]"
+chebi:28792	Erucasäure	[]
+chebi:28797	D-2-Aminobuttersäure	[]
+chebi:287979	2-Jod-benzösäure	"[""o-Jod-benzösäure""]"
+chebi:28801	Octadec-9-insäure	"[""Stearolsäure""]"
+chebi:28817	Dodekan	[]
+chebi:28822	Arachinsäure	[]
+chebi:28826	Fluormethan	"[""Methylfluorid"", ""Monofluormethan""]"
+chebi:28833	Gibberellinsäure	[]
+chebi:28834	Desoxycholsäure	[]
+chebi:28837	Kaprylsäure	"[""Octansäure""]"
+chebi:28842	Octadecansäure	"[""Oktadekansäure"", ""Stearinsäure""]"
+chebi:28854	(2,4-Dichlorphenoxy)essigsäure	"[""2,4-Dichlorphenoxyessigsäure""]"
+chebi:28866	Lignozerinsäure	"[""Tetracosansäure""]"
+chebi:28869	2-Methyl-1,4-naphthochinon	[]
+chebi:28875	Myristinsäure	[]
+chebi:28897	Pentadekan	[]
+chebi:28918	Adrenalin	"[""Epinephrin""]"
+chebi:28941	Behensäure	"[""Docosansäure"", ""Dokosansäure"", ""Heneicosansäure""]"
+chebi:28946	Theobromin	[]
+chebi:28956	Cobinamid	[]
+chebi:28976	Köhlensäure	[]
+chebi:28984	Aluminium	[]
+chebi:29005	Cyclohexan	[]
+chebi:29019	Nonansäure	"[""Pelargonsäure""]"
+chebi:29021	Hexan	[]
+chebi:29149	Periodsäure	"[""Überiodsäure""]"
+chebi:29195	Cyanat	"[""Zyanat""]"
+chebi:29202	isocyansäure	"[""isozyansäure""]"
+chebi:29210	Trithionsäure	[]
+chebi:29214	Sulfonsäure	[]
+chebi:29219	chlorige Säure	[]
+chebi:29221	Perchlorsäure	"[""Überchlorsäure""]"
+chebi:29222	Hypochlorit	[]
+chebi:29223	Bromat	[]
+chebi:29228	Fluorwasserstoff	"[""Hydrogenfluorid""]"
+chebi:29231	hypoiodige Säure	[]
+chebi:29232	Hypoiodit	[]
+chebi:29237	Deuterium	"[""schwerer Wasserstoff""]"
+chebi:29238	überschwerer Wasserstoff	[]
+chebi:29241	Orthosilikat	"[""Silikat""]"
+chebi:29244	Hypomanganat	"[""Manganat(V)""]"
+chebi:29249	hypobromige Säure	[]
+chebi:29250	Hypobromit	[]
+chebi:29253	dithionige Säure	[]
+chebi:29263	Unterdiphosphorsäure	[]
+chebi:29287	Gold	[]
+chebi:29292	Dikieselsäure	"[""Pyrokieselsäure""]"
+chebi:29365	Carbonylchlorid	"[""Phosgen""]"
+chebi:29374	überscheweres Wasser	[]
+chebi:29380	Disilikat	[]
+chebi:29778	Selencyansäure	"[""Selenzyansäure""]"
+chebi:29802	Distickstoffpentoxid	"[""Salpetersäureanhydrid""]"
+chebi:29803	Distickstofftetroxid	[]
+chebi:29813	Knallsäure	[]
+chebi:29814	Isoknallsäure	[]
+chebi:29888	Diphosphorsäure	"[""Pyrophosphorsäure""]"
+chebi:30059	gelbes Blutlaugensalz	"[""Kaliumhexazyanoferrat(II)""]"
+chebi:30060	Kaliumhexazyanoferrat(III)	"[""rotes Blutlaugensalz""]"
+chebi:30069	Berliner Blau	"[""Preußischblau"", ""Turnbulls Blau""]"
+chebi:30089	Azetat	[]
+chebi:30145	Lithium	[]
+chebi:3015	1-(Butylcarbamoyl)-2-benzimidazol-methylcarbamat	"[""1-(N-Butylcarbamoyl)-2-(methoxy-carboxamido)-benzimidazol""]"
+chebi:30181	Bleiwasserstoff	"[""Plumban""]"
+chebi:30182	Bleitetraethyl	[]
+chebi:30183	Bleitetramethyl	[]
+chebi:30187	Aluminiumoxid	"[""Tonerde""]"
+chebi:30191	Korund	"[""α-Aluminiumoxid""]"
+chebi:30192	γ- Aluminiumoxid	[]
+chebi:30217	Helium	[]
+chebi:30278	Phosphorwasserstoff	[]
+chebi:30288	Antimonwasserstoff	[]
+chebi:30336	Phosphoroxidchlorid	"[""Phosphoroxychlorid"", ""Phosphortrichloridoxid"", ""Phosphorylchlorid""]"
+chebi:30365	Cyclopropan	"[""Zyklopropan""]"
+chebi:30415	Astat	[]
+chebi:30430	Indium	[]
+chebi:30452	Tellur	[]
+chebi:30461	Orthotellursäure	[]
+chebi:30463	Tellursäure	[]
+chebi:30465	tellurige Säure	[]
+chebi:30466	Telluronsäure	[]
+chebi:30501	Beryllium	[]
+chebi:30512	Silber	[]
+chebi:30513	Antimon	[]
+chebi:30514	Cäsium	"[""Zäsium""]"
+chebi:30563	Kieselsäureanhydrid	"[""Siliziumdioxid""]"
+chebi:30566	4-Amino-butyrat	[]
+chebi:30621	Arsenigen saure	[]
+chebi:30672	Dicyclopentadienyleisen	"[""Ferrocen""]"
+chebi:30679	Nickelocen	[]
+chebi:30682	Ruthenium	[]
+chebi:30746	Benzoesäure	[]
+chebi:30751	Ameisensäure	[]
+chebi:30753	4-Aminobenzoesäure	"[""p-Aminobenzoesäure""]"
+chebi:30754	2-Aminobenzoesäure	"[""o-Aminobenzoesäure""]"
+chebi:30768	Propionsäure	[]
+chebi:30772	Buttersäure	[]
+chebi:30775	Monofluoressigsaure	[]
+chebi:30805	Laurinsaeure	"[""Laurinsäure""]"
+chebi:30813	Dekansäure	"[""Kaprinsäure""]"
+chebi:30823	Oleat	[]
+chebi:30829	Octadec-6t-ensäure	[]
+chebi:30832	Adipinsäure	[]
+chebi:30845	Furan-2-carbonsäure	[]
+chebi:30851	Phenylbrenztraubensäure	[]
+chebi:30852	Galactarsäure	"[""Mucinsäure"", ""Schleimsäure""]"
+chebi:30953	1,4-Diazin	"[""Pyrazin""]"
+chebi:30954	1,2-Diazin	"[""Pyridazin""]"
+chebi:30956	Trichloressigsäure	[]
+chebi:309594	4-Amino-3-n-butoxy-benzoesäure-diäthylaminoäthylester	[]
+chebi:31001	Octacosancarbonsäure	"[""Octacosansäure""]"
+chebi:31003	Triacontansäure	[]
+chebi:31004	Triacontanoat	[]
+chebi:31009	Hexacosansäure	[]
+chebi:31014	Lignocerat	"[""Tetracosanoat""]"
+chebi:31181	Aklavinon	[]
+chebi:31183	(4-Allyloxy-3-chlorphenyl)essigsäure	[]
+chebi:31190	2-(4-((2-Methylallyl)amino)phenyl)propansaeure	[]
+chebi:31204	4-Aminohippursäure natriumsalz	"[""Natrium 4-aminohippurat""]"
+chebi:31292	basisches Wismutgallat	"[""Wismutgallathydroxid""]"
+chebi:31328	Butylacetat	"[""Butylazetat"", ""Essigsäure-n-butylester"", ""Essigsäurebutylester""]"
+chebi:31344	Branntkalk	"[""gebrannter Kalk"", ""Kalziumoxid"", ""Ätzkalk""]"
+chebi:31348	Capecitabin	[]
+chebi:31362	carpronium chlorid	[]
+chebi:31490	Dihydroergocristinmesilat	[]
+chebi:31575	p-Oxybenzoesaeureaethylester	[]
+chebi:31625	Fluorometholon	[]
+chebi:31725	Isoamylacetat	"[""Isoamylazetat""]"
+chebi:31746	Digensäure	"[""Kainsäure""]"
+chebi:31767	Blei(II)-azetat	"[""Bleidiacetat"", ""Bleidiazetat"", ""Bleizucker""]"
+chebi:31823	Quecksilber(II)-chlorid	"[""Sublimat""]"
+chebi:31835	p-Oxybenzoesauremethylester	[]
+chebi:31838	2-(10-Methyl-2-phenothiazinyl)essigsäure	[]
+chebi:32063	p-Oxybenzoesäurepropylester	[]
+chebi:32166	(p-Aminobenzolsulfonyl)-4-amino-2,6-dimethylpyrimidin	[]
+chebi:32221	2-(5-Benzyl-2-thienyl)propionsäure	"[""5-benzoyl-α-methylthiophene-2-acetic acid"", ""Tiaprofensäure""]"
+chebi:32234	Titandioxid	[]
+chebi:32316	2-Chlor-11-(2-dimethylaminoaethoxy)-dibenzo(b,f)-thiepin	[]
+chebi:32319	α-Ionon	[]
+chebi:32325	β-Ionon	[]
+chebi:32365	Margarinsäure	[]
+chebi:32368	Undekansäure	[]
+chebi:32380	cis-Decen-4-säure	"[""Dec-4c-ensäure""]"
+chebi:32385	Trideca-3t,5c,7,8-tetraen-10,12-diinsäure	[]
+chebi:32409	cis-9,trans-11,trans-13,cis-15-Octadecatetraensäure	"[""Octadeca-9c,11t,13t,15c-tetraensäure"", ""α-Parinarinsäure""]"
+chebi:32410	Octadeca-9t,11t,13t,15t-tetraensäure	[]
+chebi:32411	Octadeca-10,12-diinsäure	[]
+chebi:32419	9c-Eicosensäure	"[""Eicos-9c-ensäure""]"
+chebi:32422	9t-Eicosensäure	"[""Eicos-9t-ensäure"", ""Eikosen-(9)-säure-(20)""]"
+chebi:32425	Z-Δ11-Eicosensäure	[]
+chebi:32428	Cetoleinsäure	"[""Docos-11c-ensäure""]"
+chebi:32542	Garosamin	"[""Gerosamin""]"
+chebi:32592	Bariumhydroxid	"[""Ätzbaryt""]"
+chebi:32594	Barium	[]
+chebi:32800	(S)-Mandelsäure	[]
+chebi:32807	Orsellinsäure	[]
+chebi:32816	2-Oxopropansäure	"[""2-Oxopropionsäure"", ""Brenztraubensäure"", ""BTS"", ""α-Oxopropionsäure""]"
+chebi:32875	Methylgruppe	[]
+chebi:32926	Oktadekan	[]
+chebi:32927	Nonadekan	[]
+chebi:33014	Cuban	[]
+chebi:33050	Kalomel	"[""Quecksilber(I)-chlorid""]"
+chebi:33057	s-Indazen	[]
+chebi:33101	Stickstoffdioxid	[]
+chebi:33128	Buckminsterfulleren	[]
+chebi:33130	Aluminiumhydroxid	[]
+chebi:33186	Malonsäuredinitril	[]
+chebi:33198	D-Gluconsäure	"[""D-Glukonsäure""]"
+chebi:33199	Propinsäure	"[""Propiolsäure""]"
+chebi:33221	Korrin	[]
+chebi:33283	Thiamin	[]
+chebi:33301	Bismut	"[""Wismut""]"
+chebi:33310	Neon	[]
+chebi:33323	Franzium	[]
+chebi:33330	Skandium	[]
+chebi:33336	Lanthan	[]
+chebi:33337	Aktinium	[]
+chebi:33341	Titan	[]
+chebi:33342	Zirkonium	[]
+chebi:33344	Niob	[]
+chebi:33348	Tantal	[]
+chebi:33353	Technetium	[]
+chebi:33364	Platin	[]
+chebi:33368	Röntgenium	[]
+chebi:33369	Cer	"[""Zer""]"
+chebi:33372	Neodym	[]
+chebi:33373	Promethium	[]
+chebi:33382	Cassiopeium	"[""Lutetium""]"
+chebi:33389	Americium	"[""Amerizium""]"
+chebi:33391	Berkelium	[]
+chebi:33392	Kalifornium	[]
+chebi:33395	Mendelevium	[]
+chebi:33396	Nobelium	[]
+chebi:33417	Diamant	[]
+chebi:33418	Graphit	[]
+chebi:33601	phenosafranin	[]
+chebi:33815	schwerer Sauerstoff	[]
+chebi:33907	Cobyrinsäure	[]
+chebi:3392	2-(Methoxy-carbonylamino)-benzimidazol	[]
+chebi:34024	1,1,1,2-Tetrachloräthan	[]
+chebi:34053	1,2-Dinitrobenzol	[]
+chebi:3414	6-(2-Phenoxycarbonyl-2-phenylacetamido)penicillansäure	[]
+chebi:34242	2,4-Dinitroanilin	[]
+chebi:3438	5-(3-tert-Butylamino-2-hydroxy-propoxy)-3,4-dihydro-2(1H)-chinolinon-hydrochlorid	[]
+chebi:34630	Isopropyl-N-(3-chlorphenyl)-carbamat	[]
+chebi:34648	Clofibrinsäure	[]
+chebi:34653	Kongorot	[]
+chebi:34698	Phthalsäurediäthylester	[]
+chebi:34699	Diaethylsulfat	[]
+chebi:34718	1-Chloro-2,4-dinitrobenzol	[]
+chebi:34800	3,5,5-Trimethyl-2-cyclohexen-1-on	[]
+chebi:34811	Lactobacillsäure	"[""Phytomonsäure""]"
+chebi:34840	Methacrylsäuremethyl ester	"[""Methyl-methacrylat""]"
+chebi:34908	Pentachlornitrobenzol	[]
+chebi:34921	Phthalocyanin	"[""Phthalozyanin""]"
+chebi:3493	(6R,7R)-7-((R)-2-(4-Ethyl-2,3-dioxo-1-piperazinylcarboxamido)-2-(4-hydroxyphenyl)acetamido)-3-((1-methyl-1H-tetrazol-5-yl)thiomethyl)-8-oxo-5-thia-1-azabicyclo(4.2.0)oct-2-en-2-carbonsaeure	[]
+chebi:35019	Tributylphosphat	[]
+chebi:35026	Triethylamin	"[""Triäthylamin""]"
+chebi:35045	10-Undecensäure	"[""Undecen-10-säure""]"
+chebi:35119	Mangansäure	[]
+chebi:3512	Ceftizoxim-natrium	[]
+chebi:35124	Mangan(VII)-säure	"[""Permangansäure"", ""Übermangansäure""]"
+chebi:351346	Phenyläthylsenföl	[]
+chebi:35194	Isopren	[]
+chebi:35255	Trichlormethan	[]
+chebi:35298	Anthrazen	[]
+chebi:3561	Cetirizin	[]
+chebi:35619	L-2-Aminobuttersäure	[]
+chebi:35633	Yohimbinsäure	[]
+chebi:35696	Kobalt chlorid	"[""Kobalt(II)-chlorid"", ""Kobaltdichlorid""]"
+chebi:35697	trans-Zimtsäure	[]
+chebi:35699	cis-Zimtsäure	[]
+chebi:35702	Diethyläther	"[""Äther""]"
+chebi:35825	Mandelsäure	[]
+chebi:35889	Ethylphosphin	[]
+chebi:35895	gelber Phosphor	"[""Tetraphosphor""]"
+chebi:35897	Vinylessigsäure	[]
+chebi:35926	thioschweflige Säure	[]
+chebi:35935	Allylacetat	[]
+chebi:35936	4-Pentensäure	"[""Allylessigsäure""]"
+chebi:35939	Pent-2-ensäure	"[""Propylidenessigsäure"", ""α-Butylen-α-carbonsäure"", ""α.β-Pentensäure"", ""β-Äthyl-acrylsäure"", ""β-Äthylacrylsäure""]"
+chebi:35962	2,4-Hexadiensäure	"[""Sorbinsäure""]"
+chebi:35998	Tridekan	[]
+chebi:36004	Tetradecensäure	"[""Tetradecensäuren""]"
+chebi:36015	1,1,1-Trichloräthan	[]
+chebi:36018	1,1,2-Trichloräthan	[]
+chebi:36022	6-Octadecensäure	"[""Octadec-6-ensäure""]"
+chebi:36023	Octadec-11-ensäure	"[""Δ11-Octadecensäure""]"
+chebi:36026	1,1,2,2-Tetrachloräthan	[]
+chebi:36096	Cyclohexancarbonsäure	[]
+chebi:36152	Hept-2-ensäure	"[""α-Hexylen-α-carbonsäure"", ""α.β-Heptensäure""]"
+chebi:36161	Hämatin	[]
+chebi:36162	Hämatoporphyrin	[]
+chebi:36202	5c,8c,14c-Eicosatriensäure	"[""all-cis-Eicosa-5,8,14-triensäure""]"
+chebi:36214	3-Oxy-undecan-carbonsäure-(1)	"[""4-Hydroxy-dodecansäure"", ""γ-Oxy-laurinsäure""]"
+chebi:36361	phosphorige Säure	[]
+chebi:3638	Chlorochin	[]
+chebi:36386	Dichloressigsäure	[]
+chebi:36431	Angelicasäure	"[""Angelikasäure""]"
+chebi:36434	Octadecatrienoat	[]
+chebi:36517	Germacren A	[]
+chebi:36560	Zinkoxid	[]
+chebi:36573	Quecksilber(II)-cyanid	[]
+chebi:36595	Bernsteinsäureanhydrid	[]
+chebi:36601	Triphenylphosphanoxid	[]
+chebi:36605	Phthalsäureanhydrid	[]
+chebi:36610	Essigsäureanhydrid	[]
+chebi:36616	Chinoxalin	[]
+chebi:36655	Glyoxylat	[]
+chebi:36743	Germacren	[]
+chebi:3680	Chrysanthemumsäure	[]
+chebi:36813	Clovoxamin	[]
+chebi:3687	Chrysophansäure	[]
+chebi:36946	Thiocarbamid	"[""Thioharnstoff"", ""Thiokarbamid""]"
+chebi:36957	Selenoharnstoff	[]
+chebi:36973	Graphen	[]
+chebi:37108	7-Methyl-octansäure	"[""7-Methyloctansäure""]"
+chebi:37162	2t-Dodecensäure	"[""Dodecen-(2t)-säure""]"
+chebi:37187	Blei(II)-nitrat	[]
+chebi:37207	3-cis-Dodecen-carbonsäure	"[""Dodecen-(3)-säure""]"
+chebi:37271	trans-2-Tetradecensäure	[]
+chebi:37372	Phosphor(III)-oxid	"[""Phosphortrioxid""]"
+chebi:37376	Phosphor(V)-oxid	"[""Phosphorpentoxid""]"
+chebi:3749	3-(p-chloranilino)-10-(p-chlorphenyl)-2,10-dihydro-2-(isopropylimino)-phenazin	[]
+chebi:37519	Tropyliden	"[""Zykloheptatrien""]"
+chebi:37755	4-Methylamino-buttersäure	[]
+chebi:37771	Wolframhexachlorid	[]
+chebi:37808	n-Butan	[]
+chebi:37809	Dec-3t-ensäure	"[""trans-Decen-3-säure""]"
+chebi:37858	Sulfensäure	[]
+chebi:37868	Oktanol	"[""Oktylalkohol""]"
+chebi:37918	Fluorescein-5-isothiocyanat	"[""Fluoreszein-5-isothiocyanat""]"
+chebi:38010	Azapropazon	[]
+chebi:38028	1,3,5-Triazin-2,4,6-triol	"[""Cyanursäure"", ""Zyanursäure""]"
+chebi:38043	1,3,5-Trioxan	[]
+chebi:38051	Cyamelursäure	[]
+chebi:38209	Chlorophyllid b	[]
+chebi:38219	4-Aminonaphthalin-1-sulfonsäure	"[""Naphthionsäure"", ""Piria-Säure""]"
+chebi:38256	Phaeophytin b	"[""Phäophytin-b""]"
+chebi:38257	Phaeophorbid a	"[""Phäophorbid-a""]"
+chebi:38258	Phaeophorbid b	"[""Phäophorbid-b""]"
+chebi:38299	Vernolsäure	"[""Vernolsäuren""]"
+chebi:38300	(−)-Vernolsäure	[]
+chebi:38319	Usninsäure	[]
+chebi:38331	11-Tetradecensäure	"[""Tetradec-11-ensäure""]"
+chebi:38362	Heptadecin-(5)-carbonsäure	"[""Octadec-6-insäure"", ""Taririnsäure"", ""Telfairiasäure""]"
+chebi:38364	Hept-2t-ensäure	"[""trans-Hept-2-ensäure""]"
+chebi:38365	cis-Hept-2-ensäure	"[""Hept-2c-ensäure""]"
+chebi:38366	E-2-Pentencarbonsäure	"[""Pent-2t-ensäure"", ""trans-Pent-2-ensäure""]"
+chebi:38367	cis-Pent-2-ensäure	"[""cis-β-Aethylacrylsäure"", ""Pent-2c-ensäure"", ""Z-2-Pentencarbonsäure""]"
+chebi:38368	Pent-3-ensäure	"[""β-Aethyliden-propionsäure"", ""β-Butylen-α-carbonsäure"", ""β.γ-Pentensäure""]"
+chebi:38369	cis-Pent-3-ensäure	"[""Z-3-Pentensäure""]"
+chebi:38370	E-3-Pentensäure	"[""trans-Pent-3-ensäure""]"
+chebi:38371	2-Dodecensäure	"[""Dodec-2-ensäure""]"
+chebi:38372	2c-Dodecensäure	"[""cis-Dodec-2-ensäure""]"
+chebi:38373	3-Dodecensäure	"[""Dodecen-(3)-säure""]"
+chebi:38374	3-trans-Dodecen-carbonsäure	"[""trans-Dodecen-(3)-säure""]"
+chebi:38375	9-Dodecensäure	"[""Dodec-9-ensäure""]"
+chebi:38376	9t-Dodecensäure	"[""Dodec-9t-ensäure"", ""trans-Dodecensäure""]"
+chebi:38377	9Z-Dodecensäure	"[""Dodec-9c-ensäure""]"
+chebi:38378	(E)-10-Dodecensäure	"[""10E-Dodecensäure"", ""Dodec-10t-ensäure""]"
+chebi:38380	(Z)-10-Dodecensäure	"[""10Z-Dodecensäure"", ""Dodec-10c-ensäure""]"
+chebi:38383	Octadeca-9t,11c,13t-triensäure	[]
+chebi:38384	Octadeca-9t,11t,13t-triensäure	[]
+chebi:38386	11,13,15-Octadecatriensäure	"[""Octadeca-11,13,15-triensäure""]"
+chebi:38387	9,11,15-Octadecatriensäure	"[""Octadeca-9,11,15-triensäure""]"
+chebi:38388	9,11,14-Octadecatriensäure	"[""Octadeca-9,11,14-triensäure""]"
+chebi:38394	11-Octadecinsäure	"[""11-Octadecynsäure"", ""Heptadecin-(10)-carbonsäure"", ""Octadec-11-incarbonsäure"", ""Octadec-11-insäure""]"
+chebi:38396	Lamenallensäure	[]
+chebi:38397	Heptadecafluornonansäure	"[""Heptadekafluornonansäure"", ""Perfluornonansäure""]"
+chebi:38398	Hexadekafluornonansäure	[]
+chebi:38399	9-H-Hexadekafluornonansäure	"[""ω-H-Hexadekafluornonansäure""]"
+chebi:38403	(−)-Lamenallensäure	[]
+chebi:38413	(+)-Lamenallensäure	[]
+chebi:38420	Chinuclidin	[]
+chebi:38627	Diazin	[]
+chebi:38682	Tribrommethan	[]
+chebi:38794	Pteroinsäure	[]
+chebi:38815	Benzoesäureanhydrid	[]
+chebi:38825	Tetrafluorkohlenstoff	"[""Tetrafluormethan""]"
+chebi:38853	Decahydronaphthalin	"[""Dekahydronaphthalin"", ""Dekalin"", ""Naphthan""]"
+chebi:38866	Perfluoräthylen	"[""Tetrafluoräthen"", ""Tetrafluoräthylen""]"
+chebi:38884	Diphenylmethan	[]
+chebi:38913	Borsäuretrimethylester	"[""Trimethylborat""]"
+chebi:38916	Borsäuretriethylester	"[""Triethylborat""]"
+chebi:38944	4-(4-Nitroanilino)phenylisothiocyanat	[]
+chebi:39100	(+)-trans-Chrysanthemumsäure	[]
+chebi:39101	trans-Chrysanthemumsäure	[]
+chebi:39102	(−)-trans-Chrysanthemumsäure	[]
+chebi:39103	cis-Chrysanthemumsäure	[]
+chebi:39104	(+)-cis-Chrysanthemumsäure	[]
+chebi:39105	(−)-cis-Chrysanthemumsäure	[]
+chebi:39152	Knallquecksilber	"[""Quecksilber(II)-fulminat""]"
+chebi:39153	5-Oxo-valeriansäure	[]
+chebi:39158	(+)-Trichostatsäure	[]
+chebi:39159	(−)-Trichostatsäure	[]
+chebi:39212	Spinossäure	[]
+chebi:39227	Hexachlorethan	"[""Hexachloräthan""]"
+chebi:39248	Heneicosansäure	[]
+chebi:39250	13-Methyl-tetradecansäure	[]
+chebi:39251	12-Methyl-tetradecansäure	"[""12-Methyltetradecansäure""]"
+chebi:39258	Diphenylether	"[""Diphenyloxid"", ""Diphenyläther""]"
+chebi:39275	Brommethan	"[""Methylbromid"", ""Monobrommethan""]"
+chebi:39282	Iodmethan	"[""Jod-methan"", ""Methyliodid"", ""Methyljodid"", ""Monoiodmethan""]"
+chebi:39285	Chlorpikrin	"[""Trichlornitromethan""]"
+chebi:39414	Benzilsäure	[]
+chebi:39448	Undecylensäure	"[""Undecylensäuren""]"
+chebi:39449	2-Undecensäure	"[""2-Undecensäuren"", ""Undec-2-ensäure"", ""Undecen-2-säure""]"
+chebi:39452	trans-Δ9-Undecensäure	"[""trans-Δ9-Undecylensäure"", ""Undec-9t-ensäure""]"
+chebi:39453	9-Undecensäure	"[""Undec-9-ensäure"", ""Undecen-9-säure""]"
+chebi:39454	cis-Δ9-Undecensäure	"[""cis-Δ9-Undecylensäure"", ""Undec-9c-ensäure""]"
+chebi:39832	Methoxyethan	"[""Methyläthyläther"", ""Äthylmethyläther""]"
+chebi:39867	Di-n-propylessigsäure	"[""Valproinsäure""]"
+chebi:39949	Triphosphorsäure	[]
+chebi:4036	Tricyclohexylzinnhydroxid	[]
+chebi:40448	9,10-Anthracendion	"[""Anthrachinon""]"
+chebi:40519	Adamantan	[]
+chebi:4075	(R)-(1-Aminoethyl)phosphonsäure	[]
+chebi:40918	Axerophten	[]
+chebi:41253	Tetradekan	[]
+chebi:41688	Blaues pyoktanin	"[""Gentianaviolett""]"
+chebi:41710	L-Cysteinsulfensäure	[]
+chebi:4178	D-Glucuronsäure	"[""D-Glukuronsäure""]"
+chebi:41808	Dekan	"[""n-Dekan""]"
+chebi:41847	(−)-(S)-Glycerin-1,2-distearat	[]
+chebi:41865	Sebacinsäure	[]
+chebi:41921	Inden	[]
+chebi:41981	Deuteriumoxid	"[""schweres Wasser""]"
+chebi:42111	D-Milchsäure	[]
+chebi:42160	Dithionit	[]
+chebi:422	L-Milchsäure	[]
+chebi:42263	1,2-Dimethoxyethan	"[""Ethylenglycoldimethylether"", ""Ethylenglykoldimethylether""]"
+chebi:42266	Ethan	"[""Äthan""]"
+chebi:42638	Flufenaminsäure	[]
+chebi:42682	3-Aminobenzoesäure	"[""m-Aminobenzoesäure""]"
+chebi:42843	Glycinamid	[]
+chebi:43035	(−)-Hydratropasäure	[]
+chebi:43451	Hydrogeniodid	"[""Iodwasserstoff"", ""Jodwasserstoff"", ""Wasserstoffiodid""]"
+chebi:43572	Kojisäure	[]
+chebi:43722	12-Methyltridecancarbonsäure	"[""12-Methyltridecansäure""]"
+chebi:43799	1-Aminobutan	"[""n-Butylamin""]"
+chebi:43986	N6,N6-Dimethyl-[5']adenylsäure	[]
+chebi:44247	Nervonsäure	[]
+chebi:44423	Hydroxycarbamid	"[""Hydroxyharnstoff""]"
+chebi:44557	Complexon I	"[""Komplexon I"", ""Nitrilotriessigsäure""]"
+chebi:44884	Amylalkohol	"[""n-Amylalkohol"", ""Pentylalkohol""]"
+chebi:44898	Phäophytin-a	[]
+chebi:44976	Phosphonsäure	[]
+chebi:4513	3,3'-methylen-bis(4-hydroxy-cumarin)	[]
+chebi:45133	Pivalinsäure	[]
+chebi:45296	Cetan	"[""Hexadekan"", ""Zetan""]"
+chebi:45379	Methylcarbamidsäure	[]
+chebi:45478	(R)-Ricinelaidinsäure	"[""D-12-Hydroxy-octadec-9t-ensäure"", ""rechtsdrehende trans-12-Hydroxy-9-octadecensäure""]"
+chebi:45564	4-Oxy-butan-carbonsäure	"[""5-Hydroxy-pentansäure"", ""5-Hydroxy-valeriansäure""]"
+chebi:45571	Heptansäure	"[""Önanthsäure""]"
+chebi:45630	Lävulinsäure	[]
+chebi:4581	Dihydropteroinsäure	[]
+chebi:45892	Trifluoressigsäure	[]
+chebi:4593	Dihydroxyfumarsäure	[]
+chebi:46149	Pikrinsäure	[]
+chebi:46342	Hendekan	"[""Undekan""]"
+chebi:46345	5-Fluoracil	[]
+chebi:46502	Wolframat	[]
+chebi:46511	Aethanethiol	"[""Aethylmercaptan""]"
+chebi:46631	Clonidin	[]
+chebi:46645	Isobutylalkohol	[]
+chebi:46659	Ipratropiumbromid	[]
+chebi:46666	Blauasbest	"[""Krokydolith"", ""Krokydolith Asbest""]"
+chebi:46678	brauner Asbest	[]
+chebi:46679	Grünerit	[]
+chebi:46713	Fluorit	"[""Flußspat""]"
+chebi:46715	Halit	"[""Steinsalz""]"
+chebi:46719	Calcit	"[""Kalzit""]"
+chebi:46726	Magneteisen	"[""Magneteisenstein"", ""Magnetit""]"
+chebi:46727	Quarz	"[""Tiefquarz""]"
+chebi:46728	Chalcedon	"[""Chalzedon""]"
+chebi:46799	Amino-monothioessigsäure	"[""α-Amino-thioessigsäure""]"
+chebi:46916	Essigsäurevinylester	"[""Vinylacetat"", ""Vinylazetat""]"
+chebi:47032	Dioxan-1,4	[]
+chebi:47077	Dibrommethan	"[""Methylenbromid""]"
+chebi:471744	(5R,6S)-6-((R)-1-Hydroxyethyl)-3-(2-(iminomethylamino)ethylthio)-7-oxo-1-azabicyclo(3.2.0)hept-2-ene-2-carbonsaeure	[]
+chebi:47217	Arsenwasserstoff	[]
+chebi:47266	Bromwasserstoff	"[""Hydrogenbromid""]"
+chebi:4728	Dihydroxypropyl theopylin	[]
+chebi:472805	Ouabagenin-L-rhamnosid	[]
+chebi:4737	Phenyl-essigsäure-äthylamid	"[""Phenylessigsäure-äthylamid""]"
+chebi:47499	Imipramin	[]
+chebi:47554	Chloräthan	"[""Äthylchlorid""]"
+chebi:4775	Ellagsäure	[]
+chebi:47781	Desipramin	[]
+chebi:47855	Difluormethan	[]
+chebi:47875	Kohlenstofftetrabromid	"[""Tetrabromkohlenstoff"", ""Tetrabrommethan""]"
+chebi:48058	Methylvinylketon	[]
+chebi:48107	Salpetersäure	[]
+chebi:48110	Trinitrobenzol	[]
+chebi:48113	1,3,5-Trinitrobenzol	[]
+chebi:48114	1,2,3-Trinitrobenzol	[]
+chebi:48115	1,2,4-Trinitrobenzol	[]
+chebi:48131	Azelainsäure	"[""Nonandisäure""]"
+chebi:48141	Disiloxan	[]
+chebi:48233	Calciumperoxid	"[""Kalziumperoxid""]"
+chebi:48240	Chrom(VI)-oxid	"[""Chromsäureanhydrid"", ""Chromtrioxid""]"
+chebi:48242	Chrom(III)-oxid	[]
+chebi:48263	Chrom(IV)-oxid	"[""Chromdioxid""]"
+chebi:48288	7,9-Bis-(4-bromo-phenyl)-cyclopenta[a]acenaphthylen-8-on	[]
+chebi:48301	7,10-bis-(4-bromo-phenyl)-8,9-diphenyl-fluoranthen	[]
+chebi:48302	7,10-bis-(4-bromo-phenyl)-8,9-bis-(4-octyl-phenyl)-fluoranthen	[]
+chebi:48303	7,10-Bis-(4-bromo-phenyl)-8-nonyl-9-octyl-fluoranthen	[]
+chebi:48361	Buten	"[""Butylen""]"
+chebi:48363	2-Buten	[]
+chebi:48365	trans-But-2-en	[]
+chebi:48366	cis-But-2-en	[]
+chebi:48376	Isoharnstoff	[]
+chebi:48397	Methandiol	[]
+chebi:48510	Triflat-Rest	"[""Triflatgruppe"", ""Trifluormethansulfonyloxy"", ""Trifluormethansulfonyloxygruppe"", ""Trifluormethansulfonyloxyrest""]"
+chebi:48511	Trifluormethansulfonsäure	[]
+chebi:48521	2-(4-(3-Hydroxyiminocyclohexyl)phenyl)propionsäure	"[""4-(3-Hydroxyiminocyclohexyl)hydratropasäure""]"
+chebi:48526	(±)-Hydratropasäure	"[""Hydratropasäure""]"
+chebi:48527	(+)-Hydratropasäure	[]
+chebi:48538	Apomorphin	[]
+chebi:48547	Triflat	"[""Trifluormethansulfonat""]"
+chebi:48548	Trifluormethansulfonylgruppe	"[""Trifluormethansulfonylrest"", ""Triflylgruppe""]"
+chebi:48567	Alloyohimbin	[]
+chebi:48574	Phenylbutazon	[]
+chebi:48669	Tranexamsaeure	[]
+chebi:48682	1-[4-(2,2,3-trimethyl-cyclopent-3-enyl)-cyclohex-3-enyl]-ethanol	[]
+chebi:48685	1-[3-(2,2,3-trimethyl-cyclopent-3-enyl)-cyclohex-3-enyl]-ethanol	[]
+chebi:48686	1-[4-(2,2,3-Trimethyl-cyclopent-3-enyl)-cyclohex-3-enyl]-ethanon	[]
+chebi:48687	1-[3-(2,2,3-Trimethyl-cyclopent-3-enyl)-cyclohex-3-enyl]-ethanon	[]
+chebi:48688	4-(2,2,3-Trimethyl-cyclopent-3-enyl)-cyclohex-3-encarbaldehyd	[]
+chebi:48689	3-(2,2,3-Trimethyl-cyclopent-3-enyl)-cyclohex-3-encarbaldehyd	[]
+chebi:48692	[4-(2,2,3-trimethyl-cyclopent-3-enyl)-cyclohex-3-enyl]-methanol	[]
+chebi:48693	[3-(2,2,3-trimethyl-cyclopent-3-enyl)-cyclohex-3-enyl]-methanol	[]
+chebi:48694	6-(2,2,3-trimethyl-cyclopent-3-enyl)-1-oxa-spiro[2.5]oct-5-en	[]
+chebi:48695	1,5,5-Trimethyl-4-(1-methylen-allyl)-cyclopenten	[]
+chebi:48696	2-[4-(2,2,3-trimethyl-cyclopent-3-enyl)-cyclohex-3-enyl]-propan-2-ol	[]
+chebi:48713	methylencamphoraldehyde	[]
+chebi:48741	β-Phellandren	[]
+chebi:48765	Kakodylsäure	[]
+chebi:48838	Gips	[]
+chebi:48839	Marienglas	"[""Selenit""]"
+chebi:4884	Aethinyl-cyclohexyl-carbamat	[]
+chebi:48843	Natriumselenit	[]
+chebi:48848	Erythronolid A	[]
+chebi:48854	schweflige Säure	[]
+chebi:48858	Dimethylsulfit	[]
+chebi:4887	Aethosuximide	[]
+chebi:48937	Phytan	[]
+chebi:48944	Isobutyrat	[]
+chebi:48947	Clavulansäure	[]
+chebi:48979	Acetylschwefelsaüre	[]
+chebi:48980	7-Chinolinol	[]
+chebi:48981	8-Chinolinol	"[""8-Hydroxy-chinolin""]"
+chebi:48993	5-Chinolinol	[]
+chebi:48994	6-Chinolinol	[]
+chebi:49045	Germacren D	[]
+chebi:4907	Etidronsäure	[]
+chebi:49073	betapron	"[""β-Propiolakton""]"
+chebi:49237	γ-Bisabolen	[]
+chebi:49240	α-Bisabolen	[]
+chebi:49249	β-Bisabolen	[]
+chebi:49250	γ-Ionon	[]
+chebi:49267	Bisanthen	[]
+chebi:49276	β-Selinen	[]
+chebi:49278	δ-Selinen	[]
+chebi:49282	Junipen	"[""Kuromatsuen"", ""Longifolen""]"
+chebi:49283	Hex-3-en-carbonsäure	"[""Hex-3-ensäure"", ""β.γ-Hexensäure""]"
+chebi:49284	cis-Hex-3-ensäure	[]
+chebi:49285	trans-Hex-3-ensäure	[]
+chebi:49289	Humulen	[]
+chebi:49290	γ-Humulen	[]
+chebi:49306	cis-Hexahydroindan	"[""cis-Hydrindan""]"
+chebi:49307	trans-Hexahydrindan	[]
+chebi:49311	α-Humulen	[]
+chebi:49313	β-Humulen	[]
+chebi:49314	Germacren B	[]
+chebi:49382	Bromsäure	[]
+chebi:49477	Arsanilsäure	[]
+chebi:49499	Berylliumfluorid	[]
+chebi:49519	12-Brom-dodecansäure	[]
+chebi:49637	Wasserstoff	[]
+chebi:49798	Tetraethylenpentamin	[]
+chebi:49828	Praseodym	[]
+chebi:49882	Rhenium	[]
+chebi:49957	Xenon	[]
+chebi:50027	Sabinen	[]
+chebi:50030	Thujen	[]
+chebi:50031	α-Thujen	[]
+chebi:50034	Phellandren	[]
+chebi:50035	α-Phellandren	[]
+chebi:50074	Terrylen	[]
+chebi:50099	2-Methyl-4-chlorphenoxyessigsäure	[]
+chebi:50102	Methylnitrosoharnstoff	"[""N-Methyl-N-nitrosoharnstoff"", ""NMH""]"
+chebi:50110	Isopiperitenon	[]
+chebi:50129	2-Hydroxy-2-methylpropionsäure	"[""2-Methyl-2-hydroxypropionsäure""]"
+chebi:50138	Lonidamin	[]
+chebi:50139	Äthylbutylketon	[]
+chebi:50144	Natriumpyruvat	[]
+chebi:5015	Eisendimethyldithiocarbamat	[]
+chebi:50186	4,4'-Methylen-bis-(3-hydroxy-2-naphthoesäure)	"[""Pamosäure""]"
+chebi:50198	2,4-Dihydroxybenzaldehyd	[]
+chebi:50292	Cadmiumsulfat	"[""Kadmiumsulfat""]"
+chebi:50374	Diwasserstoffpentasulfid	[]
+chebi:50385	Hämin	[]
+chebi:50438	3-(1'-Phenyl-propyl)-4-oxycoumarin	[]
+chebi:50448	Aminonaphthalin	"[""Naphthylamin""]"
+chebi:50450	1-Naphthylamin	[]
+chebi:50464	trans-11-Octadecensäure	[]
+chebi:50465	2-Decensäure	"[""Dec-2-en-säure""]"
+chebi:50466	(Z)-2-Decensäure	[]
+chebi:50467	(E)-2-Decensäure	[]
+chebi:50534	Butylsenföl	[]
+chebi:50569	Essigsäureisobutylester	"[""Isobutylacetat"", ""Isobutylazetat""]"
+chebi:50572	Octadec-2t-ensäure	"[""trans-Heptadecen-(1)-carbonsäure""]"
+chebi:50573	2-Octadecensäure	"[""Octadec-2-ensäure""]"
+chebi:50575	cis-Octadecen-(2)-säure	"[""cis-Δ2-Octadecensäure"", ""Octadec-2c-ensäure"", ""Octadec-cis-2-encarbonsäure""]"
+chebi:50724	Butyramid	[]
+chebi:50728	Methylen	"[""Methylengruppe""]"
+chebi:50742	6-Chlor-δ6-1,2-α-methylen-17-α-hydroxyprogesteron	[]
+chebi:50818	Blutstein	"[""Hämatit""]"
+chebi:50819	Eisen(III)-oxid	"[""Eisentrioxid""]"
+chebi:50820	Eisen(II)-oxid	[]
+chebi:50821	Eisen(II,III)-oxid	[]
+chebi:50833	Cadmiumsulfid	"[""Kadmiumsulfid""]"
+chebi:50845	Doxycyclin	[]
+chebi:50883	Bornitrid	[]
+chebi:51024	Methixen	[]
+chebi:51056	Thioxanthen	[]
+chebi:51110	Kupfer(II)-sulfid	[]
+chebi:51113	Covellin	"[""Covellit""]"
+chebi:51114	Kupfer(I)-sulfid	[]
+chebi:51116	Chalkosin	"[""Kupferglanz"", ""Kupferglas""]"
+chebi:51311	Vinylbromid	[]
+chebi:51340	2,6,10,14-Tetramethyl-pentadecansäure	"[""Pristaninsäure""]"
+chebi:51348	1,2-Benzanthrazen	[]
+chebi:51396	Dinitrobenzol	[]
+chebi:51397	1,3-Dinitrobenzol	[]
+chebi:51440	L-Isoascorbinsäure	[]
+chebi:51496	Diethylzink	"[""Zinkdiethyl""]"
+chebi:51497	Dimethylzink	[]
+chebi:51499	Diphenylzink	[]
+chebi:51568	Kaliumtetraiodomercurat(II)	"[""Neßlers Reagenz""]"
+chebi:51686	Hämatoxylin	[]
+chebi:51687	Chrysen	[]
+chebi:51763	Acetylendicarbonsäureamid	[]
+chebi:51804	1,3-Bis(3-(2-imidazolin-2-yl)phenyl)harnstoff	[]
+chebi:51865	Azoxybenzol	[]
+chebi:51889	Cyanessigsäure	[]
+chebi:51994	Fulvalen	[]
+chebi:51999	Fulven	[]
+chebi:52010	Chlorphenamin	[]
+chebi:52046	7-Methyl-3-oxo-oct-6-ensäure	"[""7-Methyl-3-oxooct-6-ensäure""]"
+chebi:52141	Quadratsäure	[]
+chebi:52239	Aragonit	[]
+chebi:52241	Vaterit	[]
+chebi:52276	Terrylendiimid	[]
+chebi:52294	Thioninacetat	[]
+chebi:52295	Lauthsches violett	[]
+chebi:52342	Aethylformiat	[]
+chebi:52355	Dichlordioxid	[]
+chebi:52356	Dichlorheptaoxid	[]
+chebi:52496	Carbanilsaeure	"[""Phenylcarbamidsaeure""]"
+chebi:52682	1,2-Butandiol	[]
+chebi:52683	1,3-Butandiol	"[""1,3-Butylenglykol""]"
+chebi:52700	o-Iodoxybenzoesäure	[]
+chebi:52701	1-Hydroxy-1,2-benziodoxol-3-on-1-oxid	[]
+chebi:52741	2-Chloräthyl-phosphonsäure	[]
+chebi:52794	L-Asparaginsäure-4-hydroxyamid	[]
+chebi:5296	2,2-Dimethyl-5-(2,5-dimethylphenoxy)valeriansäure	"[""2,2-Dimethyl-5-(2,5-xylyloxy)valeriansäure""]"
+chebi:52984	Hexacos-2t-ensäure	"[""trans-2-Hexacosensäure""]"
+chebi:52985	Hexacosensäure	[]
+chebi:52986	cis-2-Hexacosensäure	"[""Hexacos-2c-ensäure""]"
+chebi:53051	2,4-Dinitro-rhodanbenzol	[]
+chebi:53088	1,2-Dihydroxy-anthrachinon-3-methylen-iminodiessigsaeure	"[""Alizarinkomplexon""]"
+chebi:53172	Rosafluin	[]
+chebi:53206	Tetradec-7c-ensäure	"[""Tetradecen-(7c)-säure"", ""Tetradecensäure(cis-Δ7)""]"
+chebi:53218	Diphenylmethan-4,4'-diisocyanat	[]
+chebi:53444	Kaliumdichromat	[]
+chebi:53460	11c,14c,17c-Eicosatriensäure	"[""all-cis-Eicosa-11,14,17-triensäure""]"
+chebi:53486	8c,11c,14c-Eicosatriensäure	"[""all-cis-Eicosa-8,11,14-triensäure"", ""Homo-γ-linolensäure""]"
+chebi:53487	cis,cis,cis,cis-Docosa-7,10,13,16-tetraensäure	[]
+chebi:53488	Docosa-7c,10c,13c,16c,19c-pentaensäure	[]
+chebi:53506	2,4,5-Trinitrobenzolsulfonsäure	[]
+chebi:53579	3-Morpholyläthylmorphin	[]
+chebi:53614	2-Methyl-2-oxazolin	[]
+chebi:53667	Cefadroxil 1-wasser	[]
+chebi:53691	Diatrizoesaure	[]
+chebi:53692	3,5-Diacetylamino-2,4,6-trijodbenzosäure natrium	[]
+chebi:53698	6-(2,4-Dinitroanilino)hexansäure	[]
+chebi:53727	2-Sulfanilamido-5-methoxypyrimidin	[]
+chebi:5417	Glucosamin	"[""Glukosamin""]"
+chebi:5445	Glyceraldehyd	"[""Glycerinaldehyd"", ""Glyzerinaldehyd""]"
+chebi:55368	N,N-Bis(2-chloraethyl)methylamin-hydrochlorid	"[""N-Mustard"", ""Stickstofflost"", ""Stickstofflost-ebewe""]"
+chebi:55379	Camphersulfosäure	[]
+chebi:55381	Diacetonalkohol	[]
+chebi:55403	(1S,4R)-(+)-2-oxo-10-bornanesulfonic acid	"[""Camphersulfosäure""]"
+chebi:55490	(6R,7R)-7-((Z)-2-(2-Amino-4-thiazolyl)-2-methoxyiminoacetamido)-3-((1-methyl-1H-5-tetraazolylthio)methyl)-8-oxo-5-thia-1-azabicyclo(4.2.0)oct-2-en-2-carbonsaeure	[]
+chebi:55548	2-(p-Aminobenzolsulfonamido)-4,5-dimethyloxazol	[]
+chebi:5779	Hydrocodon	[]
+chebi:5835	Hyperizin	[]
+chebi:59051	Pyrokohlensäure diäthyl ester	[]
+chebi:59059	Methyl carbonimide	[]
+chebi:59118	N-Methyl-piperazinyl-N'-propyl-phenothiazin	[]
+chebi:59124	o-Mercaptobenzösäure	[]
+chebi:59477	5,7-dichlor-8-hydroxychinolin	[]
+chebi:59970	1-Butyl-5-(hydroxymethyl)pyrrol-2-aldehyd	"[""1-Butyl-5-hydroxymethylpyrrol-2-aldehyd""]"
+chebi:6030	Isonicotinsäurehydrazid	[]
+chebi:60542	Phenyl-essigsaeure-(2-oxo-aethylamid)	[]
+chebi:60698	4-Brom-benzösäure	[]
+chebi:60702	(2,2,2-Trifluorethoxy)essigsäure	[]
+chebi:60833	N-1-naphthyl-phthalamidsäure	[]
+chebi:60956	Colneleinsäure	[]
+chebi:61024	(RS)-2-(1-Hydroxycyclohexyl)buttersäure	[]
+chebi:61112	Methylrhodanid	[]
+chebi:61198	N-acetyl-2-amino-3-mercapto-3-methylbutansäure	[]
+chebi:61200	3-Decensäure	"[""Dec-3-ensäure""]"
+chebi:61206	Hex-2-ensäure	"[""α.β-Hexensäure""]"
+chebi:61219	Chlorsuccinylcholin	[]
+chebi:61288	α-Hydroxy-thymidin	[]
+chebi:613010	Cocain-chlorhydrat	[]
+chebi:61302	2-Hydroxy-tetracosansäure	"[""Cerebronsäure""]"
+chebi:61308	Carbonohydrazid	[]
+chebi:61366	2-Tetradecensäure	"[""Tetradec-2-ensäure""]"
+chebi:61367	7-Tetradecensäure	"[""Tetradec-7-ensäure""]"
+chebi:61389	(+)-Chaulmoograsaüre	"[""13-(R)-Cyclopent-2-enyl-tridecansäure"", ""13-[(R)-Cyclopent-2-enyl]-tridecansaüre""]"
+chebi:61391	13-[(S)-Cyclopent-2-enyl]-tridecansaüre	[]
+chebi:61456	11,12-Methylenoctadecansäure	[]
+chebi:61478	Germacren C	[]
+chebi:615597	alpha-Chlortoluol	"[""Benzylchlorid""]"
+chebi:61565	L-Alanyl-L-glutaminsäure	[]
+chebi:61671	11-Cyclopent-2-enyl-undecansäure	"[""Hydnocarpsäure""]"
+chebi:61673	13-Cyclopent-2-enyl-tridec-6-ensäuren	[]
+chebi:61675	11-((R)-Cyclopent-2-enyl)-undecansäure	[]
+chebi:61676	13R-Cyclopent-2-enyl-tridec-cis-6-ensäure	"[""Gorlisäure""]"
+chebi:61722	Propylidenacetaldehyd	"[""β-Äthyl-acrolein""]"
+chebi:61909	Äthansulfonat	[]
+chebi:61911	Butan-1-sulfonat	"[""n-Butylsulfonatanion""]"
+chebi:62412	Phenazin-1-carbonsäure	[]
+chebi:62528	(1S,3R)-3-(2',2'-Dichlorvinyl)-2,2-dimethylcyclopropancarbonsäure	"[""2,2-Dimethyl-3-trans-(β,β-dichlorvinyl)cyclopropancarbonsäure""]"
+chebi:62856	L-homolanthionin	[]
+chebi:62888	Pyrophosphorsäure-monoallylester	[]
+chebi:63040	Ammoniumiodid	[]
+chebi:63088	Purin-6-carbonsäureamid	"[""Purin-6-carboxamid""]"
+chebi:63093	Purin-6-carbonsäure	[]
+chebi:63623	meso-2,3-Dimercaptobernsteinsäure	[]
+chebi:63816	4-Azetaminosalizylsaeure	[]
+chebi:63845	Sulfanilazetamid	[]
+chebi:64213	Kantharidin	[]
+chebi:64243	Natrium L-hydrogenglutamat	"[""Natriumglutaminat""]"
+chebi:64318	Ergotamin	[]
+chebi:65242	Natriumchlorat	[]
+chebi:6605	Lysergsäurediethylamid	"[""Lysergsäurediäthylamid""]"
+chebi:6637	Magnesiumhydroxid	[]
+chebi:6650	Äpfelsäure	[]
+chebi:6673	8,9-Methylen-8-heptadecensäure	"[""Malvalsäure""]"
+chebi:6717	Mefenaminsaeure	[]
+chebi:6754	pethidin	[]
+chebi:6775	p-Aminosalicylsaeure	[]
+chebi:6824	Hexamethylentetramin	[]
+chebi:6872	Methylenblau	[]
+chebi:6888	Methylprednisolon	[]
+chebi:70996	Gitaloxigenin-tridigitoxosid	[]
+chebi:71000	Evomonosid	[]
+chebi:71240	Natrium pyrophosphat	[]
+chebi:71417	Procarbazin	[]
+chebi:71464	Palmitinsaeure-beta-hydroxyethylamid	[]
+chebi:73171	α-Cyclopropyl-4-methoxy-α-(pyrimidin-5-yl)benzylalkohol	"[""α-cyclopropyl-α-(4-methoxyphenyl)-5-pyrimidinemethanol""]"
+chebi:73224	Allylsenfoel	"[""Senf oel""]"
+chebi:73755	1,2-Dimethylhydrazin	[]
+chebi:74460	5-Chlor-7-jod-8-hydroxy-chinolin	[]
+chebi:74514	6-Aminonikotinsaeureamid	[]
+chebi:7476	(+)-2-(Methoxy-2-naphthyl)-propionsäure	[]
+chebi:74856	Antimontrichlorid	[]
+chebi:74875	N-(Dichlor-fluor-methyl-thio)-N',N'-dimethyl-N-phenylschwefel-saeurediamid	[]
+chebi:7488	Pimarizin	[]
+chebi:74889	N-Dodecylguanidineacetat	[]
+chebi:7492	9-Ethyl-6,9-dihydro-4,6-dioxo-10-propyl-4H-pyrano(3,2-g)chinolin-2,8-dicarbonsäure	[]
+chebi:75176	α-(Chlormethyl)-2-methyl-5-nitro-imidazol-1-aethanol	[]
+chebi:75215	Natriummolybdat	[]
+chebi:75648	4-(4'-Nitroazophenyl)anilin	"[""4-[(4-Nitrophenyl)azo]benzenamin""]"
+chebi:7565	4-(2'-Nitrophenyl)-2,6-dimethyl-1,4-dihydropyridin-3,5-dicarbonsäuredimethylester	[]
+chebi:75899	Eisen(III)-sulfid	[]
+chebi:75915	(2-Amino-3-benzoylphenyl)essigsaeure	[]
+chebi:76119	Bumadizon	[]
+chebi:7627	Norethisteron	[]
+chebi:76326	N-nitrosomorpholin	[]
+chebi:76329	3'-Methylbuttergelb	"[""3'-Methyldimethylaminoazobenzol""]"
+chebi:76343	4-Acetylaminofluoren	[]
+chebi:76394	1,4-Diaminonitrobenzol	[]
+chebi:76503	2,3-Dihydroxypropylbutyrat	[]
+chebi:77086	Lauroyl-L(-)-carnitin	[]
+chebi:77699	Methylformiat	[]
+chebi:77700	AcOMe	"[""CH3CO2CH3"", ""CH3COOCH3"", ""MeOAc"", ""Methylacetat""]"
+chebi:77761	Piperidon	[]
+chebi:77775	Natriumseleniat	[]
+chebi:77995	Bathophenanthrolin	[]
+chebi:7815	Oxalbernsteinsäure	[]
+chebi:78410	Heneicosylalkohol	"[""n-Heneikosylalkohol""]"
+chebi:78427	n-Pentakosylalkohol	"[""Pentacosylalkohol""]"
+chebi:78673	Cumolhydroperoxid	[]
+chebi:78757	Cystinamin	[]
+chebi:78870	Natrium nitrit	[]
+chebi:8069	Phenylethylbarbitursäure	"[""Phenyläthylbarbitursäure""]"
+chebi:8070	Phenyl-äthyl-barbitursäure natrium	[]
+chebi:8075	Phenoxyessigsäure	[]
+chebi:8108	Phäophytin	[]
+chebi:81696	4-Amino-benzolsulfonyl-methylcarbamat	[]
+chebi:81761	5-Aethoxy-3-trichlormethyl-1,2,4-thiadiazol	"[""5-ethoxy-3-trichloromethyl-1,2,4-thiadiazole""]"
+chebi:81842	2,3-Dicarbonitrilo-1,4-diathiaanthrachinon	[]
+chebi:81918	Acetoxy-triphenyl-stannan	"[""Fentin azetat"", ""Triphenyl-zinnacetat""]"
+chebi:81931	Metaldehyd	[]
+chebi:81934	Di-natrium-aethylenbisdithiocarbamat	"[""Dinatrium-(N,N'-aethylen-bis(dithiocarbamat))""]"
+chebi:81952	2-Äthylamino-5-butyl-4-yl-dimethylsulfamat	[]
+chebi:82019	N-(Trichlor-methylthio)-phthalamid	[]
+chebi:82044	2,3,5,6-Tetrachlor-1-nitrobenzol	"[""2,3,5,6-tetrachloronitrobenzene"", ""Tecnazen""]"
+chebi:82060	Thiophanat	[]
+chebi:82076	2-(2-Chloranilin)-4,6-dichlor-1,3,5-triazin	[]
+chebi:82235	2,3,6-Trichlorphenylessigsaeure	[]
+chebi:82363	Nitroso sarkosin	[]
+chebi:8249	4-Hydroxy-2-methyl-N-(2-pyridyl)-2H-1,2-benzothiazin-3-caboxyamid-1,1-dioxid	[]
+chebi:8426	4-(Di-n-propylsulfamoyl)benzoesäure	"[""4-(N,N-Dipropylsulfamoyl)benzoesäure""]"
+chebi:8466	Propafenon hydrochlorid	[]
+chebi:84838	Iso-butyryl-L(-)-carnitin	[]
+chebi:85103	Phenylsenfoel	[]
+chebi:85131	3-(1-Cyanethyl)benzoesäure	[]
+chebi:85161	palonosetron	[]
+chebi:85259	Diaethylamin	[]
+chebi:86228	2,2'-Dinitro-5,5'-dithiodibenzoesäure	[]
+chebi:8638	Octadeca-9c,11t,13c-triensäure	[]
+chebi:87065	Lichtgruen	[]
+chebi:87647	Toluidinblau	[]
+chebi:87663	Parafuchsin	[]
+chebi:87732	3-(alpha-phenyl-beta-acetylaethyl)-4-hydroxycumarin	"[""4-Hydroxy-3-(3-oxo-1-phenyl-butyl)-cumarin""]"
+chebi:88063	1,2,4-Butantriol	[]
+chebi:88373	3-Methylpentan	[]
+chebi:888	2,3-Dimercaptopropan-1-sulfonsaeure	[]
+chebi:9014	Disalicylsäure	"[""O-Salicylcylsalicylsäure""]"
+chebi:91261	l-Apfelsaure als natrium salz	[]
+chebi:9261	8-(2-Octyl-cycloprop-1-enyl)-octansäure	"[""Sterculia-Säure"", ""Sterculinsäure""]"
+chebi:9288	N-D-Glucosyl-(2)-N'-nitrosomethylharnstoff	[]
+chebi:9300	Korksäure	"[""Oktandisäure"", ""Suberinsäure""]"
+chebi:9330	Amidoschwefelsäure	"[""Sulfamidsäure""]"
+chebi:9337	2-Sulfanilamidothiazol	[]
+chebi:9362	2-(4-(2-Thenoyl)phenyl)propionsäure	"[""4-(2-Thenoyl)hydratropsäure""]"
+chebi:9457	Terpinolen	[]
+chebi:9468	Diäthylaminoäthanol ester der p-butylaminobenzösäure	[]
+chebi:949	2,6-Dichlor-thiobenzamid	[]
+chebi:9495	Bis(dimethyl-thiocarbamoyl)-disulfid	"[""Tetramethyl-thiram disulfid""]"
+chebi:9513	N-Phthalyl-glutaminsaeure-imid	[]
+chebi:9577	Thujon	[]
+chebi:9590	4-(2-Theonyl)-2,3-dichlorphenoxyessigsäure	[]
+chebi:9592	Tiglinsäure	[]
+chebi:9611	2-Amino-N-(2,6-dimethylphenyl)propionamid	[]
+chebi:9652	Tranylcypromin	[]
+citric-acid	Citronensäure	[]
+fructose	Lävulose	[]
+glucose	Traubenzucker	[]
+glycine	Glycin	"[""Glykokoll"", ""Glyzin"", ""Leimzucker""]"
+k-acetate	Kaliumazetat	[]
+k2co3	Kaliumcarbonat	[]
+kno3	Kaliumnitrat	[]
+koh	Kaliumhydroxid	"[""Ätzkali""]"
+lactose	Laktobiose	"[""Laktose"", ""Milchzucker""]"
+licl	Lithiumchlorid	[]
+lioh	Lithiumhydroxid	[]
+maltose	Malzzucker	[]
+mes	2-(N-Morpholino)ethansulfonsäure	"[""2-(N-Morpholino)äthansulfonsäure""]"
+mgcl2	Magnesiumchlorid	[]
+mncl2	Mangandichlorid	[]
+na-acetate	Natriumazetat	[]
+na-azide	Natriumazid	[]
+na-citrate-2h2o	Citronensäure,Trinatrium-Salz-Dihydrat	[]
+na2so3	Natriumsulfid	[]
+na2so4-10h2o	Glaubersalz	[]
+na3po4	tertiäres Natriumphosphat(V)	"[""Trinatriumphosphat""]"
+nabr	Bromnatrium	[]
+nacl	Kochsalz	"[""Natriumchlorid""]"
+nahco3	Natriumhydrogenkarbonat	[]
+naoh	Natriumhydroxid	"[""Ätznatron""]"
+sorbitol	D-Sorbit	[]
+sucrose	Sacharose	[]
+urea	Harnstoff	"[""Karbamid""]"
+zncl2	Zinkchlorid	[]

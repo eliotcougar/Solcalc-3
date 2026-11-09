@@ -38,6 +38,11 @@ jobs:
           key: cargo-${{ runner.os }}-${{ hashFiles('rust-toolchain.toml', 'Cargo.lock') }}
       - name: Format, lint, test and build
         run: ./build.ps1 -Check
+      - name: Validate dependency notices
+        run: |
+          . ./tools/env.ps1
+          python tools/update-notices.py --check
+          if ($LASTEXITCODE) { exit $LASTEXITCODE }
 
   catalog:
     name: Catalog validation
@@ -51,3 +56,4 @@ jobs:
         with:
           python-version: '3.14'
       - run: python tools/generate-catalog.py --check
+      - run: python -m unittest discover -s tests -v

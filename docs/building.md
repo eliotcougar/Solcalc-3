@@ -62,9 +62,18 @@ sources, regenerate and validate with Python 3.10+:
 ```powershell
 python tools/generate-catalog.py
 python tools/generate-catalog.py --check
+python -m unittest discover -s tests -v
 ```
 
 See [catalog schemas, locales and provenance](../data/README.md).
+The normalized ChEBI sources are committed, so normal builds and checks do not
+download ChEBI or contact PubChem. To update a ChEBI release, download the official
+flat files into a working directory and run `tools/import-chebi.py --input-dir`
+with that directory, then regenerate the catalogs. The manifest records release
+and input hashes; curated sources and user profiles are never importer outputs.
+
+After changing Cargo dependencies, run `python tools/update-notices.py` in the
+same build environment after `cargo fetch` to regenerate distribution notices.
 `tools/generate-icon.ps1` rebuilds small-icon frames using ImageMagick; ordinary
 builds use the checked-in icon assets. The original Python app and large icon
 are preserved under `solcalc2/`.
