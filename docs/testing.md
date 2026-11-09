@@ -11,10 +11,10 @@ substance search and CAS merging, optional fields, user persistence and deletion
 optimistic concurrency, additive migrations, WAL-aware backups, and rollback.
 Tests use synthetic inputs and temporary database directories.
 
-ChEBI preservation checks verify every original identity, name, formula and mass,
-Russian locale retention, added searches and bounded result lists. Importer
+ChEBI checks verify English identities, names, formulas and masses against the
+bundled source, Russian locale matching and bounded result lists. Importer
 fixtures cover fixed formulas/hydrates, average versus monoisotopic mass,
-language separation, invalid CAS values, and curated-record precedence.
+language separation, invalid CAS values and chemical-form matching for translations.
 
 PubChem tests use synthetic JSON and a loopback HTTP server: query encoding,
 candidate/response limits, invalid masses, CAS ambiguity, cancellation, HTTP
@@ -33,7 +33,7 @@ external service and network connectivity. Failed HTTPS verification is reported
 certificate checks are never disabled to make a test pass.
 
 `python tools/generate-catalog.py --check` independently validates source columns,
-CAS checksums and uniqueness, formula-derived masses, locale references, database
+CAS checksums, unique ChEBI IDs, finite source masses, fixed formulas, locale references, database
 schema/application IDs, row contents and SQLite integrity. Its result comparison
 does not depend on the SQLite binary encoding produced by a particular machine.
 Run importer tests with `python -m unittest discover -s tests -v`.

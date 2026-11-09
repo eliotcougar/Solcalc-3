@@ -163,43 +163,9 @@ pub struct SearchResults {
 }
 impl Catalog {
     pub fn bundled(locale: &str) -> user_db::Result<Self> {
-        let core = embedded(include_bytes!("../data/bundled/main.en.sqlite"), 0x534F4C43)?;
-        let mut stmt = core
-            .prepare("SELECT id,cas,formula,name,molar_mass,synonyms FROM substances ORDER BY id")
-            .map_err(|e| e.to_string())?;
-        let mut entries = stmt
-            .query_map([], |r| {
-                Ok(Substance {
-                    id: format!("bundled:{}", r.get::<_, String>(0)?),
-                    cas: r.get(1)?,
-                    cas_numbers: vec![r.get(1)?],
-                    source: "Solcalc".into(),
-                    formula: r.get(2)?,
-                    name_en: r.get(3)?,
-                    fallback_name: String::new(),
-                    molar_mass: r.get(4)?,
-                    synonyms_en: r.get(5)?,
-                    locale: locale.into(),
-                    local_name: String::new(),
-                    local_synonyms: String::new(),
-                    user_id: None,
-                    user_revision: None,
-                    keys: vec![],
-                    formula_key: String::new(),
-                    cas_keys: vec![],
-                    sort_key: String::new(),
-                    sort_key_en: String::new(),
-                })
-            })
-            .map_err(|e| e.to_string())?
-            .collect::<rusqlite::Result<Vec<_>>>()
-            .map_err(|e| e.to_string())?;
-        let chebi = embedded(
-            include_bytes!("../data/bundled/chebi.en.sqlite"),
-            0x534F4C43,
-        )?;
+        let chebi = embedded(include_bytes!("../data/bundled/main.en.sqlite"), 0x534F4C43)?;
         let mut extra = chebi.prepare("SELECT id,cas,formula,name,molar_mass,synonyms,cas_numbers FROM substances ORDER BY id").map_err(|e|e.to_string())?;
-        let imported = extra
+        let mut entries = extra
             .query_map([], |r| {
                 let id: String = r.get(0)?;
                 let numbers: String = r.get(6)?;
@@ -225,36 +191,6 @@ impl Catalog {
             .map_err(|e| e.to_string())?
             .collect::<rusqlite::Result<Vec<_>>>()
             .map_err(|e| e.to_string())?;
-        entries.extend(imported);
-        let aliases = embedded(
-            include_bytes!("../data/bundled/chebi.aliases.sqlite"),
-            0x534F4C43,
-        )?;
-        let mut alias_query = aliases
-            .prepare("SELECT substance_id,source_id,synonyms,cas_numbers FROM aliases")
-            .map_err(|e| e.to_string())?;
-        let aliases = alias_query
-            .query_map([], |r| {
-                Ok((
-                    r.get::<_, String>(0)?,
-                    r.get::<_, String>(1)?,
-                    r.get::<_, String>(2)?,
-                    r.get::<_, String>(3)?,
-                ))
-            })
-            .map_err(|e| e.to_string())?;
-        for row in aliases {
-            let (id, source, synonyms, numbers) = row.map_err(|e| e.to_string())?;
-            if let Some(entry) = entries.iter_mut().find(|e| e.id == format!("bundled:{id}")) {
-                entry.synonyms_en =
-                    join_aliases(&entry.synonyms_en, &format!("{source};{synonyms}"));
-                for number in numbers.split(';').filter(|s| !s.is_empty()) {
-                    if !entry.cas_numbers.iter().any(|s| s == number) {
-                        entry.cas_numbers.push(number.into());
-                    }
-                }
-            }
-        }
         for locales in [bundled::LOCALES, bundled::CHEBI_LOCALES] {
             if let Some((_, bytes)) = locales.iter().find(|(code, _)| *code == locale) {
                 let localized = embedded(bytes, 0x534F4C4C)?;
@@ -438,13 +374,7 @@ impl Catalog {
         let total = hits.len();
         let key = |(rank, i): &(u8, usize)| {
             let entry = &self.entries[*i];
-            let priority = if entry.user_id.is_some() {
-                0
-            } else if entry.source == "Solcalc" {
-                1
-            } else {
-                2
-            };
+            let priority = if entry.user_id.is_some() { 0 } else { 1 };
             (
                 *rank,
                 priority,
@@ -517,7 +447,7 @@ mod tests {
         &catalog.entries[catalog.search(q, Language::Ru)[0]]
     }
     #[test]
-    fn chebi_search_preserves_every_curated_identity_and_limits_large_lists() {
+    fn chebi_is_the_english_authority_and_search_limits_large_lists() {
         let catalog = Catalog::bundled("ru").unwrap();
         let core = embedded(include_bytes!("../data/bundled/main.en.sqlite"), 0x534F4C43).unwrap();
         let mut query = core
@@ -534,15 +464,20 @@ mod tests {
                 ))
             })
             .unwrap();
+        let entries: HashMap<_, _> = catalog.entries.iter().map(|e| (e.id.as_str(), e)).collect();
         for row in rows {
             let (id, cas, formula, name, mass) = row.unwrap();
-            let entry = catalog.find(&format!("bundled:{id}")).unwrap();
+            let entry = entries[format!("bundled:{id}").as_str()];
             assert_eq!(
                 (&entry.cas, &entry.formula, &entry.name_en, entry.molar_mass),
                 (&cas, &formula, &name, mass)
             );
-            assert!(!entry.local_name.is_empty());
+            assert_eq!(entry.source, id.to_uppercase());
         }
+        let salt = first(&catalog, "CHEBI:26710");
+        assert_eq!(salt.name_en, "sodium chloride");
+        assert_eq!(salt.molar_mass, 58.443);
+        assert_eq!(salt.name(Language::Ru), "Хлорид натрия");
         let caffeine = first(&catalog, "CHEBI:27732");
         assert_eq!(caffeine.cas, "58-08-2");
         assert_eq!(caffeine.formula, "C8H10N4O2");
@@ -662,18 +597,13 @@ mod tests {
         let en = Catalog::bundled("en").unwrap();
         let ru = Catalog::bundled("ru").unwrap();
         let unknown = Catalog::bundled("zz").unwrap();
-        assert_eq!(en.entries.len(), 104099);
+        assert_eq!(en.entries.len(), 104087);
         assert_eq!(ru.entries.len(), en.entries.len());
-        assert_eq!(
-            en.entries.iter().filter(|e| e.source == "Solcalc").count(),
-            131
-        );
-        let mut cas = std::collections::HashSet::new();
+        assert!(en
+            .entries
+            .iter()
+            .all(|e| e.source.starts_with("CHEBI:") && e.id.starts_with("bundled:chebi:")));
         for e in &en.entries {
-            if e.source == "Solcalc" {
-                assert!(user_db::valid_cas(&e.cas));
-                assert!(cas.insert(&e.cas));
-            }
             assert!(e.cas_numbers.iter().all(|n| user_db::valid_cas(n)));
             assert!(!e.name_en.is_empty() && !e.formula.is_empty());
             assert!(e.molar_mass.is_finite() && e.molar_mass > 0.0);
@@ -683,20 +613,12 @@ mod tests {
         assert_eq!(first(&ru, "медный купорос").cas, "7758-99-8");
         assert_eq!(
             first(&unknown, "Epsom salt").name(Language::En),
-            "Magnesium sulfate heptahydrate"
+            "magnesium sulfate heptahydrate"
         );
-        assert!(unknown
-            .entries
-            .iter()
-            .filter(|e| e.source == "Solcalc")
-            .all(|e| e.local_name.is_empty()));
         assert!(unknown.entries.iter().all(|e| e.local_name.is_empty()));
         let masses: HashMap<_, _> = en.entries.iter().map(|e| (&e.id, e.molar_mass)).collect();
         for e in &ru.entries {
             assert_eq!(e.molar_mass, masses[&e.id]);
-            if e.source == "Solcalc" {
-                assert!(!e.local_name.is_empty());
-            }
         }
     }
     #[test]
@@ -713,8 +635,8 @@ mod tests {
         ] {
             assert_eq!(first(&c, q).cas, cas, "{q}");
         }
-        assert_eq!(first(&c, "MgSO4").molar_mass, 120.361);
-        assert_eq!(first(&c, "MgSO4.7H2O").formula_display(), "MgSO₄·7H₂O");
+        assert_eq!(first(&c, "MgSO4").molar_mass, 120.368);
+        assert_eq!(first(&c, "MgSO4.7H2O").formula_display(), "7H₂O.Mg.O₄S");
         let mut isotope = first(&c, "NaCl").clone();
         isotope.formula = "[13C]6H12O6".into();
         assert_eq!(isotope.formula_display(), "[13C]₆H₁₂O₆");

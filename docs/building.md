@@ -70,7 +70,8 @@ The normalized ChEBI sources are committed, so normal builds and checks do not
 download ChEBI or contact PubChem. To update a ChEBI release, download the official
 flat files into a working directory and run `tools/import-chebi.py --input-dir`
 with that directory, then regenerate the catalogs. The manifest records release
-and input hashes; curated sources and user profiles are never importer outputs.
+and input hashes. ChEBI is the sole bundled English chemical source; translations
+and user profiles are independent and are never importer outputs.
 
 After changing Cargo dependencies, run `python tools/update-notices.py` in the
 same build environment after `cargo fetch` to regenerate distribution notices.

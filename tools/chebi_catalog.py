@@ -4,6 +4,8 @@ import json
 import math
 from pathlib import Path
 import sqlite3
+from collections import defaultdict
+from chemical_formula import atom_counts, fixed_formula
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -11,6 +13,38 @@ ROOT = Path(__file__).resolve().parents[1]
 def read(path):
     with path.open(encoding='utf-8', newline='') as file:
         return list(csv.DictReader(file, delimiter='\t'))
+
+
+def localizations(rows, records):
+    """Attach locale text by ChEBI ID or CAS/composition, without chemical overrides."""
+    by_cas = defaultdict(list)
+    identities = {record[0] for record in records}
+    for identity, _, formula, _, _, _, numbers in records:
+        for cas in numbers.split(';'):
+            if cas:
+                by_cas[cas].append((identity, formula))
+    translated = {}
+    matched = 0
+    # Specific ID translations take precedence; broader CAS names become aliases.
+    for row in sorted(rows, key=lambda r: not bool(r.get('substance_id'))):
+        identity = row.get('substance_id')
+        if identity:
+            assert identity in identities, identity
+            targets = [identity]
+        else:
+            composition = atom_counts(row['formula'])
+            targets = [identity for identity, formula in by_cas[row['cas']]
+                       if composition is not None and composition == atom_counts(formula)]
+        matched += bool(targets)
+        for identity in targets:
+            if identity not in translated:
+                translated[identity] = [row['name'], []]
+            name, aliases = translated[identity]
+            for alias in [row['name'], *row['synonyms'].split(';')]:
+                if alias and alias != name and alias not in aliases:
+                    aliases.append(alias)
+    return [(identity, name, ';'.join(aliases)) for identity, (name, aliases)
+            in sorted(translated.items())], matched
 
 
 def save(path, schema, metadata, table, columns, records, check, application=0x534F4C43):
@@ -33,7 +67,7 @@ def save(path, schema, metadata, table, columns, records, check, application=0x5
     expected.close()
 
 
-def build(check, valid_cas, curated_cas):
+def build(check, valid_cas):
     source = ROOT / 'data/source/chebi'
     manifest = json.loads((source / 'manifest.json').read_text(encoding='utf-8'))
     rows = read(source / 'main.en.tsv')
@@ -48,33 +82,18 @@ def build(check, valid_cas, curated_cas):
         assert isinstance(cas_numbers, list) and len(cas_numbers) == len(set(cas_numbers))
         for cas in cas_numbers:
             valid_cas(cas)
-            assert cas not in curated_cas, (identity, cas)
         assert row['cas'] == (cas_numbers[0] if cas_numbers else '')
         synonyms = json.loads(row['synonyms'])
         assert isinstance(synonyms, list) and all(isinstance(s, str) and s for s in synonyms)
         mass = float(row['molar_mass'])
-        assert row['name'] and row['formula'] and math.isfinite(mass) and mass > 0
+        assert row['name'] and fixed_formula(row['formula']) and math.isfinite(mass) and mass > 0
         records.append(('chebi:' + identity, row['cas'], row['formula'], row['name'], mass,
                         ';'.join(synonyms), ';'.join(cas_numbers)))
     metadata = {'locale': 'en', 'catalog_version': manifest['release'], 'source': 'ChEBI', 'license': 'CC-BY-4.0'}
-    save(ROOT / 'data/bundled/chebi.en.sqlite',
+    save(ROOT / 'data/bundled/main.en.sqlite',
          'CREATE TABLE substances(id TEXT PRIMARY KEY,cas TEXT NOT NULL,formula TEXT NOT NULL,'
          'name TEXT NOT NULL,molar_mass REAL NOT NULL CHECK(molar_mass>0),synonyms TEXT NOT NULL,cas_numbers TEXT NOT NULL);',
          metadata, 'substances', ['id', 'cas', 'formula', 'name', 'molar_mass', 'synonyms', 'cas_numbers'], records, check)
-    curated = {r['id'] for r in read(ROOT / 'data/source/main.en.tsv')}
-    links = read(source / 'curated-links.tsv')
-    assert len(links) == manifest['curated_alias_links']
-    alias_records = []
-    for row in links:
-        assert row['substance_id'] in curated and row['chebi_id'].isdigit()
-        numbers = json.loads(row['cas_numbers'])
-        for cas in numbers: valid_cas(cas)
-        synonyms = json.loads(row['synonyms'])
-        assert all(isinstance(s, str) and s for s in synonyms)
-        alias_records.append((row['substance_id'], 'CHEBI:' + row['chebi_id'], ';'.join(synonyms), ';'.join(numbers)))
-    save(ROOT / 'data/bundled/chebi.aliases.sqlite',
-         'CREATE TABLE aliases(substance_id TEXT NOT NULL,source_id TEXT PRIMARY KEY,synonyms TEXT NOT NULL,cas_numbers TEXT NOT NULL);',
-         metadata, 'aliases', ['substance_id', 'source_id', 'synonyms', 'cas_numbers'], alias_records, check)
     index = ['pub const CHEBI_LOCALES: &[(&str, &[u8])] = &[']
     for path in sorted((source / 'locales').glob('*.tsv')):
         locale = path.stem
@@ -84,7 +103,7 @@ def build(check, valid_cas, curated_cas):
         values = []
         for row in translated:
             target = row['substance_id']
-            assert (target in curated or target.removeprefix('chebi:') in identities) and row['name']
+            assert target.startswith('chebi:') and target.removeprefix('chebi:') in identities and row['name']
             synonyms = json.loads(row['synonyms'])
             assert all(isinstance(s, str) and s for s in synonyms)
             values.append((target, row['name'], ';'.join(synonyms)))
@@ -94,4 +113,4 @@ def build(check, valid_cas, curated_cas):
         index.append(f'    ("{locale}", include_bytes!(concat!(env!("CARGO_MANIFEST_DIR"), "/data/bundled/chebi-locales/{locale}.sqlite"))),')
     index.append('];')
     print(f"ChEBI release {manifest['release']}: {len(records)} fixed-composition substances; {len(manifest['locales'])} locale(s)")
-    return index
+    return index, records

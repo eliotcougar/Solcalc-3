@@ -599,7 +599,8 @@ mod tests {
         let after = crate::substances::Catalog::load("ru", &path).unwrap();
         let original = after.entries.iter().find(|e| e.cas == "50-99-7").unwrap();
         assert_eq!(original.user_id, None);
-        assert_eq!(original.name_en, "D-Glucose, anhydrous");
+        assert_eq!(original.name_en, "glucose");
+        assert!(original.source.starts_with("CHEBI:"));
         assert!(after
             .search("test alias", crate::settings::Language::Ru)
             .is_empty());

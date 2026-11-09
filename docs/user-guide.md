@@ -90,10 +90,8 @@ stays in U/mg.
 ## Substance database
 
 Click **Substance… / Вещество…** in Mass / volume or in the Preparation section
-of Stock preparation. The development catalog contains **104,099 substances**:
-the original 131 salts, hydroxides, sugars, buffers and hydrate forms, plus
-103,968 fixed-composition ChEBI entries. Original values and Russian names are
-preserved. New entries have English names, formulas, average molar masses,
+of Stock preparation. The development catalog contains **104,087 ChEBI substances**.
+ChEBI supplies all bundled English names, formulas, average molar masses,
 synonyms and CAS cross-references where supplied. Missing translations fall
 back to English; new names are not automatically translated.
 
@@ -115,12 +113,17 @@ retained separately. Manual changes to molar mass clear that calculator's
 substance label. Selection is not saved after closing. Theme and language
 also apply to the picker.
 
-The bundled catalog consists of separate curated and ChEBI English/chemical
-SQLite databases, with independent locale databases. Only English and the
+The details pane wraps long contents, supports vertical scrolling and copying,
+and grows when you resize or maximize the picker.
+
+The bundled catalog consists of a ChEBI English/chemical SQLite database,
+with independent locale databases. Only English and the
 selected locale are opened and combined. Missing translations fall back to English.
 The files are embedded in the executable and replaced with app updates;
-they are never copied over user records. Bundled molar masses are calculated
-from CIAAW 2024 abridged atomic weights, including water of crystallization.
+they are never copied over user records. Bundled molar masses are ChEBI's
+supplied average masses. Russian names/synonyms are matched by CAS and chemical
+composition; translations with no matching ChEBI form are retained in the locale
+source for future catalog updates.
 
 **Add… / Добавить…** opens the user-substance editor. Only a molar mass and
 at least one name are required: the English name or a name in the active
