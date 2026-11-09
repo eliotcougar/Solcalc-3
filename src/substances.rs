@@ -102,7 +102,8 @@ impl Substance {
         self.formula
             .chars()
             .map(|c| {
-                if matches!(c, '·' | '.' | '*') {
+                // Bracketed isotope numbers are labels, not atom counts.
+                if matches!(c, '·' | '.' | '*' | '[') {
                     coefficient = true;
                 } else if !c.is_ascii_digit() {
                     coefficient = false;
@@ -714,6 +715,9 @@ mod tests {
         }
         assert_eq!(first(&c, "MgSO4").molar_mass, 120.361);
         assert_eq!(first(&c, "MgSO4.7H2O").formula_display(), "MgSO₄·7H₂O");
+        let mut isotope = first(&c, "NaCl").clone();
+        isotope.formula = "[13C]6H12O6".into();
+        assert_eq!(isotope.formula_display(), "[13C]₆H₁₂O₆");
         assert_eq!(
             c.search("трёхводный", Language::Ru),
             c.search("трехводный", Language::Ru)
