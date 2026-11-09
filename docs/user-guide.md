@@ -90,7 +90,7 @@ stays in U/mg.
 ## Substance database
 
 Click **Substance… / Вещество…** in Mass / volume or in the Preparation section
-of Stock preparation. The development catalog contains **104,087 ChEBI substances**.
+of Stock preparation. The offline catalog contains **104,087 ChEBI substances**.
 ChEBI supplies all bundled English names, formulas, average molar masses,
 synonyms and CAS cross-references where supplied. Missing translations fall
 back to English; new names are not automatically translated.
