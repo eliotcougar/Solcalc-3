@@ -1,6 +1,10 @@
 //! Native, owned substance picker with incremental offline search.
 use crate::{
-    calc, i18n, settings::Language, substance_editor, substances::Catalog, theme, user_db,
+    calc, i18n, pubchem,
+    settings::Language,
+    substance_editor,
+    substances::{Catalog, Substance},
+    theme, user_db,
 };
 use std::{
     cell::RefCell,
@@ -32,10 +36,14 @@ struct Picker {
     user_path: Option<PathBuf>,
     dark: bool,
     last_query: String,
+    online: bool,
+    pending: Option<pubchem::Pending>,
+    imported: Option<i64>,
 }
 pub struct Choice {
     pub catalog: Catalog,
     pub selected: Option<String>,
+    pub imported: Option<i64>,
 }
 impl Picker {
     fn s(&self, n: i32) -> i32 {
@@ -96,9 +104,30 @@ impl Picker {
             1,
             100,
             14,
-            640,
+            500,
             30,
             WS_TABSTOP | ES_AUTOHSCROLL as u32,
+        );
+        self.control(
+            "BUTTON",
+            lang.choose(
+                if self.online {
+                    "&Search"
+                } else {
+                    "&PubChem…"
+                },
+                if self.online {
+                    "&Найти"
+                } else {
+                    "&PubChem…"
+                },
+            ),
+            29,
+            612,
+            14,
+            128,
+            30,
+            WS_TABSTOP,
         );
         SendMessageW(self.get(1), EM_SETLIMITTEXT, 200, 0);
         SendMessageW(
@@ -130,40 +159,53 @@ impl Picker {
         SendMessageW(self.get(2), LB_SETITEMHEIGHT, 0, self.s(54) as isize);
         self.control("STATIC", "", 3, 20, 394, 720, 74, SS_NOPREFIX);
         self.control("STATIC", "", 4, 20, 374, 720, 22, 0);
+        if !self.online {
+            self.control(
+                "BUTTON",
+                lang.choose("&Add…", "&Добавить…"),
+                26,
+                20,
+                480,
+                110,
+                32,
+                WS_TABSTOP,
+            );
+            self.control(
+                "BUTTON",
+                lang.choose("&Edit / customize…", "&Изменить…"),
+                27,
+                142,
+                480,
+                170,
+                32,
+                WS_TABSTOP,
+            );
+            EnableWindow(self.get(26), i32::from(self.user_path.is_some()));
+            self.control(
+                "BUTTON",
+                lang.choose("&Delete", "&Удалить"),
+                28,
+                324,
+                480,
+                116,
+                32,
+                WS_TABSTOP,
+            );
+        }
         self.control(
             "BUTTON",
-            lang.choose("&Add…", "&Добавить…"),
-            26,
-            20,
-            480,
-            110,
-            32,
-            WS_TABSTOP,
-        );
-        self.control(
-            "BUTTON",
-            lang.choose("&Edit / customize…", "&Изменить…"),
-            27,
-            142,
-            480,
-            170,
-            32,
-            WS_TABSTOP,
-        );
-        EnableWindow(self.get(26), i32::from(self.user_path.is_some()));
-        self.control(
-            "BUTTON",
-            lang.choose("&Delete", "&Удалить"),
-            28,
-            324,
-            480,
-            116,
-            32,
-            WS_TABSTOP,
-        );
-        self.control(
-            "BUTTON",
-            lang.choose("&Use substance", "&Выбрать"),
+            lang.choose(
+                if self.online {
+                    "&Import…"
+                } else {
+                    "&Use substance"
+                },
+                if self.online {
+                    "&Импорт…"
+                } else {
+                    "&Выбрать"
+                },
+            ),
             24,
             452,
             480,
@@ -182,12 +224,29 @@ impl Picker {
             WS_TABSTOP,
         );
         self.filter(initial);
+        if self.online {
+            self.show_hits(vec![], 0, None);
+            self.label(4, "");
+        }
     }
-    unsafe fn filter(&mut self, preferred: Option<usize>) {
+    unsafe fn query(&self) -> String {
         let edit = self.get(1);
         let mut query = vec![0u16; GetWindowTextLengthW(edit).max(0) as usize + 1];
         let len = GetWindowTextW(edit, query.as_mut_ptr(), query.len() as i32);
-        let query = String::from_utf16_lossy(&query[..len.max(0) as usize]);
+        String::from_utf16_lossy(&query[..len.max(0) as usize])
+    }
+    unsafe fn filter(&mut self, preferred: Option<usize>) {
+        let query = self.query();
+        if self.online {
+            if query != self.last_query {
+                self.pending.take();
+                self.catalog.entries.clear();
+                self.show_hits(vec![], 0, None);
+                self.label(4, "");
+                self.last_query = query;
+            }
+            return;
+        }
         let preferred = preferred.or_else(|| {
             if query == self.last_query {
                 self.selected()
@@ -196,7 +255,22 @@ impl Picker {
             }
         });
         self.last_query = query.clone();
-        self.hits = self.catalog.search(&query, self.language);
+        let results = self.catalog.search_limited(&query, self.language, 300);
+        let mut hits = results.hits;
+        if query.trim().is_empty() {
+            if let Some(index) = preferred.filter(|i| *i < self.catalog.entries.len()) {
+                if !hits.contains(&index) {
+                    if hits.len() == 300 {
+                        hits.pop();
+                    }
+                    hits.push(index);
+                }
+            }
+        }
+        self.show_hits(hits, results.total, preferred);
+    }
+    unsafe fn show_hits(&mut self, hits: Vec<usize>, total: usize, preferred: Option<usize>) {
+        self.hits = hits;
         let list = self.get(2);
         SendMessageW(list, WM_SETREDRAW, 0, 0);
         SendMessageW(list, LB_RESETCONTENT, 0, 0);
@@ -239,6 +313,13 @@ impl Picker {
                 self.language
                     .choose("No substances found", "Ничего не найдено")
                     .to_owned()
+            } else if self.hits.len() < total {
+                format!(
+                    "{}: {} / {}",
+                    self.language.choose("Showing", "Показано"),
+                    self.hits.len(),
+                    total
+                )
             } else {
                 format!(
                     "{}: {}",
@@ -247,12 +328,67 @@ impl Picker {
                 )
             },
         );
-        EnableWindow(self.get(24), i32::from(!self.hits.is_empty()));
+        EnableWindow(
+            self.get(24),
+            i32::from(!self.hits.is_empty() && (!self.online || self.user_path.is_some())),
+        );
         EnableWindow(
             self.get(27),
             i32::from(!self.hits.is_empty() && self.user_path.is_some()),
         );
         self.details();
+    }
+    unsafe fn begin_lookup(&mut self) {
+        self.pending.take();
+        self.last_query = self.query();
+        self.catalog.entries.clear();
+        self.show_hits(vec![], 0, None);
+        match pubchem::start(self.last_query.clone()) {
+            Ok(pending) => {
+                self.pending = Some(pending);
+                self.label(
+                    4,
+                    self.language
+                        .choose("Searching PubChem…", "Поиск в PubChem…"),
+                );
+            }
+            Err(error) => {
+                self.label(4, self.language.choose("Search failed", "Ошибка поиска"));
+                self.label(3, &error.message(self.language));
+            }
+        }
+    }
+    unsafe fn poll_lookup(&mut self) {
+        let result = self.pending.as_ref().and_then(pubchem::Pending::poll);
+        if let Some(result) = result {
+            self.pending.take();
+            match result {
+                Ok(compounds) => {
+                    self.catalog.entries = compounds
+                        .into_iter()
+                        .map(|mut value| {
+                            value.record.locale = self.language.code().into();
+                            Substance::external(
+                                format!("pubchem:{}", value.cid),
+                                value.record,
+                                format!("PubChem CID {}", value.cid),
+                                value.cas_numbers,
+                            )
+                        })
+                        .collect();
+                    let total = self.catalog.entries.len();
+                    self.show_hits((0..total).collect(), total, None);
+                }
+                Err(error) => {
+                    self.label(
+                        4,
+                        self.language
+                            .choose("Could not fetch results", "Не удалось получить данные"),
+                    );
+                    self.label(3, &error.message(self.language));
+                }
+            }
+        }
     }
     unsafe fn selected(&self) -> Option<usize> {
         let selected = SendMessageW(self.get(2), LB_GETCURSEL, 0, 0);
@@ -276,10 +412,16 @@ impl Picker {
                     self.language.choose("Bundled database", "База приложения")
                 };
                 let mut lines = vec![if entry.cas.is_empty() {
-                    source.to_owned()
+                    format!("{source} · {}", entry.source)
                 } else {
-                    format!("CAS: {} · {source}", entry.cas)
+                    format!("CAS: {} · {source} · {}", entry.cas, entry.source)
                 }];
+                if self.online {
+                    lines[0] = entry.source.clone();
+                }
+                if entry.cas_numbers.len() > 1 {
+                    lines.push(format!("CAS: {}", entry.cas_numbers.join("; ")));
+                }
                 if self.language.code() != "en" && !entry.name_en.is_empty() {
                     lines.push(entry.name_en.clone());
                 }
@@ -410,13 +552,75 @@ unsafe extern "system" fn proc(hwnd: HWND, message: u32, w: WPARAM, l: LPARAM) -
     }
     if !matches!(
         message,
-        WM_CLOSE | WM_COMMAND | FILTER | DETAILS | WM_DRAWITEM | WM_ERASEBKGND | WM_PAINT
+        WM_CLOSE
+            | WM_COMMAND
+            | WM_TIMER
+            | FILTER
+            | DETAILS
+            | WM_DRAWITEM
+            | WM_ERASEBKGND
+            | WM_PAINT
     ) {
         return DefWindowProcW(hwnd, message, w, l);
     }
     let ptr = GetWindowLongPtrW(hwnd, GWLP_USERDATA) as *const RefCell<Picker>;
     if ptr.is_null() {
         return DefWindowProcW(hwnd, message, w, l);
+    }
+    if message == WM_COMMAND && w & 0xffff == 29 && (w >> 16) as u16 == BN_CLICKED as u16 {
+        let (online, language, dark, query, path) = {
+            let p = (*ptr).borrow();
+            (p.online, p.language, p.dark, p.query(), p.user_path.clone())
+        };
+        if online {
+            (*ptr).borrow_mut().begin_lookup();
+        } else {
+            let response = choose_impl(hwnd, language, dark, None, Some(query));
+            if let (Some(id), Some(path)) = (response.imported, path) {
+                match Catalog::load(language.code(), &path) {
+                    Ok(catalog) => {
+                        let preferred = catalog.entries.iter().position(|e| e.user_id == Some(id));
+                        let mut p = (*ptr).borrow_mut();
+                        p.catalog = catalog;
+                        p.hits.clear();
+                        SetWindowTextW(p.get(1), wide("").as_ptr());
+                        p.filter(preferred);
+                    }
+                    Err(error) => {
+                        MessageBoxW(
+                            hwnd,
+                            wide(&error).as_ptr(),
+                            wide("Solcalc").as_ptr(),
+                            MB_OK | MB_ICONERROR,
+                        );
+                    }
+                }
+            }
+        }
+        return 0;
+    }
+    let importing = message == WM_COMMAND
+        && matches!((w & 0xffff, (w >> 16) as u16), (24, 0) | (2, 2))
+        && (*ptr).borrow().online;
+    if importing {
+        let (language, dark, path, entry) = {
+            let mut p = (*ptr).borrow_mut();
+            p.filter(None); // Invalidate results if the user edited the query.
+            (
+                p.language,
+                p.dark,
+                p.user_path.clone(),
+                p.selected().map(|i| p.catalog.entries[i].clone()),
+            )
+        };
+        if let (Some(path), Some(entry)) = (path, entry) {
+            if let Some(saved) = substance_editor::edit(hwnd, language, dark, &path, Some(&entry)) {
+                let mut p = (*ptr).borrow_mut();
+                p.imported = Some(saved);
+                p.done = true;
+            }
+        }
+        return 0;
     }
     if message == WM_COMMAND && w & 0xffff == 28 && (w >> 16) as u16 == BN_CLICKED as u16 {
         // Release the picker borrow while the confirmation owns its modal loop.
@@ -526,6 +730,10 @@ unsafe extern "system" fn proc(hwnd: HWND, message: u32, w: WPARAM, l: LPARAM) -
         return DefWindowProcW(hwnd, message, w, l);
     };
     match message {
+        WM_TIMER => {
+            picker.poll_lookup();
+            0
+        }
         WM_CLOSE => {
             picker.done = true;
             0
@@ -572,11 +780,25 @@ pub unsafe fn choose(
     dark: bool,
     initial: Option<String>,
 ) -> Choice {
+    choose_impl(owner, language, dark, initial, None)
+}
+unsafe fn choose_impl(
+    owner: HWND,
+    language: Language,
+    dark: bool,
+    initial: Option<String>,
+    online_query: Option<String>,
+) -> Choice {
+    let online = online_query.is_some();
     let user_path = user_db::path();
-    let loaded = user_path
-        .as_ref()
-        .ok_or_else(|| "LOCALAPPDATA is unavailable".to_owned())
-        .and_then(|p| Catalog::load(language.code(), p));
+    let loaded = if online {
+        Ok(Catalog { entries: vec![] })
+    } else {
+        user_path
+            .as_ref()
+            .ok_or_else(|| "LOCALAPPDATA is unavailable".to_owned())
+            .and_then(|p| Catalog::load(language.code(), p))
+    };
     let catalog = match loaded {
         Ok(c) => c,
         Err(error) => {
@@ -627,6 +849,9 @@ pub unsafe fn choose(
         user_path,
         dark,
         last_query: String::new(),
+        online,
+        pending: None,
+        imported: None,
     }));
     let mut parent = zeroed();
     GetWindowRect(owner, &mut parent);
@@ -661,7 +886,12 @@ pub unsafe fn choose(
     let hwnd = CreateWindowExW(
         WS_EX_DLGMODALFRAME | WS_EX_CONTROLPARENT,
         class.as_ptr(),
-        wide(language.choose("Substances", "Вещества")).as_ptr(),
+        wide(if online {
+            language.choose("PubChem — online search", "PubChem — поиск в интернете")
+        } else {
+            language.choose("Substances", "Вещества")
+        })
+        .as_ptr(),
         style,
         x,
         y,
@@ -677,12 +907,21 @@ pub unsafe fn choose(
         return Choice {
             catalog: (*state).into_inner().catalog,
             selected: None,
+            imported: None,
         };
     }
     {
         let mut picker = state.borrow_mut();
         picker.hwnd = hwnd;
         picker.create(initial);
+        if let Some(query) = &online_query {
+            SetWindowTextW(picker.get(1), wide(query).as_ptr());
+            picker.filter(None);
+            if !query.trim().is_empty() {
+                picker.begin_lookup();
+            }
+            SetTimer(hwnd, 1, 100, None);
+        }
     }
     theme::title_bar(hwnd, dark);
     let icon = LoadImageW(
@@ -713,11 +952,18 @@ pub unsafe fn choose(
                     continue;
                 }
                 VK_RETURN => {
+                    if online && GetDlgCtrlID(GetFocus()) == 1 {
+                        PostMessageW(hwnd, WM_COMMAND, 29, 0);
+                        continue;
+                    }
                     match GetDlgCtrlID(GetFocus()) {
-                        26..=28 => {
+                        26..=29 => {
                             PostMessageW(hwnd, WM_COMMAND, GetDlgCtrlID(GetFocus()) as usize, 0);
                         }
                         25 => state.borrow_mut().done = true,
+                        _ if online => {
+                            PostMessageW(hwnd, WM_COMMAND, 24, 0);
+                        }
                         _ => state.borrow_mut().accept(),
                     }
                     continue;
@@ -750,6 +996,9 @@ pub unsafe fn choose(
         .borrow()
         .result
         .map(|i| state.borrow().catalog.entries[i].id.clone());
+    let imported = state.borrow().imported;
+    KillTimer(hwnd, 1);
+    state.borrow_mut().pending.take();
     EnableWindow(owner, 1);
     DestroyWindow(hwnd);
     SetActiveWindow(owner);
@@ -757,5 +1006,6 @@ pub unsafe fn choose(
     Choice {
         catalog: (*state).into_inner().catalog,
         selected: result,
+        imported,
     }
 }

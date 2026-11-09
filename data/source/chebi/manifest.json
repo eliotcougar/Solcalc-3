@@ -1,0 +1,48 @@
+{
+  "source": "ChEBI",
+  "release": "257",
+  "release_date": "2026-11-05",
+  "url": "https://www.ebi.ac.uk/chebi",
+  "license": "CC-BY-4.0",
+  "records": 103968,
+  "locales": {
+    "de": 1226,
+    "es": 1825,
+    "fr": 1633,
+    "la": 1738
+  },
+  "curated_alias_links": 114,
+  "policy": "CHECKED/OK entries with fixed formulas and positive finite average mass; original Solcalc CAS records take precedence.",
+  "excluded": {
+    "existing_curated_cas": 119,
+    "no_chemical_data": 9413,
+    "undefined_formula_or_mass": 3638
+  },
+  "invalid_cas_references_ignored": 1,
+  "inputs": {
+    "compounds.tsv.gz": {
+      "url": "https://ftp.ebi.ac.uk/pub/databases/chebi/flat_files/compounds.tsv.gz",
+      "sha256": "66d9a9a66279e00d1f8ed001664d0efc366208d873b3693e564bd682af055893"
+    },
+    "chemical_data.tsv.gz": {
+      "url": "https://ftp.ebi.ac.uk/pub/databases/chebi/flat_files/chemical_data.tsv.gz",
+      "sha256": "431f2724c75e11d5fc8241c8297fb3b68613be262c5c094a3f4175523046b260"
+    },
+    "names.tsv.gz": {
+      "url": "https://ftp.ebi.ac.uk/pub/databases/chebi/flat_files/names.tsv.gz",
+      "sha256": "3b728dd21b29c825376ab533155a79682a891ee37665a52805d77a9e79b96a2f"
+    },
+    "database_accession.tsv.gz": {
+      "url": "https://ftp.ebi.ac.uk/pub/databases/chebi/flat_files/database_accession.tsv.gz",
+      "sha256": "4b825bc323915190a6db8e8cfa85f9b40d1902fb0918ba72bbb32e351db17ab5"
+    },
+    "README": {
+      "url": "https://ftp.ebi.ac.uk/pub/databases/chebi/flat_files/README",
+      "sha256": "333c75a230734ca32268969557ce11fced374773f46b981ee033048fe86c8440"
+    },
+    "LICENSE": {
+      "url": "https://ftp.ebi.ac.uk/pub/databases/chebi/flat_files/LICENSE",
+      "sha256": "fe7b4ce83b8381cc5b216bbb4af73c570688d1b819c73bbaed8ca401f4677cd6"
+    }
+  }
+}

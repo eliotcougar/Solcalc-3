@@ -1,6 +1,7 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 mod calc;
 mod i18n;
+mod pubchem;
 mod settings;
 #[cfg(windows)]
 mod substance_editor;

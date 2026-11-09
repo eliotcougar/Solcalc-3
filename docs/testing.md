@@ -11,10 +11,32 @@ substance search and CAS merging, optional fields, user persistence and deletion
 optimistic concurrency, additive migrations, WAL-aware backups, and rollback.
 Tests use synthetic inputs and temporary database directories.
 
+ChEBI preservation checks verify every original identity, name, formula and mass,
+Russian locale retention, added searches and bounded result lists. Importer
+fixtures cover fixed formulas/hydrates, average versus monoisotopic mass,
+language separation, invalid CAS values, and curated-record precedence.
+
+PubChem tests use synthetic JSON and a loopback HTTP server: query encoding,
+candidate/response limits, invalid masses, CAS ambiguity, cancellation, HTTP
+errors, and saving without overwriting an existing user CAS. They do not contact
+the live service in ordinary CI.
+
+An explicit live connectivity check is available separately:
+
+```powershell
+cargo test --locked pubchem::tests::live_pubchem_smoke -- --ignored --nocapture
+```
+
+The manual **Windows packages** workflow has a `verify_pubchem` input for this
+check on a disposable runner. It is off by default because it depends on an
+external service and network connectivity. Failed HTTPS verification is reported;
+certificate checks are never disabled to make a test pass.
+
 `python tools/generate-catalog.py --check` independently validates source columns,
 CAS checksums and uniqueness, formula-derived masses, locale references, database
 schema/application IDs, row contents and SQLite integrity. Its result comparison
 does not depend on the SQLite binary encoding produced by a particular machine.
+Run importer tests with `python -m unittest discover -s tests -v`.
 
 ## GitHub Actions
 

@@ -127,6 +127,8 @@ for path in locales:
              [(r['substance_id'], r['name'], r['synonyms']) for r in rows], code)
     index.append(f'    ("{code}", include_bytes!(concat!(env!("CARGO_MANIFEST_DIR"), "/data/bundled/locales/{code}.sqlite"))),')
 index.append('];')
+from chebi_catalog import build as build_chebi
+index.extend(build_chebi('--check' in sys.argv, valid_cas, {r['cas'] for r in base}))
 index = '\n'.join(index) + '\n'
 index_path = ROOT / 'data/bundled/locale_index.rs'
 if '--check' in sys.argv:

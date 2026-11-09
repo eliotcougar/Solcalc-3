@@ -8,12 +8,17 @@
 
 Calculate solute mass, solution volume, concentration, dilutions and stock batches.
 Solcalc is written in Rust with a Win32 interface, starts directly from its
-executable, and works entirely offline. It needs no Python installation, browser
+executable. Calculations and bundled search work offline; PubChem lookup is optional.
+It needs no Python installation, browser
 runtime or self-extraction step.
 
 ## Download
 
 **[Get the latest release](https://github.com/eliotcougar/Solcalc-3/releases/latest)** · Windows 10/11, x64
+
+The development version **3.6.0** adds the ChEBI expansion and optional PubChem
+lookup described below. The packaged release **3.5.1** contains the original
+131-entry catalog.
 
 | Package | Use it when… |
 | --- | --- |
@@ -44,10 +49,14 @@ selectors and preserves separate inputs for each basis.
 
 ## Find substances, keep your own
 
-The bundled catalog contains **131 common dry substances**, including salts,
-alkalis, sugars and buffers, with separate hydrated forms. Search instantly by
+The development catalog contains **104,099 substances**: our original **131 common
+reagents**, including separate hydrated forms, plus **103,968 ChEBI substances**.
+Original names, formulas, molar masses and Russian translations take precedence.
+Compatible ChEBI aliases enrich existing entries. Search by
 name, synonym, formula or CAS number. English and chemical notation are always
 available; the selected language adds its localized names and synonyms.
+Large result lists show the first 300 matches; refine the query to find a
+particular substance. ChEBI IDs such as `CHEBI:27732` are searchable too.
 
 - Search `7647-14-5`, `NaCl`, or a familiar name such as `Epsom salt`.
 - Selecting a substance fills its molar mass in both Mass / volume and Stock
@@ -60,6 +69,13 @@ available; the selected language adds its localized names and synonyms.
 Bundled catalogs update with the application. Your database stays separate;
 changes to its structure use transactional migrations and a backup.
 [Catalog sources, schemas and chemical-data provenance →](data/README.md)
+
+For something missing locally, choose **PubChem…** in the picker. Search by name
+or CAS, inspect the formula, molar mass and identifiers, then choose **Import…**.
+The normal editor lets you review and save a user entry before applying it.
+An existing user CAS cannot be overwritten by an import. Requests run in the
+background; editing the query or closing the dialog cancels that search.
+Network errors leave the offline catalog and saved data available.
 
 ## Appearance and data
 

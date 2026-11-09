@@ -2,6 +2,11 @@ name: Windows packages
 
 on:
   workflow_dispatch:
+    inputs:
+      verify_pubchem:
+        description: Run the optional live PubChem lookup check
+        type: boolean
+        default: false
 
 permissions:
   contents: read
@@ -37,12 +42,19 @@ jobs:
           path: .tools/cargo
           key: cargo-${{ runner.os }}-${{ hashFiles('rust-toolchain.toml', 'Cargo.lock') }}
       - run: python tools/generate-catalog.py --check
+      - run: python -m unittest discover -s tests -v
       - run: ./tools/bootstrap-installer.ps1 -Curl C:\msys64\usr\bin\curl.exe
       - run: ./build-installer.ps1 -Check
       - run: ./build-portable.ps1 -SkipBuild
       - run: ./tools/write-checksums.ps1
       - name: Verify current-user and all-users install and uninstall
         run: ./tools/test-installer.ps1
+      - name: Verify live PubChem lookup
+        if: inputs.verify_pubchem
+        run: |
+          . ./tools/env.ps1
+          cargo test --locked pubchem::tests::live_pubchem_smoke -- --ignored --nocapture
+          if ($LASTEXITCODE) { exit $LASTEXITCODE }
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         if: always()
         with:
