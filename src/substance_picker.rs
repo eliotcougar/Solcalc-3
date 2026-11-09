@@ -15,7 +15,7 @@ use std::{
 use windows_sys::Win32::{
     Foundation::*,
     Graphics::Gdi::*,
-    System::{LibraryLoader::*, SystemServices::SS_NOPREFIX},
+    System::LibraryLoader::*,
     UI::{Controls::*, HiDpi::*, Input::KeyboardAndMouse::*, WindowsAndMessaging::*},
 };
 
@@ -53,7 +53,39 @@ impl Picker {
         GetDlgItem(self.hwnd, id)
     }
     unsafe fn label(&self, id: i32, text: &str) {
-        SetWindowTextW(self.get(id), wide(text).as_ptr());
+        let text = if id == 3 {
+            text.replace("\r\n", "\n").replace('\n', "\r\n")
+        } else {
+            text.to_owned()
+        };
+        SetWindowTextW(self.get(id), wide(&text).as_ptr());
+    }
+    unsafe fn layout(&self) {
+        if self.get(1).is_null() {
+            return;
+        }
+        let mut rect = zeroed();
+        GetClientRect(self.hwnd, &mut rect);
+        let width = rect.right * 96 / self.dpi as i32;
+        let height = rect.bottom * 96 / self.dpi as i32;
+        let buttons_y = height - 50;
+        let available = (height - 152).max(160);
+        let list_height = available * 3 / 5;
+        let place = |id, x, y, w, h| {
+            MoveWindow(self.get(id), self.s(x), self.s(y), self.s(w), self.s(h), 1);
+        };
+        place(1, 100, 14, width - 260, 30);
+        place(29, width - 148, 14, 128, 30);
+        place(2, 20, 60, width - 40, list_height);
+        place(4, 20, 60 + list_height, width - 40, 22);
+        place(3, 20, 88 + list_height, width - 40, available - list_height);
+        if !self.online {
+            place(26, 20, buttons_y, 110, 32);
+            place(27, 142, buttons_y, 170, 32);
+            place(28, 324, buttons_y, 116, 32);
+        }
+        place(24, width - 308, buttons_y, 160, 32);
+        place(25, width - 136, buttons_y, 116, 32);
     }
     #[allow(clippy::too_many_arguments)]
     unsafe fn control(
@@ -153,7 +185,20 @@ impl Picker {
                 | LBS_NOINTEGRALHEIGHT as u32,
         );
         SendMessageW(self.get(2), LB_SETITEMHEIGHT, 0, self.s(54) as isize);
-        self.control("STATIC", "", 3, 20, 394, 720, 74, SS_NOPREFIX);
+        self.control(
+            "EDIT",
+            "",
+            3,
+            20,
+            394,
+            720,
+            250,
+            WS_TABSTOP
+                | WS_VSCROLL
+                | ES_MULTILINE as u32
+                | ES_READONLY as u32
+                | ES_AUTOVSCROLL as u32,
+        );
         self.control("STATIC", "", 4, 20, 374, 720, 22, 0);
         if !self.online {
             self.control(
@@ -215,6 +260,7 @@ impl Picker {
             32,
             WS_TABSTOP,
         );
+        self.layout();
         self.filter(initial);
         if self.online {
             self.show_hits(vec![], 0, None);
@@ -530,6 +576,11 @@ unsafe extern "system" fn proc(hwnd: HWND, message: u32, w: WPARAM, l: LPARAM) -
         PostMessageW(hwnd, FILTER, 0, 0);
         return 0;
     }
+    // Read-only details send synchronous edit notifications while labels/layout
+    // are updated. They do not change picker state or acquire another borrow.
+    if message == WM_COMMAND && (w & 0xffff) == 3 {
+        return 0;
+    }
     if message == WM_COMMAND && (w & 0xffff) == 2 && ((w >> 16) as u16) == LBN_SELCHANGE as u16 {
         PostMessageW(hwnd, DETAILS, 0, 0);
         return 0;
@@ -538,6 +589,8 @@ unsafe extern "system" fn proc(hwnd: HWND, message: u32, w: WPARAM, l: LPARAM) -
         message,
         WM_CLOSE
             | WM_COMMAND
+            | WM_SIZE
+            | WM_GETMINMAXINFO
             | WM_TIMER
             | FILTER
             | DETAILS
@@ -550,6 +603,32 @@ unsafe extern "system" fn proc(hwnd: HWND, message: u32, w: WPARAM, l: LPARAM) -
     let ptr = GetWindowLongPtrW(hwnd, GWLP_USERDATA) as *const RefCell<Picker>;
     if ptr.is_null() {
         return DefWindowProcW(hwnd, message, w, l);
+    }
+    if message == WM_SIZE {
+        if w != SIZE_MINIMIZED as usize {
+            (*ptr).borrow().layout();
+        }
+        return 0;
+    }
+    if message == WM_GETMINMAXINFO {
+        let picker = (*ptr).borrow();
+        let mut minimum = RECT {
+            left: 0,
+            top: 0,
+            right: picker.s(760),
+            bottom: picker.s(480),
+        };
+        AdjustWindowRectExForDpi(
+            &mut minimum,
+            GetWindowLongPtrW(hwnd, GWL_STYLE) as u32,
+            0,
+            WS_EX_DLGMODALFRAME | WS_EX_CONTROLPARENT,
+            picker.dpi,
+        );
+        let info = &mut *(l as *mut MINMAXINFO);
+        info.ptMinTrackSize.x = minimum.right - minimum.left;
+        info.ptMinTrackSize.y = minimum.bottom - minimum.top;
+        return 0;
     }
     if message == WM_COMMAND && w & 0xffff == 29 && (w >> 16) as u16 == BN_CLICKED as u16 {
         let (online, language, dark, query, path) = {
@@ -843,9 +922,10 @@ unsafe fn choose_impl(
         left: 0,
         top: 0,
         right: s(760),
-        bottom: s(530),
+        bottom: s(720),
     };
-    let style = WS_POPUP | WS_CAPTION | WS_SYSMENU | WS_CLIPCHILDREN;
+    let style =
+        WS_POPUP | WS_CAPTION | WS_SYSMENU | WS_CLIPCHILDREN | WS_THICKFRAME | WS_MAXIMIZEBOX;
     AdjustWindowRectExForDpi(
         &mut rect,
         style,
@@ -861,6 +941,8 @@ unsafe fn choose_impl(
         MonitorFromWindow(owner, MONITOR_DEFAULTTONEAREST),
         &mut monitor,
     );
+    let width = width.min(monitor.rcWork.right - monitor.rcWork.left);
+    let height = height.min(monitor.rcWork.bottom - monitor.rcWork.top);
     let x = (parent.left + (parent.right - parent.left - width) / 2)
         .max(monitor.rcWork.left)
         .min((monitor.rcWork.right - width).max(monitor.rcWork.left));

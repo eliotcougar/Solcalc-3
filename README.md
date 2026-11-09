@@ -16,7 +16,7 @@ runtime or self-extraction step.
 
 **[Get the latest release](https://github.com/eliotcougar/Solcalc-3/releases/latest)** · Windows 10/11, x64
 
-The development version **3.6.0** adds the ChEBI expansion and optional PubChem
+The development version **3.6.1** uses ChEBI as its English catalog, with optional PubChem
 lookup described below. The packaged release **3.5.1** contains the original
 131-entry catalog.
 
@@ -49,14 +49,16 @@ selectors and preserves separate inputs for each basis.
 
 ## Find substances, keep your own
 
-The development catalog contains **104,099 substances**: our original **131 common
-reagents**, including separate hydrated forms, plus **103,968 ChEBI substances**.
-Original names, formulas, molar masses and Russian translations take precedence.
-Compatible ChEBI aliases enrich existing entries. Search by
+The development catalog contains **104,087 ChEBI substances**. ChEBI supplies
+English names, synonyms, formulas, CAS references and average molar masses.
+Russian translations are stored separately and matched by CAS and chemical form.
+Search by
 name, synonym, formula or CAS number. English and chemical notation are always
 available; the selected language adds its localized names and synonyms.
 Large result lists show the first 300 matches; refine the query to find a
 particular substance. ChEBI IDs such as `CHEBI:27732` are searchable too.
+The larger details pane wraps long content and supports scrolling and copying.
+Resize or maximize the picker to give results and details more room.
 
 - Search `7647-14-5`, `NaCl`, or a familiar name such as `Epsom salt`.
 - Selecting a substance fills its molar mass in both Mass / volume and Stock

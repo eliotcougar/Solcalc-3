@@ -4,17 +4,15 @@
   "release_date": "2026-11-05",
   "url": "https://www.ebi.ac.uk/chebi",
   "license": "CC-BY-4.0",
-  "records": 103968,
+  "records": 104087,
   "locales": {
     "de": 1226,
     "es": 1825,
-    "fr": 1633,
+    "fr": 1634,
     "la": 1738
   },
-  "curated_alias_links": 114,
-  "policy": "CHECKED/OK entries with fixed formulas and positive finite average mass; original Solcalc CAS records take precedence.",
+  "policy": "CHECKED/OK entries with fixed formulas and positive finite average mass; ChEBI is the sole bundled English chemical source.",
   "excluded": {
-    "existing_curated_cas": 119,
     "no_chemical_data": 9413,
     "undefined_formula_or_mass": 3638
   },

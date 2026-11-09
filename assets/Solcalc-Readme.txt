@@ -4,7 +4,7 @@ Use Ctrl+1, Ctrl+2 and Ctrl+3 to switch calculators.
 Leave the quantity you want to calculate blank.
 The Substance button searches English names, the selected language, formulas,
 synonyms and CAS numbers. Selection applies to Mass/Volume and Stock preparation.
-The offline catalog includes the original 131 entries and 103,968 ChEBI entries.
+The offline catalog contains 104,087 ChEBI entries, with separate Russian translations.
 ChEBI release 257: https://www.ebi.ac.uk/chebi (CC BY 4.0; filtered for Solcalc).
 Original names, molar masses and Russian translations take precedence.
 PubChem is optional online search; Import opens an editor for review before Save.

@@ -1,46 +1,46 @@
 # Substance catalogs
 
-The app embeds separate curated and ChEBI English/chemical SQLite catalogs and
-independent localization catalogs. It opens only English and the active locale, merges
-by stable substance ID, then merges user records by CAS when supplied.
-Bundled catalogs are read-only and updated by replacing the executable. They
-are not deployed into, imported into, or used to reseed the user's database.
+ChEBI is the sole bundled English chemical database. The app loads it together
+with the active language's localization databases, then merges independently
+stored user records. Bundled catalogs are read-only and update with the executable;
+they are never deployed into, imported into, or used to reseed the user database.
 
-## Source and generated files
+## Sources and generated databases
 
-| Source (real tab-separated UTF-8 TSV) | Generated read-only database |
+| Source (UTF-8 TSV) | Generated read-only database |
 | --- | --- |
-| `source/main.en.tsv` | `bundled/main.en.sqlite` |
-| `source/locales/ru.tsv` | `bundled/locales/ru.sqlite` |
+| `source/chebi/main.en.tsv` | `bundled/main.en.sqlite` |
 | `source/locales/<locale>.tsv` | `bundled/locales/<locale>.sqlite` |
-| `source/chebi/main.en.tsv` | `bundled/chebi.en.sqlite` |
-| `source/chebi/curated-links.tsv` | `bundled/chebi.aliases.sqlite` |
 | `source/chebi/locales/<locale>.tsv` | `bundled/chebi-locales/<locale>.sqlite` |
 
-English base columns: `id`, `cas`, `formula`, `name`, `synonyms`.
-Locale columns: `substance_id`, `name`, `synonyms`. Synonyms are separated by
-semicolons. Locales store additional names and synonyms, never chemical masses
-or formulas. Missing locale rows or names fall back to English. English names
-and synonyms stay searchable; inactive locale synonyms are not loaded.
+The former 131-entry English source and alias catalog have been removed. Every
+bundled English name, synonym, formula, average molar mass and CAS reference now
+comes from ChEBI, including substances that previously used Solcalc values.
+User values still take precedence for user customizations.
 
-The generator computes the base molar masses, validates CAS format/checksums,
-unique IDs and CAS values, locale foreign keys and codes, and database integrity.
-The original 131 curated records include 52 hydrates and 328 synonyms. Hydrates and
-anhydrous substances have different records and CAS values. Isomers may share a
-formula and mass but retain their identities.
+## ChEBI import
 
-## ChEBI expansion
+The catalog contains **104,087** fixed-composition substances from ChEBI release
+**257**, dated **2026-11-05**. Source: https://www.ebi.ac.uk/chebi ; license:
+CC BY 4.0. The full license is in `source/chebi/LICENSE.txt`. This is a filtered,
+normalized and language-separated subset of ChEBI.
 
-ChEBI release **257**, dated **2026-11-05**, adds **103,968** entries, for a combined
-catalog of **104,099** substances. Data is from https://www.ebi.ac.uk/chebi under
-CC BY 4.0. The full license is in `source/chebi/LICENSE.txt`. This is a modified,
-filtered and language-separated subset, not a complete or unmodified ChEBI dump.
+The English TSV columns are `chebi_id`, preferred `cas`, JSON-array `cas_numbers`,
+`formula`, `name`, `molar_mass`, and JSON-array `synonyms`. Stable ChEBI IDs identify
+entries; CAS cross-references may be absent or shared between entities. Multiple
+references remain searchable. Source masses are positive finite **average masses**,
+never monoisotopic masses or locally recalculated formula masses.
 
-The committed manifest records the release, input URLs and SHA-256 hashes, row
-counts, exclusions and supported data locales. To reproduce or update the import,
-download `compounds.tsv.gz`, `chemical_data.tsv.gz`, `names.tsv.gz`,
-`database_accession.tsv.gz`, `README` and `LICENSE` from the official flat-file
-directory or the corresponding release archive into a working folder, then run:
+The importer accepts CHECKED/OK entries with fixed formulas. It excludes submitted
+and deprecated entries, missing masses, repeat units, R groups, wildcards and
+undefined stoichiometry. Invalid CAS checksums are ignored. Names and translations
+use ChEBI's language codes and remain separate. This release supplies German,
+Spanish, French and Latin names; EN/RU remain the available UI languages.
+
+The manifest records release, source URLs, input SHA-256 hashes, counts and
+exclusions. To reproduce/update the import, download `compounds.tsv.gz`,
+`chemical_data.tsv.gz`, `names.tsv.gz`, `database_accession.tsv.gz`, `README` and
+`LICENSE` from the official flat-file directory or release archive, then run:
 
 ```powershell
 python tools/import-chebi.py --input-dir .tools/chebi
@@ -49,52 +49,36 @@ python tools/generate-catalog.py --check
 python -m unittest discover -s tests -v
 ```
 
-Normal builds/checks use committed sources and do not download upstream data.
-The importer accepts CHECKED/OK records with positive finite **average mass**
-and fixed formulas. It excludes submitted/deprecated records, missing masses,
-repeat units, R groups, wildcards and undefined stoichiometry. It does not use
-monoisotopic mass as solution molar mass. Invalid CAS checksums are excluded.
+Normal builds/checks use committed sources and do not download data. Python 3.10+
+with its standard library is sufficient for regeneration; the app needs no Python.
 
-The original source files and identities remain authoritative and are never
-importer outputs. ChEBI entries sharing an existing CAS do not create duplicate
-bundled entries or replace a curated name, formula or mass. Of 119 overlapping
-records, 114 with matching atom counts add synonyms, CAS cross-references and
-ChEBI identifiers through a separate alias database. Conflicting forms do not
-enrich curated records. Existing localized names retain precedence; additional
-locale synonyms are merged without replacing them.
+## Independent translations
 
-The ChEBI base TSV contains `chebi_id`, a preferred `cas`, JSON arrays of
-`cas_numbers` and English `synonyms`, `formula`, `name`, and source `molar_mass`.
-Many entries have no CAS. Multiple cross-references are retained and searchable;
-they are not assumed to identify one unique ChEBI entity. A user CAS overlays a
-bundled entry only when that association is unambiguous; otherwise the user row
-remains independent and retains its own values.
-Multiple user records with different CAS aliases of the same bundled entity also
-remain independent, so each can still be found, edited and deleted separately.
+Manual localization TSV columns are `cas`, `formula`, `name`, `synonyms`. Formula
+identifies chemical composition only; locale files do not supply English names or
+masses. The generator matches CAS **and** atom counts, including hydrate water,
+to ChEBI entities. A formula mismatch never attaches a translation to another form.
+Generated locale databases reference ChEBI IDs. ChEBI's own locale TSVs already
+use these IDs in `substance_id`, alongside `name` and JSON-array `synonyms`.
 
-ChEBI translations are separate TSV/SQLite files. This release supplies German,
-Spanish, French and Latin names, without adding those languages to the UI selector.
-Only a selected locale is loaded; EN/RU remain the available UI languages. New
-records use English fallback where Russian names are unavailable. Existing Russian
-names/synonyms stay in the original independent locale source.
+All 131 existing Russian names and synonym lists remain in `source/locales/ru.tsv`.
+106 match 114 ChEBI entities. The remaining 25 translations stay in source for future
+catalog updates; they do not create extra chemical entries or replace ChEBI data.
+Manual localized names take precedence over additional ChEBI locale names, which
+remain searchable. English and active-locale names/synonyms are combined at runtime;
+inactive locales are not loaded. Missing translations fall back to English.
 
-Run Python 3.10+ with its standard library only:
+The generator discovers locale TSVs and writes `bundled/locale_index.rs`. For a new
+locale, add a TSV, regenerate, and add its UI translations/language selector in
+`src/i18n.rs` and `src/settings.rs`. Codes are lowercase language tags such as `de`
+or `pt-br`. Unknown locales fall back to English. Bundled schema version is 1;
+application IDs distinguish main (`0x534F4C43`), locale (`0x534F4C4C`) and user
+(`0x534F4C55`) databases.
 
-```powershell
-python tools/generate-catalog.py
-python tools/generate-catalog.py --check
-```
-
-The generator discovers locale TSVs and generates `bundled/locale_index.rs`,
-so adding a catalog locale does not require changing the database loader.
-For a future locale, add its TSV, regenerate the outputs, and add its UI
-translations and language-selection code in `src/i18n.rs` / `src/settings.rs`.
-Codes use lowercase language tags, for example `de` or `pt-br`. The catalog
-loader accepts a locale code and falls back to English if that catalog is absent.
-No Python dependency is required to build or run the app; Rust embeds the
-checked-in SQLite files. The bundled schema version is 1, catalog revision 2.
-The application IDs distinguish main (`0x534F4C43`), locale (`0x534F4C4C`) and user
-(`0x534F4C55`) SQLite files.
+CAS matching overlays a user record only when it unambiguously identifies one
+bundled entity. Ambiguous references retain standalone user records and values.
+Multiple user records using different aliases of one bundled entity also remain
+independently searchable and editable.
 
 ## User-owned database
 
@@ -149,42 +133,3 @@ The worker bounds request frequency, timeouts, result counts and response size.
 Rustls verifies HTTPS with current WebPKI roots. Requests are never made during
 startup or ordinary offline search. Live availability depends on the service and
 network; errors do not change the bundled or user databases.
-
-## Original curated data provenance
-
-For the original 131 curated records, molar masses are sums of the displayed
-formulas, rounded to 0.001 g/mol, using
-CIAAW Abridged Standard Atomic Weights 2024, retrieved 2026-11-07:
-https://www.ciaaw.org/abridged-atomic-weights.htm . The exact values and formula
-parser are recorded in the generator.
-These are conventional formula masses; supplier rounding can differ in the last
-digits. Hydrate water is included explicitly. User molar masses are entered by
-the user, independently of the optional formula.
-
-CAS fields are curated identifiers for each specified form. The build checks
-syntax, check digits, and uniqueness; that check does not certify chemical
-identity. Primary-reference spot checks include:
-
-- Glucose monohydrate, 14431-43-7:
-  https://www.sigmaaldrich.com/US/en/product/mm/104074
-- Lactose monohydrate, 10039-26-6:
-  https://www.sigmaaldrich.com/US/en/product/mm/137045
-- Sodium phosphate dibasic heptahydrate, 7782-85-6:
-  https://www.sigmaaldrich.com/US/en/product/aldrich/431478
-- Calcium chloride hexahydrate, 7774-34-7:
-  https://www.sigmaaldrich.com/US/en/substance/calciumchloridehexahydrate219087774347
-- Magnesium sulfate monohydrate, 14168-73-1:
-  https://www.sigmaaldrich.com/US/en/sds/ALDRICH/434183
-- MES monohydrate, 145224-94-8:
-  https://www.sigmaaldrich.com/sds/sigma/69892
-- Aluminum sulfate octadecahydrate, 7784-31-8:
-  https://www.thermofisher.com/order/catalog/product/es/en/123680010
-- Raffinose pentahydrate, 17629-30-0:
-  https://www.sigmaaldrich.com/US/en/product/mm/107419
-- Dipotassium hydrogen phosphate trihydrate, 16788-57-1:
-  https://www.sigmaaldrich.com/US/en/product/mm/105099
-
-These original names, synonyms and records were curated in this project. The
-separate ChEBI expansion uses ChEBI's supplied average masses and identifiers,
-as described above. Neither catalog applies supplier purity corrections or
-represents certification of a particular reagent.
