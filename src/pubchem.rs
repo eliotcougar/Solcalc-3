@@ -1,5 +1,6 @@
 //! Explicit, bounded PubChem lookup. No network operation runs on the UI thread.
 use crate::{
+    i18n,
     settings::Language,
     user_db::{self, UserRecord},
 };
@@ -29,49 +30,22 @@ pub enum Error {
 }
 impl Error {
     pub fn message(&self, language: Language) -> String {
+        let key = match self {
+            Self::InvalidQuery => "Enter a name or CAS number (up to 200 characters).",
+            Self::NotFound => "No suitable substances were found in PubChem.",
+            Self::Network(_) => "Could not connect to PubChem:",
+            Self::Http(429 | 503) => "PubChem is busy. Try again later.",
+            Self::Http(_) => "PubChem request failed. HTTP:",
+            Self::InvalidResponse => "PubChem returned an unsupported or oversized response.",
+            Self::Cancelled => "Search cancelled.",
+        };
+        let message = i18n::text(language, key);
         match self {
-            Self::InvalidQuery => language
-                .choose(
-                    "Enter a name or CAS number (up to 200 characters).",
-                    "Введите название или номер CAS (не более 200 символов).",
-                )
-                .into(),
-            Self::NotFound => language
-                .choose(
-                    "No suitable substances were found in PubChem.",
-                    "Подходящие вещества в PubChem не найдены.",
-                )
-                .into(),
-            Self::Network(detail) => format!(
-                "{} {}",
-                language.choose(
-                    "Could not connect to PubChem:",
-                    "Не удалось подключиться к PubChem:"
-                ),
-                detail.chars().take(160).collect::<String>()
-            ),
-            Self::Http(429 | 503) => language
-                .choose(
-                    "PubChem is busy. Try again later.",
-                    "PubChem перегружен. Повторите поиск позже.",
-                )
-                .into(),
-            Self::Http(code) => format!(
-                "{} {code}",
-                language.choose(
-                    "PubChem request failed. HTTP:",
-                    "Ошибка запроса PubChem. HTTP:"
-                )
-            ),
-            Self::InvalidResponse => language
-                .choose(
-                    "PubChem returned an unsupported or oversized response.",
-                    "PubChem вернул неподдерживаемый или слишком большой ответ.",
-                )
-                .into(),
-            Self::Cancelled => language
-                .choose("Search cancelled.", "Поиск отменён.")
-                .into(),
+            Self::Network(detail) => {
+                format!("{message} {}", detail.chars().take(160).collect::<String>())
+            }
+            Self::Http(code) if !matches!(code, 429 | 503) => format!("{message} {code}"),
+            _ => message.to_owned(),
         }
     }
 }

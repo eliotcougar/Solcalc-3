@@ -2,6 +2,40 @@ use crate::settings::Language;
 use std::borrow::Cow;
 
 const STRINGS: &[(&str, &str)] = &[
+    ("Sea&rch", "&Найти"),
+    ("&Import…", "&Импорт…"),
+    ("&Use substance", "&Выбрать"),
+    ("Substances", "Вещества"),
+    ("PubChem — online search", "PubChem — поиск в интернете"),
+    ("Showing", "Показано"),
+    ("Searching PubChem…", "Поиск в PubChem…"),
+    ("Search failed", "Ошибка поиска"),
+    ("Could not fetch results", "Не удалось получить данные"),
+    (
+        "Enter a name or CAS number (up to 200 characters).",
+        "Введите название или номер CAS (не более 200 символов).",
+    ),
+    (
+        "No suitable substances were found in PubChem.",
+        "Подходящие вещества в PubChem не найдены.",
+    ),
+    (
+        "Could not connect to PubChem:",
+        "Не удалось подключиться к PubChem:",
+    ),
+    (
+        "PubChem is busy. Try again later.",
+        "PubChem перегружен. Повторите поиск позже.",
+    ),
+    (
+        "PubChem request failed. HTTP:",
+        "Ошибка запроса PubChem. HTTP:",
+    ),
+    (
+        "PubChem returned an unsupported or oversized response.",
+        "PubChem вернул неподдерживаемый или слишком большой ответ.",
+    ),
+    ("Search cancelled.", "Поиск отменён."),
     ("Enter at least one name.", "Введите хотя бы одно название."),
     ("Enter molar mass.", "Введите молярную массу."),
     (

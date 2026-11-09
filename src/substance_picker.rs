@@ -110,14 +110,10 @@ impl Picker {
         );
         self.control(
             "BUTTON",
-            lang.choose(
+            i18n::text(
+                lang,
                 if self.online {
-                    "&Search"
-                } else {
-                    "&PubChem…"
-                },
-                if self.online {
-                    "&Найти"
+                    "Sea&rch"
                 } else {
                     "&PubChem…"
                 },
@@ -194,16 +190,12 @@ impl Picker {
         }
         self.control(
             "BUTTON",
-            lang.choose(
+            i18n::text(
+                lang,
                 if self.online {
                     "&Import…"
                 } else {
                     "&Use substance"
-                },
-                if self.online {
-                    "&Импорт…"
-                } else {
-                    "&Выбрать"
                 },
             ),
             24,
@@ -316,7 +308,7 @@ impl Picker {
             } else if self.hits.len() < total {
                 format!(
                     "{}: {} / {}",
-                    self.language.choose("Showing", "Показано"),
+                    i18n::text(self.language, "Showing"),
                     self.hits.len(),
                     total
                 )
@@ -346,14 +338,10 @@ impl Picker {
         match pubchem::start(self.last_query.clone()) {
             Ok(pending) => {
                 self.pending = Some(pending);
-                self.label(
-                    4,
-                    self.language
-                        .choose("Searching PubChem…", "Поиск в PubChem…"),
-                );
+                self.label(4, i18n::text(self.language, "Searching PubChem…"));
             }
             Err(error) => {
-                self.label(4, self.language.choose("Search failed", "Ошибка поиска"));
+                self.label(4, i18n::text(self.language, "Search failed"));
                 self.label(3, &error.message(self.language));
             }
         }
@@ -380,11 +368,7 @@ impl Picker {
                     self.show_hits((0..total).collect(), total, None);
                 }
                 Err(error) => {
-                    self.label(
-                        4,
-                        self.language
-                            .choose("Could not fetch results", "Не удалось получить данные"),
-                    );
+                    self.label(4, i18n::text(self.language, "Could not fetch results"));
                     self.label(3, &error.message(self.language));
                 }
             }
@@ -886,11 +870,14 @@ unsafe fn choose_impl(
     let hwnd = CreateWindowExW(
         WS_EX_DLGMODALFRAME | WS_EX_CONTROLPARENT,
         class.as_ptr(),
-        wide(if online {
-            language.choose("PubChem — online search", "PubChem — поиск в интернете")
-        } else {
-            language.choose("Substances", "Вещества")
-        })
+        wide(i18n::text(
+            language,
+            if online {
+                "PubChem — online search"
+            } else {
+                "Substances"
+            },
+        ))
         .as_ptr(),
         style,
         x,
