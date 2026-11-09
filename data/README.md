@@ -69,6 +69,8 @@ Many entries have no CAS. Multiple cross-references are retained and searchable;
 they are not assumed to identify one unique ChEBI entity. A user CAS overlays a
 bundled entry only when that association is unambiguous; otherwise the user row
 remains independent and retains its own values.
+Multiple user records with different CAS aliases of the same bundled entity also
+remain independent, so each can still be found, edited and deleted separately.
 
 ChEBI translations are separate TSV/SQLite files. This release supplies German,
 Spanish, French and Latin names, without adding those languages to the UI selector.

@@ -326,9 +326,25 @@ impl Catalog {
                     .or_insert(Some(i));
             }
         }
+        // Two user records may use different CAS aliases of the same bundled
+        // entity. Keep both independently editable instead of letting one hide
+        // the other behind a shared bundled row.
+        let mut target_counts: HashMap<usize, usize> = HashMap::new();
+        for user in &records {
+            if user.id.is_some() {
+                if let Some(index) = by_cas.get(&user.cas).copied().flatten() {
+                    *target_counts.entry(index).or_default() += 1;
+                }
+            }
+        }
         for user in records {
             let Some(user_id) = user.id else { continue };
-            if let Some(index) = by_cas.get(&user.cas).copied().flatten() {
+            if let Some(index) = by_cas
+                .get(&user.cas)
+                .copied()
+                .flatten()
+                .filter(|index| target_counts.get(index) == Some(&1))
+            {
                 let base = &mut self.entries[index];
                 // CAS identifies the same chemical form. A user customization
                 // wins for editable values; bundled names remain searchable.
@@ -591,6 +607,54 @@ mod tests {
         assert_eq!(catalog.entries[0].user_id, Some(7));
         assert_eq!(catalog.entries[0].cas, "492-62-6");
         assert!(!catalog.search("50-99-7", Language::En).is_empty());
+    }
+    #[test]
+    fn different_user_cas_aliases_of_one_entity_remain_independently_editable() {
+        let mut catalog = Catalog {
+            entries: vec![Substance::external(
+                "bundled:chebi:example".into(),
+                UserRecord {
+                    cas: "50-99-7".into(),
+                    name_en: "Bundled material".into(),
+                    molar_mass: 180.156,
+                    locale: "ru".into(),
+                    ..Default::default()
+                },
+                "CHEBI:example".into(),
+                vec!["50-99-7".into(), "492-62-6".into()],
+            )],
+        };
+        catalog.merge(vec![
+            UserRecord {
+                id: Some(1),
+                cas: "50-99-7".into(),
+                name_en: "First user material".into(),
+                molar_mass: 180.2,
+                locale: "ru".into(),
+                local_name: "Первое вещество".into(),
+                ..Default::default()
+            },
+            UserRecord {
+                id: Some(2),
+                cas: "492-62-6".into(),
+                name_en: "Second user material".into(),
+                molar_mass: 181.0,
+                locale: "ru".into(),
+                local_name: "Второе вещество".into(),
+                ..Default::default()
+            },
+        ]);
+        assert_eq!(catalog.entries.len(), 3);
+        assert!(catalog.entries[0].user_id.is_none());
+        let first = catalog.find("user:1").unwrap();
+        let second = catalog.find("user:2").unwrap();
+        assert_eq!(first.molar_mass, 180.2);
+        assert_eq!(first.name(Language::Ru), "Первое вещество");
+        assert_eq!(second.molar_mass, 181.0);
+        assert_eq!(second.name(Language::Ru), "Второе вещество");
+        for query in ["Первое вещество", "Second user material"] {
+            assert_eq!(catalog.search(query, Language::Ru).len(), 1);
+        }
     }
     #[test]
     fn bundled_integrity_and_locale_separation() {
