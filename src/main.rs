@@ -3,6 +3,7 @@ mod calc;
 mod i18n;
 mod pubchem;
 mod settings;
+mod solubility;
 #[cfg(windows)]
 mod substance_editor;
 #[cfg(windows)]

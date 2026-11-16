@@ -3,7 +3,7 @@ use crate::calc::{self, Basis, Error, Unit, CONCENTRATION, MASS, VOLUME};
 use crate::{
     i18n,
     settings::{self, Language, Settings, Theme},
-    substance_picker, substances, theme,
+    solubility, substance_picker, substances, theme,
 };
 use std::{
     cell::RefCell,
@@ -105,6 +105,7 @@ struct Ui {
     bases: [Basis; 3],
     basis_states: [[Option<FormState>; 2]; 3],
     substances: [Option<String>; 3],
+    solvent_substances: [Option<String>; 3],
     catalog: Option<substances::Catalog>,
 }
 impl Ui {
@@ -134,6 +135,7 @@ impl Ui {
                 bases: [Basis::Molar; 3],
                 basis_states: std::array::from_fn(|_| [None, None]),
                 substances: std::array::from_fn(|_| None),
+                solvent_substances: std::array::from_fn(|_| None),
                 catalog: None,
             }
         }
@@ -183,8 +185,8 @@ impl Ui {
         style: u32,
         font: usize,
     ) -> HWND {
-        let source = ((class == "STATIC" && (id == 0 || id == 20)) || class == "BUTTON")
-            .then(|| text.to_owned());
+        let source =
+            ((class == "STATIC" && !text.is_empty()) || class == "BUTTON").then(|| text.to_owned());
         let text = i18n::text(self.settings.language, text);
         let hwnd = CreateWindowExW(
             if class == "EDIT" { WS_EX_CLIENTEDGE } else { 0 },
@@ -374,6 +376,7 @@ impl Ui {
         self.field("&Concentration", 102, 0, 170, Some((CONCENTRATION, 1)));
         self.field("&Volume", 103, 0, 216, Some((VOLUME, 1)));
         self.field("&Mass", 104, 0, 262, Some((MASS, 1)));
+        self.solvent_row(0, 308);
 
         self.label("Concentration basis", 1, 28, 84, 190, 25, 0);
         self.combo(303, 1, 220, 80, 238, &["g/mol", "U/mg"], 0);
@@ -422,6 +425,7 @@ impl Ui {
         self.combo(608, 2, 370, 386, 88, &["g/mol", "U/mg"], 0);
         self.field("&Batch volume", 510, 2, 422, Some((VOLUME, 2)));
         self.field("M&ass", 511, 2, 458, Some((MASS, 1)));
+        self.solvent_row(2, 499);
 
         self.control("STATIC", "RESULT", 20, -1, 508, 92, 280, 26, 0, 2);
         self.control("STATIC", "", 21, -1, 508, 130, 280, 56, 0, 1);
@@ -482,6 +486,63 @@ impl Ui {
             0,
         );
     }
+    unsafe fn solvent_row(&mut self, mode: usize, y: i32) {
+        let id = Self::solvent_id(mode);
+        self.control(
+            "STATIC",
+            "&Solvent",
+            id - 1,
+            mode as i32,
+            28,
+            y + 4,
+            190,
+            25,
+            0,
+            0,
+        );
+        self.combo(id, mode as i32, 220, y, 238, &["Select solvent…"], 0);
+        let mass_id = Self::solvent_mass_id(mode);
+        self.control(
+            "STATIC",
+            "Solvent mass (optional)",
+            mass_id - 1,
+            mode as i32,
+            28,
+            y + 44,
+            190,
+            25,
+            0,
+            0,
+        );
+        let edit = self.control(
+            "EDIT",
+            "",
+            mass_id,
+            mode as i32,
+            220,
+            y + 40,
+            140,
+            28,
+            WS_TABSTOP | ES_AUTOHSCROLL as u32,
+            0,
+        );
+        SendMessageW(edit, EM_SETLIMITTEXT, 80, 0);
+        self.units(mass_id + 100, mode as i32, 370, y + 40, MASS, 0);
+    }
+    fn solvent_id(mode: usize) -> i32 {
+        if mode == 0 {
+            29
+        } else {
+            513
+        }
+    }
+    fn solvent_mass_id(mode: usize) -> i32 {
+        if mode == 0 {
+            120
+        } else {
+            520
+        }
+    }
     unsafe fn use_substance(&mut self, mode: usize, id: String) {
         let Some(entry) = self.catalog.as_ref().and_then(|c| c.find(&id)) else {
             return;
@@ -531,6 +592,132 @@ impl Ui {
             }
             self.set(label, &text);
             self.set(label + 100, &formula);
+            self.refresh_solvent(mode);
+        }
+    }
+    fn solubility_context(
+        &self,
+        mode: usize,
+    ) -> Option<(&substances::Substance, &'static [solubility::Measurement])> {
+        if self.bases[mode] != Basis::Molar {
+            return None;
+        }
+        let entry = self
+            .catalog
+            .as_ref()?
+            .find(self.substances[mode].as_deref()?)?;
+        let measurements = solubility::for_substance(entry);
+        (!measurements.is_empty()).then_some((entry, measurements))
+    }
+    unsafe fn refresh_solvent(&mut self, mode: usize) {
+        let id = Self::solvent_id(mode);
+        let context = self.solubility_context(mode);
+        let visibility = if self.mode as usize == mode && context.is_some() {
+            SW_SHOW
+        } else {
+            SW_HIDE
+        };
+        let substance_id = context.map(|(entry, _)| entry.id.as_str());
+        if self.solvent_substances[mode].as_deref() != substance_id {
+            let mut options = vec!["Select solvent…".into()];
+            if let Some((_, measurements)) = context {
+                options.extend(measurements.iter().map(|m| m.solvent.clone()));
+            }
+            self.solvent_substances[mode] = substance_id.map(str::to_owned);
+            self.replace_options(id, options);
+            self.select(id, 0);
+            self.set(Self::solvent_mass_id(mode), "");
+        }
+        ShowWindow(self.get(id - 1), visibility);
+        ShowWindow(self.get(id), visibility);
+        let by_mass = visibility == SW_SHOW
+            && self
+                .selected_measurement(mode)
+                .is_some_and(|(entry, measurement)| {
+                    measurement.solvent_mass_ratio(entry.molar_mass).is_some()
+                });
+        let mass_id = Self::solvent_mass_id(mode);
+        for control in [mass_id - 1, mass_id, mass_id + 100] {
+            ShowWindow(self.get(control), if by_mass { SW_SHOW } else { SW_HIDE });
+        }
+    }
+    unsafe fn selected_measurement(
+        &self,
+        mode: usize,
+    ) -> Option<(&substances::Substance, &'static solubility::Measurement)> {
+        let (entry, measurements) = self.solubility_context(mode)?;
+        let measurement = self
+            .selected(Self::solvent_id(mode))
+            .checked_sub(1)
+            .and_then(|index| measurements.get(index))?;
+        Some((entry, measurement))
+    }
+    unsafe fn append_solubility(
+        &self,
+        mode: usize,
+        concentration: Option<f64>,
+        solute_mass: Option<f64>,
+        detail: &mut String,
+    ) {
+        let Some((entry, measurement)) = self.selected_measurement(mode) else {
+            return;
+        };
+        let language = self.settings.language;
+        if !detail.is_empty() {
+            detail.push_str("\n\n");
+        }
+        if let Some(molarity) = measurement.prediction() {
+            detail.push_str(&solubility::Measurement::prediction_text(
+                language, molarity,
+            ));
+            if concentration.is_some_and(|target| calc::materially_less(molarity, target)) {
+                detail.push('\n');
+                detail.push_str(i18n::text(
+                    language,
+                    "Above estimate. Verify experimentally.",
+                ));
+            }
+            return;
+        }
+        let limit = measurement.molarity(entry.molar_mass);
+        let ratio = measurement.solvent_mass_ratio(entry.molar_mass);
+        let label = if limit.is_some() || ratio.is_some() || measurement.is_qualitative() {
+            "Reported solubility"
+        } else {
+            "Solubility (reference only)"
+        };
+        detail.push_str(i18n::text(language, label));
+        detail.push('\n');
+        detail.push_str(&measurement.reference(language, limit));
+        let mut below_minimum = false;
+        if let Some(minimum) = ratio
+            .zip(solute_mass)
+            .and_then(|(ratio, mass)| calc::positive(ratio * mass, "Minimum solvent mass").ok())
+        {
+            detail.push_str(&format!(
+                "\n{} {}",
+                i18n::text(language, "Minimum solvent mass"),
+                calc::display_mass(minimum),
+            ));
+            match self.optional_quantity(Self::solvent_mass_id(mode), "Solvent mass", MASS) {
+                Ok(Some(mass)) => below_minimum = calc::materially_less(mass, minimum),
+                Ok(None) => {}
+                Err(error) => {
+                    detail.push('\n');
+                    detail.push_str(&i18n::error(language, &error.0));
+                }
+            }
+        }
+        if concentration.is_some() && measurement.is_qualitative() {
+            detail.push('\n');
+            detail.push_str(i18n::text(language, "Solute may remain undissolved."));
+        } else if below_minimum
+            || limit
+                .zip(concentration)
+                .is_some_and(|(limit, target)| calc::materially_less(limit, target))
+        {
+            detail.push('\n');
+            detail.push_str(i18n::text(language, "Above reported solubility."));
         }
     }
     unsafe fn load_icons(&self) {
@@ -666,11 +853,17 @@ impl Ui {
         }
     }
     unsafe fn replace_units(&mut self, id: i32, units: &[Unit]) {
+        self.replace_options(
+            id,
+            units.iter().map(|unit| unit.label().to_owned()).collect(),
+        );
+    }
+    unsafe fn replace_options(&mut self, id: i32, options: Vec<String>) {
         let hwnd = self.get(id);
-        let options: Vec<String> = units.iter().map(|u| u.label().to_owned()).collect();
         SendMessageW(hwnd, CB_RESETCONTENT, 0, 0);
         for option in &options {
-            SendMessageW(hwnd, CB_ADDSTRING, 0, wide(option).as_ptr() as isize);
+            let label = i18n::text(self.settings.language, option);
+            SendMessageW(hwnd, CB_ADDSTRING, 0, wide(label).as_ptr() as isize);
         }
         if let Some((_, original)) = self.combo_options.iter_mut().find(|(h, _)| *h == hwnd) {
             *original = options;
@@ -773,9 +966,9 @@ impl Ui {
     }
     fn window_height(&self) -> i32 {
         if self.mode == 2 {
-            598
+            642
         } else if self.mode == 0 {
-            464
+            508
         } else {
             420
         }
@@ -830,11 +1023,14 @@ impl Ui {
                 let incomplete =
                     error.0.starts_with("Enter ") && error.0.ends_with("to see the result.");
                 self.set(21, "");
-                let detail = if incomplete {
+                let mut detail = if incomplete {
                     String::new()
                 } else {
                     i18n::error(self.settings.language, &error.0)
                 };
+                if incomplete && self.mode == 2 {
+                    self.append_solubility(2, None, None, &mut detail);
+                }
                 self.set(22, &detail);
             }
         }
@@ -847,7 +1043,16 @@ impl Ui {
         let conc = self.optional_quantity(102, "Concentration", basis.concentration_units())?;
         let vol = self.optional_quantity(103, "Volume", VOLUME)?;
         let mass = self.optional_quantity(104, "Mass", MASS)?;
-        Ok(match calc::solve_solution(basis, mm, conc, vol, mass)? {
+        let solved = calc::solve_solution(basis, mm, conc, vol, mass)?;
+        let concentration = match solved {
+            Some(calc::MissingQuantity::Concentration(value)) => Some(value),
+            _ => conc,
+        };
+        let solute_mass = match solved {
+            Some(calc::MissingQuantity::Mass(value)) => Some(value),
+            _ => mass,
+        };
+        let (primary, mut detail) = match solved {
             Some(calc::MissingQuantity::Mass(v)) => (
                 calc::display_mass(v),
                 i18n::text(
@@ -893,7 +1098,9 @@ impl Ui {
                 i18n::text(language, "Specific activity\n\nSA = C × V / m").into(),
             ),
             None => (String::new(), String::new()),
-        })
+        };
+        self.append_solubility(0, concentration, solute_mass, &mut detail);
+        Ok((primary, detail))
     }
     unsafe fn dilution_result(&self) -> Result<(String, String), Error> {
         let language = self.settings.language;
@@ -952,6 +1159,7 @@ impl Ui {
                 }
             )
         };
+        let mut solute_mass = None;
         if !self.text(508).trim().is_empty() {
             let preparation = (|| -> Result<String, Error> {
                 let mm = self.value(508, basis.coefficient_label())?;
@@ -959,6 +1167,7 @@ impl Ui {
                 let mass = self.optional_quantity(511, "Mass", MASS)?;
                 let prep =
                     calc::prepare_stock(basis, mm, s.concentration, s.batch_volume, vol, mass)?;
+                solute_mass = Some(prep.mass);
                 let warning = if calc::materially_less(prep.volume, s.batch_volume) {
                     language.choose(
                         "\nLess than the planned batch.",
@@ -985,6 +1194,7 @@ impl Ui {
                 }
             ));
         }
+        self.append_solubility(2, Some(s.concentration), solute_mass, &mut detail);
         Ok((
             format!(
                 "{} {}",
@@ -1133,6 +1343,10 @@ unsafe extern "system" fn window_proc(hwnd: HWND, message: u32, w: WPARAM, l: LP
                 25 => ui.clear(),
                 30 | 31 if high(w) == CBN_SELCHANGE as u16 => {
                     PostMessageW(hwnd, SETTINGS_CHANGED, id as usize, 0);
+                }
+                29 | 513 if high(w) == CBN_SELCHANGE as u16 => {
+                    ui.set(Ui::solvent_mass_id(if id == 29 { 0 } else { 2 }), "");
+                    PostMessageW(hwnd, UPDATE, 0, 0);
                 }
                 201 | 303 | 608 if high(w) == CBN_SELCHANGE as u16 => {
                     PostMessageW(hwnd, BASIS_CHANGED, id as usize, 0);

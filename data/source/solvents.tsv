@@ -1,0 +1,44 @@
+name	source_name	smiles	molar_mass
+1,2-Dichloroethane	1,2-dichloroethane	ClCCCl	98.96
+1,4-Dioxane	1,4-dioxane	C1COCCO1	88.106
+1-Butanol	n-butanol	CCCCO	74.123
+1-Hexanol	n-hexanol	CCCCCCO	102.177
+1-Octanol	n-octanol	CCCCCCCCO	130.231
+1-Pentanol	n-pentanol	CCCCCO	88.15
+1-Propanol	n-propanol	CCCO	60.096
+2-Butanol	sec-butanol	CCC(C)O	74.123
+2-Butanone	2-butanone	CCC(C)=O	72.107
+Acetic acid	acetic acid	CC(=O)O	60.052
+Acetone	acetone	CC(C)=O	58.08
+Acetonitrile	acetonitrile	CC#N	41.053
+Benzene	benzene	c1ccccc1	78.114
+Butyl acetate	n-butyl acetate	CCCCOC(C)=O	116.16
+Chloroform	chloroform	ClC(Cl)Cl	119.378
+Cyclohexane	cyclohexane	C1CCCCC1	84.162
+Cyclohexanone	cyclohexanone	O=C1CCCCC1	98.145
+Dichloromethane	dichloromethane	ClCCl	84.933
+Diethyl ether	diethyl ether	CCOCC	74.123
+Dimethyl sulfoxide	DMSO	CS(C)=O	78.136
+Dimethyl carbonate	dimethyl carbonate	COC(=O)OC	90.078
+Dimethylacetamide	DMAc	CC(=O)N(C)C	87.122
+Dimethylformamide	DMF	CN(C)C=O	73.095
+Ethanol	ethanol	CCO	46.069
+Ethyl acetate	ethyl acetate	CCOC(C)=O	88.106
+Ethyl formate	ethyl formate	CCOC=O	74.079
+Ethylene glycol	ethylene glycol	OCCO	62.068
+Heptane	n-heptane	CCCCCCC	100.205
+Hexane	n-hexane	CCCCCC	86.178
+Isoamyl alcohol	isopentanol	CC(C)CCO	88.15
+Isobutanol	isobutanol	CC(C)CO	74.123
+Isopropanol	isopropanol	CC(C)O	60.096
+Isopropyl acetate	isopropyl acetate	CC(=O)OC(C)C	102.133
+Methanol	methanol	CO	32.042
+Methyl acetate	methyl acetate	COC(C)=O	74.079
+Methyl tert-butyl ether	MTBE	COC(C)(C)C	88.15
+N-Methyl-2-pyrrolidone	NMP	CN1CCCC1=O	99.133
+Propyl acetate	n-propyl acetate	CCCOC(C)=O	102.133
+Propylene carbonate	propylene carbonate	CC1COC(=O)O1	102.089
+Propylene glycol	propylene glycol	CC(O)CO	76.095
+Tetrahydrofuran	THF	C1CCOC1	72.107
+Toluene	toluene	Cc1ccccc1	92.141
+Water	water	O	18.015

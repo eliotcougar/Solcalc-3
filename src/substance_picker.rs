@@ -36,6 +36,7 @@ struct Picker {
     user_path: Option<PathBuf>,
     dark: bool,
     last_query: String,
+    expanded_stereo_group: Option<String>,
     online: bool,
     pending: Option<pubchem::Pending>,
     imported: Option<i64>,
@@ -77,7 +78,8 @@ impl Picker {
         place(1, 100, 14, width - 260, 30);
         place(29, width - 148, 14, 128, 30);
         place(2, 20, 60, width - 40, list_height);
-        place(4, 20, 60 + list_height, width - 40, 22);
+        place(4, 20, 60 + list_height, width - 250, 22);
+        place(30, width - 225, 60 + list_height, 205, 24);
         place(3, 20, 88 + list_height, width - 40, available - list_height);
         if !self.online {
             place(26, 20, buttons_y, 110, 32);
@@ -201,6 +203,7 @@ impl Picker {
         );
         self.control("STATIC", "", 4, 20, 374, 720, 22, 0);
         if !self.online {
+            self.control("BUTTON", "", 30, 535, 374, 205, 24, WS_TABSTOP);
             self.control(
                 "BUTTON",
                 lang.choose("&Add…", "&Добавить…"),
@@ -285,27 +288,60 @@ impl Picker {
             }
             return;
         }
-        let preferred = preferred.or_else(|| {
-            if query == self.last_query {
-                self.selected()
-            } else {
-                None
-            }
-        });
+        let same_query = query == self.last_query;
+        if !same_query {
+            self.expanded_stereo_group = None;
+        }
+        let preferred = if same_query || query.trim().is_empty() {
+            preferred.or_else(|| self.selected())
+        } else {
+            None
+        };
         self.last_query = query.clone();
+        if let Some(group) = &self.expanded_stereo_group {
+            let hits = self.catalog.stereoisomers(group);
+            if !hits.is_empty() {
+                let total = hits.len();
+                self.show_hits(hits, total, preferred);
+                return;
+            }
+            self.expanded_stereo_group = None;
+        }
         let results = self.catalog.search_limited(&query, self.language, 300);
         let mut hits = results.hits;
         if query.trim().is_empty() {
             if let Some(index) = preferred.filter(|i| *i < self.catalog.entries.len()) {
                 if !hits.contains(&index) {
-                    if hits.len() == 300 {
-                        hits.pop();
+                    let group = self.catalog.entries[index].stereo_group();
+                    if let Some(representative) = hits.iter_mut().find(|i| {
+                        group.is_some() && self.catalog.entries[**i].stereo_group() == group
+                    }) {
+                        *representative = index;
+                    } else {
+                        if hits.len() == 300 {
+                            hits.pop();
+                        }
+                        hits.push(index);
                     }
-                    hits.push(index);
                 }
             }
         }
         self.show_hits(hits, results.total, preferred);
+    }
+    unsafe fn toggle_stereoisomers(&mut self) {
+        // The edit control may have queued a search refresh before this click.
+        if self.query() != self.last_query {
+            self.filter(None);
+            return;
+        }
+        let selected = self.selected();
+        if self.expanded_stereo_group.take().is_none() {
+            self.expanded_stereo_group = selected
+                .and_then(|i| self.catalog.entries[i].stereo_group())
+                .map(str::to_owned);
+        }
+        self.filter(selected);
+        SetFocus(self.get(2));
     }
     unsafe fn show_hits(&mut self, hits: Vec<usize>, total: usize, preferred: Option<usize>) {
         self.hits = hits;
@@ -427,6 +463,31 @@ impl Picker {
             .flatten()
     }
     unsafe fn details(&self) {
+        if !self.online {
+            let expanded = self.expanded_stereo_group.is_some();
+            let has_group = self
+                .selected()
+                .is_some_and(|i| self.catalog.entries[i].stereo_group().is_some());
+            let button = self.get(30);
+            self.label(
+                30,
+                if expanded {
+                    self.language
+                        .choose("Back to search", "К результатам поиска")
+                } else {
+                    self.language
+                        .choose("Show stereoisomers", "Показать стереоизомеры")
+                },
+            );
+            ShowWindow(
+                button,
+                if expanded || has_group {
+                    SW_SHOW
+                } else {
+                    SW_HIDE
+                },
+            );
+        }
         let can_delete = self.user_path.is_some()
             && self
                 .selected()
@@ -454,6 +515,11 @@ impl Picker {
                 }
                 if self.language.code() != "en" && !entry.name_en.is_empty() {
                     lines.push(entry.name_en.clone());
+                }
+                let measurements = crate::solubility::for_substance(entry);
+                if !measurements.is_empty() {
+                    lines.push(crate::i18n::text(self.language, "Solubility").into());
+                    lines.extend(measurements.iter().map(|m| m.picker_line(self.language)));
                 }
                 let synonyms = entry.synonyms();
                 if !synonyms.is_empty() {
@@ -646,6 +712,7 @@ unsafe extern "system" fn proc(hwnd: HWND, message: u32, w: WPARAM, l: LPARAM) -
                         let mut p = (*ptr).borrow_mut();
                         p.catalog = catalog;
                         p.hits.clear();
+                        p.expanded_stereo_group = None;
                         SetWindowTextW(p.get(1), wide("").as_ptr());
                         p.filter(preferred);
                     }
@@ -722,6 +789,7 @@ unsafe extern "system" fn proc(hwnd: HWND, message: u32, w: WPARAM, l: LPARAM) -
                             let mut p = (*ptr).borrow_mut();
                             p.catalog = catalog;
                             p.hits.clear();
+                            p.expanded_stereo_group = None;
                             p.filter(preferred);
                             SetFocus(p.get(2));
                         }
@@ -772,6 +840,7 @@ unsafe extern "system" fn proc(hwnd: HWND, message: u32, w: WPARAM, l: LPARAM) -
                             .position(|e| e.user_id == Some(saved));
                         let mut p = (*ptr).borrow_mut();
                         p.catalog = catalog;
+                        p.expanded_stereo_group = None;
                         SetWindowTextW(p.get(1), wide("").as_ptr());
                         p.filter(preferred);
                         SetFocus(p.get(2));
@@ -805,6 +874,7 @@ unsafe extern "system" fn proc(hwnd: HWND, message: u32, w: WPARAM, l: LPARAM) -
             match (w & 0xffff, (w >> 16) as u16) {
                 (24, 0) | (2, 2) => picker.accept(), // BN_CLICKED / LBN_DBLCLK
                 (25, 0) => picker.done = true,
+                (30, 0) => picker.toggle_stereoisomers(),
                 _ => {}
             }
             0
@@ -912,6 +982,7 @@ unsafe fn choose_impl(
         user_path,
         dark,
         last_query: String::new(),
+        expanded_stereo_group: None,
         online,
         pending: None,
         imported: None,
@@ -1026,7 +1097,7 @@ unsafe fn choose_impl(
                         continue;
                     }
                     match GetDlgCtrlID(GetFocus()) {
-                        26..=29 => {
+                        26..=30 => {
                             PostMessageW(hwnd, WM_COMMAND, GetDlgCtrlID(GetFocus()) as usize, 0);
                         }
                         25 => state.borrow_mut().done = true,

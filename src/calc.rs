@@ -436,6 +436,74 @@ pub fn number(value: f64) -> String {
     }
 }
 
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub enum SolubilityUnit {
+    GramsPerLitre,
+    MolesPerLitre,
+    MassPercent,
+    GramsPer100GramsSolvent,
+    MolesPerKilogramSolvent,
+    MoleFraction,
+}
+
+impl SolubilityUnit {
+    /// Grams of solvent per gram of solute at saturation.
+    pub fn solvent_to_solute_ratio(
+        self,
+        value: f64,
+        solute_molar_mass: f64,
+        solvent_molar_mass: f64,
+    ) -> Option<f64> {
+        let ratio = match self {
+            Self::MassPercent => (100.0 - value) / value,
+            Self::GramsPer100GramsSolvent => 100.0 / value,
+            Self::MolesPerKilogramSolvent => 1000.0 / (value * solute_molar_mass),
+            Self::MoleFraction => (1.0 - value) / value * (solvent_molar_mass / solute_molar_mass),
+            _ => return None,
+        };
+        positive(ratio, "Solvent mass ratio").ok()
+    }
+
+    /// Convert a reported value to moles per litre of saturated solution.
+    /// Composition-based values require the density of the saturated solution.
+    pub fn molarity(
+        self,
+        value: f64,
+        solute_molar_mass: f64,
+        solvent_molar_mass: f64,
+        density: Option<f64>,
+    ) -> Option<f64> {
+        let molarity = match self {
+            Self::GramsPerLitre => value / solute_molar_mass,
+            Self::MolesPerLitre => value,
+            _ => {
+                let ratio =
+                    self.solvent_to_solute_ratio(value, solute_molar_mass, solvent_molar_mass)?;
+                density? * 1000.0 / (1.0 + ratio) / solute_molar_mass
+            }
+        };
+        positive(molarity, "Solubility").ok()
+    }
+}
+
+#[cfg(test)]
+#[test]
+fn solubility_conversions_use_saturated_solution_volume() {
+    use SolubilityUnit::*;
+    assert_eq!(MolesPerLitre.molarity(0.25, 100.0, 50.0, None), Some(0.25));
+    assert_eq!(GramsPerLitre.molarity(25.0, 100.0, 50.0, None), Some(0.25));
+    for (unit, value) in [
+        (MassPercent, 20.0),
+        (GramsPer100GramsSolvent, 25.0),
+        (MolesPerKilogramSolvent, 2.5),
+        (MoleFraction, 1.0 / 9.0),
+    ] {
+        assert_eq!(unit.solvent_to_solute_ratio(value, 100.0, 50.0), Some(4.0));
+        assert_eq!(unit.molarity(value, 100.0, 50.0, Some(1.25)), Some(2.5));
+        assert_eq!(unit.molarity(value, 100.0, 50.0, None), None);
+    }
+}
+
 /// Comparisons at unit-conversion boundaries allow a few floating-point ULPs.
 /// This prevents a 300 µL batch being rejected as less than 300 µL.
 pub fn materially_less(actual: f64, required: f64) -> bool {

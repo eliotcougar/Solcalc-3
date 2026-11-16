@@ -11,6 +11,12 @@
     "fr": 1634,
     "la": 1738
   },
+  "selectable_records": 92287,
+  "picker_exclusions": {
+    "group_or_residue": 2314,
+    "ion": 9486
+  },
+  "stereoisomer_groups": 8222,
   "policy": "CHECKED/OK entries with fixed formulas and positive finite average mass; ChEBI is the sole bundled English chemical source.",
   "excluded": {
     "no_chemical_data": 9413,
@@ -41,6 +47,10 @@
     "LICENSE": {
       "url": "https://ftp.ebi.ac.uk/pub/databases/chebi/flat_files/LICENSE",
       "sha256": "fe7b4ce83b8381cc5b216bbb4af73c570688d1b819c73bbaed8ca401f4677cd6"
+    },
+    "chebi_core.obo.gz": {
+      "url": "https://www.ebi.ac.uk/chebi/downloads",
+      "sha256": "68bccfe3865a260cd94bbc2ba6f8fabe7175191bee7a1ce7676a8a6e02c03ea3"
     }
   }
 }

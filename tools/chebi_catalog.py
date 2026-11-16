@@ -4,7 +4,7 @@ import json
 import math
 from pathlib import Path
 import sqlite3
-from collections import defaultdict
+from collections import Counter, defaultdict
 from chemical_formula import atom_counts, fixed_formula
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -89,11 +89,28 @@ def build(check, valid_cas):
         assert row['name'] and fixed_formula(row['formula']) and math.isfinite(mass) and mass > 0
         records.append(('chebi:' + identity, row['cas'], row['formula'], row['name'], mass,
                         ';'.join(synonyms), ';'.join(cas_numbers)))
+    exclusions = read(source / 'excluded-entities.tsv')
+    excluded = {row['chebi_id'] for row in exclusions}
+    assert len(excluded) == len(exclusions) and excluded <= identities
+    counts = Counter(row['reason'] for row in exclusions)
+    assert counts.keys() <= {'group_or_residue', 'ion'} and counts == manifest['picker_exclusions']
+    selectable = identities - excluded
+    stereo = read(source / 'stereoisomers.tsv')
+    groups = {row['chebi_id']: row['group_id'] for row in stereo}
+    group_sizes = Counter(groups.values())
+    assert len(groups) == len(stereo) and groups.keys() <= selectable
+    assert len(group_sizes) == manifest['stereoisomer_groups']
+    assert all(size >= 2 and groups.get(group) == group for group, size in group_sizes.items())
+    active = [r for r in records if r[0].removeprefix('chebi:') in selectable]
+    assert len(active) == manifest['selectable_records']
     metadata = {'locale': 'en', 'catalog_version': manifest['release'], 'source': 'ChEBI', 'license': 'CC-BY-4.0'}
     save(ROOT / 'data/bundled/main.en.sqlite',
          'CREATE TABLE substances(id TEXT PRIMARY KEY,cas TEXT NOT NULL,formula TEXT NOT NULL,'
-         'name TEXT NOT NULL,molar_mass REAL NOT NULL CHECK(molar_mass>0),synonyms TEXT NOT NULL,cas_numbers TEXT NOT NULL);',
-         metadata, 'substances', ['id', 'cas', 'formula', 'name', 'molar_mass', 'synonyms', 'cas_numbers'], records, check)
+         'name TEXT NOT NULL,molar_mass REAL NOT NULL CHECK(molar_mass>0),synonyms TEXT NOT NULL,'
+         'cas_numbers TEXT NOT NULL,stereo_group TEXT NOT NULL);',
+         metadata, 'substances',
+         ['id', 'cas', 'formula', 'name', 'molar_mass', 'synonyms', 'cas_numbers', 'stereo_group'],
+         [(*r, groups.get(r[0].removeprefix('chebi:'), '')) for r in active], check)
     index = ['pub const CHEBI_LOCALES: &[(&str, &[u8])] = &[']
     for path in sorted((source / 'locales').glob('*.tsv')):
         locale = path.stem
@@ -106,11 +123,14 @@ def build(check, valid_cas):
             assert target.startswith('chebi:') and target.removeprefix('chebi:') in identities and row['name']
             synonyms = json.loads(row['synonyms'])
             assert all(isinstance(s, str) and s for s in synonyms)
-            values.append((target, row['name'], ';'.join(synonyms)))
+            if target.removeprefix('chebi:') in selectable:
+                values.append((target, row['name'], ';'.join(synonyms)))
         save(ROOT / f'data/bundled/chebi-locales/{locale}.sqlite',
              'CREATE TABLE translations(substance_id TEXT PRIMARY KEY,name TEXT NOT NULL,synonyms TEXT NOT NULL);',
              dict(metadata, locale=locale), 'translations', ['substance_id', 'name', 'synonyms'], values, check, 0x534F4C4C)
         index.append(f'    ("{locale}", include_bytes!(concat!(env!("CARGO_MANIFEST_DIR"), "/data/bundled/chebi-locales/{locale}.sqlite"))),')
     index.append('];')
-    print(f"ChEBI release {manifest['release']}: {len(records)} fixed-composition substances; {len(manifest['locales'])} locale(s)")
-    return index, records
+    print(f"ChEBI release {manifest['release']}: {len(active)} selectable substances, "
+          f"{len(excluded)} excluded entities and {len(group_sizes)} stereoisomer groups; "
+          f"{len(manifest['locales'])} locale(s)")
+    return index, records, active

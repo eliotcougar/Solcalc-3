@@ -26,7 +26,9 @@ pub struct Substance {
     pub local_synonyms: String,
     pub user_id: Option<i64>,
     pub user_revision: Option<i64>,
+    stereo_group: String,
     keys: Vec<String>,
+    name_keys: [String; 2],
     formula_key: String,
     cas_keys: Vec<String>,
     sort_key: String,
@@ -54,7 +56,9 @@ impl Substance {
             local_synonyms: record.local_synonyms,
             user_id: record.id,
             user_revision: record.id.map(|_| record.revision),
+            stereo_group: String::new(),
             keys: vec![],
+            name_keys: Default::default(),
             formula_key: String::new(),
             cas_keys: vec![],
             sort_key: String::new(),
@@ -74,6 +78,10 @@ impl Substance {
     }
     pub fn synonyms(&self) -> String {
         join_aliases(&self.synonyms_en, &self.local_synonyms)
+    }
+    pub fn stereo_group(&self) -> Option<&str> {
+        (self.user_id.is_none() && !self.stereo_group.is_empty())
+            .then_some(self.stereo_group.as_str())
     }
     pub fn user_record(&self, locale: &str) -> UserRecord {
         UserRecord {
@@ -122,12 +130,13 @@ impl Substance {
         if !self.cas.is_empty() {
             self.cas_keys.push(normalize(&self.cas));
         }
-        self.sort_key_en = if self.name_en.is_empty() {
+        let english_name = if self.name_en.is_empty() {
             &self.fallback_name
         } else {
             &self.name_en
-        }
-        .to_lowercase();
+        };
+        self.name_keys = [normalize(english_name), normalize(&self.local_name)];
+        self.sort_key_en = english_name.to_lowercase();
         self.sort_key = if self.local_name.is_empty() {
             self.sort_key_en.clone()
         } else {
@@ -164,12 +173,14 @@ pub struct SearchResults {
 impl Catalog {
     pub fn bundled(locale: &str) -> user_db::Result<Self> {
         let chebi = embedded(include_bytes!("../data/bundled/main.en.sqlite"), 0x534F4C43)?;
-        let mut extra = chebi.prepare("SELECT id,cas,formula,name,molar_mass,synonyms,cas_numbers FROM substances ORDER BY id").map_err(|e|e.to_string())?;
+        let mut extra = chebi
+            .prepare("SELECT id,cas,formula,name,molar_mass,synonyms,cas_numbers,stereo_group FROM substances ORDER BY id")
+            .map_err(|e| e.to_string())?;
         let mut entries = extra
             .query_map([], |r| {
                 let id: String = r.get(0)?;
                 let numbers: String = r.get(6)?;
-                Ok(Substance::external(
+                let mut entry = Substance::external(
                     format!("bundled:{id}"),
                     UserRecord {
                         cas: r.get(1)?,
@@ -186,7 +197,9 @@ impl Catalog {
                         .filter(|s| !s.is_empty())
                         .map(str::to_owned)
                         .collect(),
-                ))
+                );
+                entry.stereo_group = r.get(7)?;
+                Ok(entry)
             })
             .map_err(|e| e.to_string())?
             .collect::<rusqlite::Result<Vec<_>>>()
@@ -323,7 +336,9 @@ impl Catalog {
                     local_synonyms: user.local_synonyms,
                     user_id: Some(user_id),
                     user_revision: Some(user.revision),
+                    stereo_group: String::new(),
                     keys: vec![],
+                    name_keys: Default::default(),
                     formula_key: String::new(),
                     cas_keys: vec![],
                     sort_key: String::new(),
@@ -336,6 +351,20 @@ impl Catalog {
     }
     pub fn find(&self, id: &str) -> Option<&Substance> {
         self.entries.iter().find(|e| e.id == id)
+    }
+    pub fn stereoisomers(&self, group: &str) -> Vec<usize> {
+        let mut hits: Vec<_> = self
+            .entries
+            .iter()
+            .enumerate()
+            .filter_map(|(i, entry)| (entry.stereo_group() == Some(group)).then_some(i))
+            .collect();
+        hits.sort_unstable_by(|&a, &b| {
+            let a = &self.entries[a];
+            let b = &self.entries[b];
+            (&a.sort_key, &a.id).cmp(&(&b.sort_key, &b.id))
+        });
+        hits
     }
     #[cfg(test)]
     pub fn search(&self, query: &str, language: Language) -> Vec<usize> {
@@ -353,31 +382,40 @@ impl Catalog {
             .iter()
             .enumerate()
             .filter_map(|(i, e)| {
-                let rank = if full.is_empty() || e.formula_key == full || e.cas_keys.contains(&full)
-                {
-                    0
-                } else if e.keys.binary_search(&full).is_ok() {
-                    1
-                } else if e.keys.iter().any(|s| s.starts_with(&full)) {
-                    2
-                } else if e.keys.iter().any(|s| s.contains(&full))
-                    || (!terms.is_empty()
-                        && terms.iter().all(|t| e.keys.iter().any(|s| s.contains(t))))
-                {
-                    3
-                } else {
-                    return None;
-                };
-                Some((rank, i))
+                let (rank, name_length) =
+                    if full.is_empty() || e.formula_key == full || e.cas_keys.contains(&full) {
+                        (0, 0)
+                    } else if let Some(length) = e
+                        .name_keys
+                        .iter()
+                        .filter(|name| name.starts_with(&full))
+                        .map(String::len)
+                        .min()
+                    {
+                        // Prefer the base name over longer variants with the same prefix.
+                        (if length == full.len() { 1 } else { 2 }, length)
+                    } else if e.keys.binary_search(&full).is_ok() {
+                        (3, 0)
+                    } else if e.keys.iter().any(|s| s.starts_with(&full)) {
+                        (4, 0)
+                    } else if e.keys.iter().any(|s| s.contains(&full))
+                        || (!terms.is_empty()
+                            && terms.iter().all(|t| e.keys.iter().any(|s| s.contains(t))))
+                    {
+                        (5, 0)
+                    } else {
+                        return None;
+                    };
+                Some((rank, name_length, i))
             })
             .collect();
-        let total = hits.len();
-        let key = |(rank, i): &(u8, usize)| {
-            let entry = &self.entries[*i];
+        let key = |&(rank, name_length, i): &(u8, usize, usize)| {
+            let entry = &self.entries[i];
             let priority = if entry.user_id.is_some() { 0 } else { 1 };
             (
-                *rank,
+                rank,
                 priority,
+                name_length,
                 if entry.locale == language.code() {
                     &entry.sort_key
                 } else {
@@ -386,19 +424,38 @@ impl Catalog {
                 &entry.id,
             )
         };
-        let compare = |a: &(u8, usize), b: &(u8, usize)| key(a).cmp(&key(b));
+        let compare = |a: &(u8, usize, usize), b: &(u8, usize, usize)| key(a).cmp(&key(b));
+        // Keep the highest-ranked match as the representative for each family,
+        // so a name or CAS query still selects the exact isomer it matched.
+        let mut groups = HashMap::new();
+        hits.retain(|&hit| {
+            let Some(group) = self.entries[hit.2].stereo_group() else {
+                return true;
+            };
+            groups
+                .entry(group)
+                .and_modify(|best| {
+                    if compare(&hit, best).is_lt() {
+                        *best = hit;
+                    }
+                })
+                .or_insert(hit);
+            false
+        });
+        hits.extend(groups.into_values());
+        let total = hits.len();
         if limit < hits.len() {
             hits.select_nth_unstable_by(limit, compare);
             hits.truncate(limit);
         }
         hits.sort_unstable_by(compare);
         SearchResults {
-            hits: hits.into_iter().map(|(_, i)| i).collect(),
+            hits: hits.into_iter().map(|(_, _, i)| i).collect(),
             total,
         }
     }
 }
-fn embedded(bytes: &'static [u8], application: i64) -> user_db::Result<Connection> {
+pub(crate) fn embedded(bytes: &'static [u8], application: i64) -> user_db::Result<Connection> {
     let mut conn = Connection::open_in_memory().map_err(|e| e.to_string())?;
     conn.deserialize_bytes(rusqlite::MAIN_DB, bytes)
         .map_err(|e| e.to_string())?;
@@ -483,10 +540,32 @@ mod tests {
         assert_eq!(caffeine.formula, "C8H10N4O2");
         assert_eq!(caffeine.molar_mass, 194.194);
         let all = catalog.search_limited("", Language::Ru, 25);
-        assert_eq!(all.total, catalog.entries.len());
+        assert!(all.total < catalog.entries.len());
         assert_eq!(all.hits.len(), 25);
-        assert_eq!(all.hits, catalog.search("", Language::Ru)[..25]);
+        let full = catalog.search("", Language::Ru);
+        assert_eq!(all.total, full.len());
+        assert_eq!(all.hits, full[..25]);
         assert_eq!(catalog.search_limited("", Language::Ru, 0).hits.len(), 0);
+    }
+    #[test]
+    fn sucrose_ranks_first_from_short_prefixes() {
+        let catalog = Catalog::bundled("ru").unwrap();
+        for (language, queries) in [
+            (Language::En, ["suc", "sucro", "sucrose"]),
+            (Language::Ru, ["сах", "сахар", "сахароза"]),
+            (Language::Ru, ["suc", "sucro", "sucrose"]),
+        ] {
+            for query in queries {
+                let results = catalog.search_limited(query, language, 300);
+                let first = &catalog.entries[results.hits[0]];
+                assert_eq!(
+                    first.id,
+                    "bundled:chebi:17992",
+                    "{query}: {}",
+                    first.name(language)
+                );
+            }
+        }
     }
     #[test]
     fn ambiguous_cross_references_do_not_overwrite_user_records_or_choose_an_arbitrary_entity() {
@@ -597,7 +676,7 @@ mod tests {
         let en = Catalog::bundled("en").unwrap();
         let ru = Catalog::bundled("ru").unwrap();
         let unknown = Catalog::bundled("zz").unwrap();
-        assert_eq!(en.entries.len(), 104087);
+        assert_eq!(en.entries.len(), 92287);
         assert_eq!(ru.entries.len(), en.entries.len());
         assert!(en
             .entries
@@ -645,8 +724,44 @@ mod tests {
             c.search("трехводный", Language::Ru)
         );
         assert!(c.search("zzzzxyz", Language::Ru).is_empty());
-        assert_eq!(c.search("", Language::En).len(), c.entries.len());
+        assert!(!c.search("", Language::En).is_empty());
         assert!(c.search("C6H12O6", Language::En).len() >= 4);
+    }
+    #[test]
+    fn picker_filters_groups_and_ions_and_keeps_exact_stereoisomers() {
+        let c = Catalog::bundled("en").unwrap();
+        for id in [
+            "bundled:chebi:37952",
+            "bundled:chebi:15378",
+            "bundled:chebi:17996",
+        ] {
+            assert!(c.find(id).is_none(), "{id}");
+        }
+        for query in ["7647-14-5", "10034-99-8", "56-40-6"] {
+            let hits = c.search_limited(query, Language::En, 1).hits;
+            assert_eq!(c.entries[hits[0]].cas, query);
+        }
+        let d = c.find("bundled:chebi:15570").unwrap();
+        let l = c.find("bundled:chebi:16977").unwrap();
+        let group = d.stereo_group().unwrap();
+        assert_eq!(l.stereo_group(), Some(group));
+        let hits = c.search("alanine", Language::En);
+        assert_eq!(
+            hits.iter()
+                .filter(|&&i| c.entries[i].stereo_group() == Some(group))
+                .count(),
+            1
+        );
+        for exact in [d, l] {
+            for query in [&exact.cas, &exact.name_en] {
+                let hits = c.search_limited(query, Language::En, 1).hits;
+                assert_eq!(c.entries[hits[0]].id, exact.id);
+            }
+            assert!(c
+                .stereoisomers(group)
+                .iter()
+                .any(|&i| c.entries[i].id == exact.id));
+        }
     }
     #[test]
     fn user_and_bundled_merge_by_cas_without_duplicate_or_erasing_aliases() {

@@ -37,6 +37,10 @@ class ChebiImportTests(unittest.TestCase):
             output.mkdir()
             (source / 'README').write_text('ChEBI Release: 257\nDate of last update: 2026-11-05\n', encoding='utf-8')
             (source / 'LICENSE').write_text('Synthetic fixture, not real ChEBI data.', encoding='utf-8')
+            with gzip.open(source / 'chebi_core.obo.gz', 'wt', encoding='utf-8') as ontology:
+                ontology.write('data-version: chebi/257\n\n'
+                               '[Term]\nid: CHEBI:7\nis_a: CHEBI:24433\n\n'
+                               '[Term]\nid: CHEBI:8\nis_a: CHEBI:7\n')
             def table(name, columns, rows):
                 with gzip.open(source / (name + '.tsv.gz'), 'wt', encoding='utf-8', newline='') as file:
                     writer = csv.writer(file, delimiter='\t')
@@ -44,11 +48,13 @@ class ChebiImportTests(unittest.TestCase):
                     writer.writerows(rows)
             table('compounds', ['id', 'name', 'status_id'],
                   [['1', 'Source sulfate', '1'], ['2', 'ethanol', '3'], ['3', 'polymer', '1'],
-                   ['4', 'undefined', '1'], ['5', 'unreviewed', '9'], ['6', 'conflicting CAS', '1']])
-            table('chemical_data', ['compound_id', 'formula', 'mass', 'monoisotopic_mass', 'status_id'],
-                  [['1', 'H14MgO11S', '246.475', '246.01', '1'], ['2', 'C2H6O', '46.069', '46.0419', '3'],
-                   ['3', '(C2H4)n', '28.05', '28', '1'], ['4', 'H2O', 'NaN', '18', '1'],
-                   ['5', 'C2H6', '30.07', '30', '9'], ['6', 'NaCl', '58.44', '58', '1']])
+                   ['4', 'undefined', '1'], ['5', 'unreviewed', '9'], ['6', 'conflicting CAS', '1'],
+                   ['8', 'substituent', '1'], ['9', 'chloride ion', '1']])
+            table('chemical_data', ['compound_id', 'formula', 'mass', 'monoisotopic_mass', 'status_id', 'charge'],
+                  [['1', 'H14MgO11S', '246.475', '246.01', '1', '0'], ['2', 'C2H6O', '46.069', '46.0419', '3', '0'],
+                   ['3', '(C2H4)n', '28.05', '28', '1', '0'], ['4', 'H2O', 'NaN', '18', '1', '0'],
+                   ['5', 'C2H6', '30.07', '30', '9', '0'], ['6', 'NaCl', '58.44', '58', '1', '0'],
+                   ['8', 'C2H5', '29.062', '29', '1', '0'], ['9', 'Cl', '35.45', '35', '1', '-1']])
             table('names', ['compound_id', 'name', 'language_code', 'status_id'],
                   [['1', 'Extra sulfate synonym', 'en', '1'], ['1', 'Имя из ChEBI', 'ru', '1'],
                    ['2', '<i>ethyl</i> alcohol', 'en', '3'], ['2', 'спирт', 'ru', '3']])
@@ -61,7 +67,7 @@ class ChebiImportTests(unittest.TestCase):
                 with path.open(encoding='utf-8', newline='') as file:
                     return list(csv.DictReader(file, delimiter='\t'))
             records = read(output / 'main.en.tsv')
-            self.assertEqual(len(records), 3)
+            self.assertEqual(len(records), 5)
             self.assertEqual(records[0]['name'], 'Source sulfate')
             self.assertEqual(records[0]['molar_mass'], '246.475')
             self.assertEqual(records[1]['molar_mass'], '46.069')
@@ -74,6 +80,23 @@ class ChebiImportTests(unittest.TestCase):
             manifest = json.loads((output / 'manifest.json').read_text(encoding='utf-8'))
             self.assertEqual(manifest['invalid_cas_references_ignored'], 1)
             self.assertNotIn('existing_curated_cas', manifest['excluded'])
+            self.assertEqual(manifest['selectable_records'], 3)
+            self.assertEqual(read(output / 'excluded-entities.tsv'), [
+                {'chebi_id': '8', 'reason': 'group_or_residue'},
+                {'chebi_id': '9', 'reason': 'ion'},
+            ])
+
+    def test_groups_compare_structure_layers_and_preserve_chemical_forms(self):
+        structures = {
+            '1': 'InChI=1S/C3H6O3/c1-2(4)3(5)6/h2,4H,1H3,(H,5,6)/t2-/m0/s1',
+            '2': 'InChI=1S/C3H6O3/c1-2(4)3(5)6/h2,4H,1H3,(H,5,6)/t2-/m1/s1',
+            '3': 'InChI=1S/C3H6O3/c1-2(4)3(5)6/h2,4H,1H3,(H,5,6)/i1+1/t2-/m1/s1',
+            '4': 'InChI=1S/C3H6O3/c4-2-1-3(5)6/h4H,1-2H2,(H,5,6)',
+            '5': 'InChI=1S/C3H6O3.H2O/c1-2(4)3(5)6;/h2,4H,1H3,(H,5,6);1H2/t2-;/m0./s1',
+        }
+        records = [(i, '', '[]', 'C3H6O3' if i != '5' else 'C3H6O3.H2O', '', '', '[]')
+                   for i in structures]
+        self.assertEqual(list(module.stereo_groups(records, structures)), [('1', '1'), ('2', '1')])
 
     def test_locale_text_matches_cas_and_composition_without_changing_chemical_data(self):
         records = [('chebi:1', '10034-99-8', 'H14MgO11S', 'ChEBI name', 246.475, '', '10034-99-8'),

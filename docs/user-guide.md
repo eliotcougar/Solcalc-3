@@ -90,7 +90,7 @@ stays in U/mg.
 ## Substance database
 
 Click **Substance… / Вещество…** in Mass / volume or in the Preparation section
-of Stock preparation. The offline catalog contains **104,087 ChEBI substances**.
+of Stock preparation. The offline catalog contains **92,287 selectable ChEBI entries**.
 ChEBI supplies all bundled English names, formulas, average molar masses,
 synonyms and CAS cross-references where supplied. Missing translations fall
 back to English; new names are not automatically translated.
@@ -99,8 +99,10 @@ Search updates as you type across English plus the selected UI language,
 common aliases such as `Epsom salt` / `медный купорос` (RU), CAS numbers such as
 `7647-14-5`, and formulas such as `MgSO4.7H2O` or `MgSO₄·7H₂O`.
 It ignores case, punctuation, and formula subscripts and supports partial words.
-Exact formula matches appear first. Isomers with the same formula remain
-separate choices. Select a row, then use Enter, double-click, or **Use substance**.
+Exact CAS and formula matches appear first. A stereoisomer group shows its best
+match. Choose **Show stereoisomers** to browse its forms, or search by an exact
+name or CAS to select a specific form directly. Select a row, then use Enter,
+double-click, or **Use substance**.
 Down from the search field moves to the results, Ctrl+F returns to search,
 and Escape cancels. Large searches show the first 300 matches; refine the query
 to narrow them. Search also accepts ChEBI identifiers such as `CHEBI:27732`.
@@ -115,6 +117,36 @@ also apply to the picker.
 
 The details pane wraps long contents, supports vertical scrolling and copying,
 and grows when you resize or maximize the picker.
+
+### Solubility
+
+For covered substances, the picker details show solubility values and their
+sources. Select a substance, then choose a **Solvent** in **Mass / volume**
+or **Stock preparation** to see the reported limit at the listed temperature
+and pH, where available. The stock calculator compares the limit with the
+concentration of the stock being prepared. Each calculator has its own solvent
+selection.
+
+A warning appears when your concentration exceeds a comparable reported
+limit or a source reports the substance as **insoluble** or **practically
+insoluble** in that solvent. Solcalc converts composition-based values such as
+mole fractions to a concentration per final solution volume when the study
+provides the density of the saturated solution.
+
+If the study reports a composition without that density, Solcalc shows the
+minimum solvent mass for the amount of solute in your preparation. Enter the
+actual mass of solvent in **Solvent mass (optional)** to check whether it falls
+below that minimum. This field takes the mass of the solvent alone.
+
+Measurements without a reported temperature use an assumed 21 °C, identified
+as an assumption in the displayed conditions.
+When a substance has no reported value for water, Solcalc can show an offline
+ESOL estimate for an eligible organic structure. Entering a concentration above
+that estimate prompts you to verify it experimentally. ESOL estimates are for
+water and do not account for pH or the solid form.
+Temperature, pH and other dissolved ingredients can affect solubility.
+Measurements are tied to the bundled chemical form. User entries and
+customizations have no automatic solubility lookup.
 
 The bundled catalog consists of a ChEBI English/chemical SQLite database,
 with independent locale databases. Only English and the

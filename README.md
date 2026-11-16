@@ -16,16 +16,17 @@ runtime or self-extraction step.
 
 **[Get the latest release](https://github.com/eliotcougar/Solcalc-3/releases/latest)** · Windows 10/11, x64
 
-Version **3.6.1** uses ChEBI as its English catalog, with optional PubChem lookup
-and an expanded, resizable substance picker.
+Version **3.6.2** adds offline solubility warnings and makes substances easier
+to find with prefix ranking and expandable stereoisomer groups.
 
 | Package | Use it when… |
 | --- | --- |
-| [Installer — 3.6.1](https://github.com/eliotcougar/Solcalc-3/releases/download/v3.6.1/Solcalc-3.6.1-x64-setup.exe) | You want Start menu integration and a choice of installation for yourself or all users. Only all-users installation needs administrator permission. |
-| [Portable ZIP — 3.6.1](https://github.com/eliotcougar/Solcalc-3/releases/download/v3.6.1/Solcalc-3.6.1-windows-x64.zip) | You want to extract a folder and run `Solcalc.exe` without installing. |
+| [Installer — 3.6.2](https://github.com/eliotcougar/Solcalc-3/releases/download/v3.6.2/Solcalc-3.6.2-x64-setup.exe) | You want Start menu integration and a choice of installation for yourself or all users. Only all-users installation needs administrator permission. |
+| [Portable ZIP — 3.6.2](https://github.com/eliotcougar/Solcalc-3/releases/download/v3.6.2/Solcalc-3.6.2-windows-x64.zip) | You want to extract a folder and run `Solcalc.exe` without installing. |
 
-[SHA-256 checksums](https://github.com/eliotcougar/Solcalc-3/releases/download/v3.6.1/SHA256SUMS.txt)
+[SHA-256 checksums](https://github.com/eliotcougar/Solcalc-3/releases/download/v3.6.2/SHA256SUMS.txt)
 are included with each release. Both packages run the same native executable.
+See the [changelog](CHANGELOG.md) for changes since 3.6.1.
 
 ## Three calculators
 
@@ -48,12 +49,13 @@ selectors and preserves separate inputs for each basis.
 
 ## Find substances, keep your own
 
-The offline catalog contains **104,087 ChEBI substances**. ChEBI supplies
+The offline catalog contains **92,287 selectable ChEBI entries**. ChEBI supplies
 English names, synonyms, formulas, CAS references and average molar masses.
 Russian translations are stored separately and matched by CAS and chemical form.
 Search by
 name, synonym, formula or CAS number. English and chemical notation are always
 available; the selected language adds its localized names and synonyms.
+Select **Show stereoisomers** to browse the individual forms in a grouped result.
 Large result lists show the first 300 matches; refine the query to find a
 particular substance. ChEBI IDs such as `CHEBI:27732` are searchable too.
 The larger details pane wraps long content and supports scrolling and copying.
